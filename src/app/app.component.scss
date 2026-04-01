@@ -1,0 +1,52 @@
+// src/app/app.component.scss
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header {
+  background: var(--primary);
+  color: white;
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+
+  h1 { font-size: 1.5rem; letter-spacing: 2px; text-transform: uppercase; }
+}
+
+.main-nav {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 1rem;
+  background: white;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  a {
+    text-decoration: none;
+    color: var(--text-main);
+    font-weight: 500;
+    transition: var(--transition);
+    padding-bottom: 5px;
+
+    &.active-link {
+      color: var(--accent);
+      border-bottom: 2px solid var(--accent);
+    }
+
+    &:hover { color: var(--accent); }
+  }
+}
+
+main {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}

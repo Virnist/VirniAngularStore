@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "date": "2026-04-01",
+    "title_uk": "Нова весняна колекція @VirniFashion",
+    "title_en": "New Spring Collection @VirniFashion",
+    "text_uk": "Зустрічайте ніжність та стиль у кожній деталі нашої нової лінійки.",
+    "text_en": "Experience tenderness and style in every detail of our new line.",
+    "image": "./assets/images/news/NewSpringCollection.webp"
+  },
+  {
+    "id": 2,
+    "date": "2026-03-28",
+    "title_uk": "Як поєднувати аксесуари: поради від Virni",
+    "title_en": "How to Match Accessories: Tips from Virni",
+    "text_uk": "Золото чи срібло? Розбираємо головні тренди сезону.",
+    "text_en": "Gold or silver? Breaking down the main trends of the season.",
+    "image": "./assets/images/news/HowtoMatchAccessories.webp"
+  },
+  {
+    "id": 3,
+    "date": "2026-04-01",
+    "title_uk": "Який колір вибрати у 2026?",
+    "title_en": "Which Color to Choose in 2026?",
+    "text_uk": "Оливковий чи теракотовий? Розбираємо головні тренди 2026.",
+    "text_en": "Olive or terracotta? We analyze the main trends of 2026.",
+    "image": "./assets/images/news/WhichColortoChoose.webp"
+  }
+]

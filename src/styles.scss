@@ -1,0 +1,17 @@
+// src/styles.scss
+:root {
+  --primary: #1a1a1a;       // Елегантний чорний
+  --accent: #d4af37;        // Золото для @VirniFashion
+  --text-main: #333333;
+  --bg-light: #f9f9f9;
+  --transition: 0.3s ease-in-out;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif; // Сучасний стандарт
+  background-color: var(--bg-light);
+  color: var(--text-main);
+}
+
+* { box-sizing: border-box; }

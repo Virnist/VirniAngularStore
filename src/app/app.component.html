@@ -1,0 +1,19 @@
+<div class="container">
+  <header>
+    <h1>{{ 'APP_TITLE' | translate }}</h1>
+    <div class="lang-buttons">
+      <button (click)="changeLang('en')">EN</button>
+      <button (click)="changeLang('uk')">UA</button>
+    </div>
+  </header>
+
+  <nav class="main-nav">
+    <a routerLink="/news" routerLinkActive="active-link">{{ 'MENU.NEWS' | translate }}</a>
+    <a routerLink="/shop" routerLinkActive="active-link">{{ 'MENU.SHOP' | translate }}</a>
+    <a routerLink="/videos" routerLinkActive="active-link">{{ 'MENU.VIDEOS' | translate }}</a>
+  </nav>
+
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+</div>
