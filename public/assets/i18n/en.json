@@ -5,5 +5,10 @@
     "SHOP": "Shop",
     "VIDEOS": "YouTube"
   },
-  "WELCOME": "Welcome to our store!"
+  "WELCOME": "Welcome to our store!",
+  "VIDEOS": {
+    "SUBTITLE": "Latest reviews from @VirniFashion",
+    "WATCH_LINK": "Watch on YouTube",
+    "LOADING": "Loading videos..."
+  }
 }

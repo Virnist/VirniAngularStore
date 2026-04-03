@@ -1,1 +1,35 @@
-<p>videos works!</p>
+<div class="video-page">
+  <header class="section-header">
+    <h2>{{ 'MENU.VIDEOS' | translate }}</h2>
+    <p>{{ 'VIDEOS.SUBTITLE' | translate }}</p> 
+  </header>
+
+  @if (videos$ | async; as videos) {
+    <div class="video-grid">
+      @for (video of (videos | slice:0:9); track video.id) {
+        <article class="video-card">
+          <div class="thumbnail-wrapper">
+            <img [src]="video.thumbnail" [alt]="video.title">
+            <a [href]="'https://www.youtube.com/watch?v=' + video.id" 
+               target="_blank" 
+               class="play-overlay">
+               <span class="play-icon">▶</span>
+            </a>
+          </div>
+          
+          <div class="video-info">
+            <h3>{{ video.title }}</h3>
+            <p>{{ video.description | slice:0:100 }}...</p>
+            <a [href]="'https://www.youtube.com/watch?v=' + video.id" 
+               target="_blank" 
+               class="youtube-link">
+               {{ 'VIDEOS.WATCH_LINK' | translate }}
+            </a>
+          </div>
+        </article>
+      }
+    </div>
+  } @else {
+    <div class="loader">{{ 'VIDEOS.LOADING' | translate }}</div>
+  }
+</div>

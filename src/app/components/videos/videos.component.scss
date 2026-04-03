@@ -1,0 +1,130 @@
+.video-page {
+  .section-header {
+    margin-bottom: 3rem;
+    h2 {
+        margin-bottom: 2.5rem;
+        font-size: 1.8rem;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        border-left: 5px solid var(--accent);
+        padding-left: 20px;
+        color: var(--text-main); 
+
+        @media (min-width: 768px) {
+        font-size: 2.2rem;
+        }
+    }
+    p { 
+      color: var(--accent); 
+      font-weight: bold; 
+      text-transform: uppercase;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+.video-grid {
+  display: grid;
+  // minmax(300px, 1fr) краще підходить для мобільних екранів
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2.5rem;
+}
+
+.video-card {
+  background: var(--bg-card); // ВИПРАВЛЕНО: додано var()
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  transition: var(--transition);
+  border: 1px solid rgba(128, 128, 128, 0.1); // Для чіткості меж у темній темі
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  }
+
+  .thumbnail-wrapper {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background-color: #000; // Чорний фон, поки вантажиться картинка
+    
+    img { 
+      width: 100%; 
+      height: 100%; 
+      object-fit: cover; 
+      transition: transform 0.5s ease;
+    }
+
+    .play-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: var(--transition);
+      text-decoration: none;
+
+      .play-icon {
+        font-size: 1.5rem;
+        color: white;
+        background: var(--accent);
+        width: 60px; 
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+      }
+    }
+
+    &:hover {
+      img { transform: scale(1.05); } // Легкий зум при наведенні
+      .play-overlay { opacity: 1; }
+    }
+  }
+
+  .video-info {
+    padding: 1.5rem;
+    
+    h3 { 
+      color: var(--text-main); 
+      font-size: 1.1rem; 
+      margin-bottom: 0.8rem; 
+      line-height: 1.4; 
+      height: 3.1em; // Фіксована висота для вирівнювання карток
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    p { 
+      font-size: 0.9rem; 
+      color: var(--text-muted); // ВИПРАВЛЕНО: додано var()
+      margin-bottom: 1.2rem; 
+      height: 3em;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+    
+    .youtube-link {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.85rem;
+      border-bottom: 2px solid var(--accent);
+      transition: var(--transition);
+      display: inline-block;
+      
+      &:hover { 
+        color: var(--accent);
+        border-bottom-color: var(--primary);
+      }
+    }
+  }
+}

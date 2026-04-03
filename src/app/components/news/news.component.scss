@@ -1,11 +1,18 @@
 .news-container {
+  padding: 2rem 0;
+
   h2 {
-    margin-bottom: 2rem;
-    font-size: 2rem;
+    margin-bottom: 2.5rem;
+    font-size: 1.8rem;
     text-transform: uppercase;
     letter-spacing: 3px;
     border-left: 5px solid var(--accent);
-    padding-left: 15px;
+    padding-left: 20px;
+    color: var(--text-main); 
+
+    @media (min-width: 768px) {
+      font-size: 2.2rem;
+    }
   }
 }
 
@@ -16,46 +23,79 @@
 }
 
 .news-card {
-  background: white;
-  border-radius: 12px;
+  background: var(--bg-card); // ВИПРАВЛЕНО: додано var()
+  border-radius: 16px; // Трохи м'якші кути для 2026-го
   overflow: hidden;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
   transition: var(--transition);
+  border: 1px solid rgba(128, 128, 128, 0.1); // Тонка рамка для чіткості в темній темі
 
   &:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
   }
 
   .card-image {
-    height: 200px;
+    height: 220px;
     background-size: cover;
     background-position: center;
+    position: relative;
+
+    // Легкий градієнт поверх фото, щоб картинка "входила" в карту
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 30%;
+      background: linear-gradient(to top, rgba(0,0,0,0.2), transparent);
+    }
   }
 
   .card-content {
-    padding: 20px;
+    padding: 25px;
 
     .date {
       color: var(--accent);
-      font-size: 0.8rem;
-      font-weight: bold;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
     }
 
-    h3 { margin: 10px 0; font-size: 1.25rem; }
-    p { color: #666; line-height: 1.6; font-size: 0.95rem; }
+    h3 { 
+      color: var(--text-main); 
+      margin: 12px 0; 
+      font-size: 1.3rem;
+      line-height: 1.4;
+    }
+
+    p { 
+      color: var(--text-muted); // ВИПРАВЛЕНО: додано var()
+      line-height: 1.7; 
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
 
     .read-more {
-      margin-top: 15px;
-      background: none;
-      border: 1px solid var(--primary);
-      padding: 8px 20px;
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-weight: 600;
       cursor: pointer;
       transition: var(--transition);
 
+      // В темній темі --primary стає світлішим, тому кнопка завжди буде видимою
       &:hover {
         background: var(--primary);
         color: white;
+        transform: scale(1.05);
+      }
+      
+      &:active {
+        transform: scale(0.95);
       }
     }
   }

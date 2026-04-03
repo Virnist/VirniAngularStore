@@ -1,17 +1,109 @@
-// src/styles.scss
+/* 1. БАЗОВІ СВІТЛІ КОЛЬОРИ (Default) */
 :root {
-  --primary: #1a1a1a;       // Елегантний чорний
-  --accent: #d4af37;        // Золото для @VirniFashion
+  --primary: #2c3e50;
+  --accent: #d4af37;
+  --bg-main: #ffffff;
+  --bg-card: #f9f9f9;
   --text-main: #333333;
-  --bg-light: #f9f9f9;
-  --transition: 0.3s ease-in-out;
+  --text-muted: #777777;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* 2. АВТОМАТИЧНА ТЕМНА ТЕМА (Тільки якщо користувач НЕ обрав інше) */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light-theme) { 
+    --primary: #1a1a1a;
+    --accent: #efcf6e;
+    --bg-main: #121212;
+    --bg-card: #1e1e1e;
+    --text-main: #e0e0e0;
+    --text-muted: #aaaaaa;
+  }
+}
+
+/* 3. РУЧНЕ ПЕРЕМИКАННЯ (Має найвищий пріоритет) */
+body.dark-theme {
+  --primary: #1a1a1a !important;
+  --bg-main: #121212 !important;
+  --bg-card: #1e1e1e !important;
+  --text-main: #e0e0e0 !important;
+  --accent: #efcf6e !important;
+}
+
+body.light-theme {
+  --primary: #2c3e50 !important;
+  --bg-main: #ffffff !important;
+  --bg-card: #f9f9f9 !important;
+  --text-main: #333333 !important;
+  --accent: #d4af37 !important;
+}
+
+/* 4. ЗАСТОСУВАННЯ */
 body {
   margin: 0;
-  font-family: 'Inter', sans-serif; // Сучасний стандарт
-  background-color: var(--bg-light);
+  background-color: var(--bg-main);
   color: var(--text-main);
+  transition: background-color 0.5s ease, color 0.5s ease;
+  font-family: 'Inter', sans-serif;
 }
 
-* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden; 
+  position: relative;
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit; // Усі елементи рахують свою ширину разом з падінгами
+}
+
+/* 3. КОМПОНЕНТИ ТА КНОПКИ */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  border-radius: 12px;
+  border: none;
+  background: var(--accent);
+  color: var(--primary);
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+  transition: var(--transition);
+
+  &:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+  }
+}
+
+.theme-toggle {
+  background: rgba(128, 128, 128, 0.1); // Зробив сіруватим для видимості на білому
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(128, 128, 128, 0.2);
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: var(--transition);
+
+  &:hover {
+    transform: rotate(15deg);
+    background: rgba(128, 128, 128, 0.2);
+  }
+}
