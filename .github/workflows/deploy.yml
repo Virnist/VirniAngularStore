@@ -30,7 +30,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist/virni-angular-store/browser # Шлях до скомпільованих файлів
+          path: dist/VirniAngularStore/browser # Шлях до скомпільованих файлів
 
       - name: Deploy to GitHub Pages
         id: deployment
