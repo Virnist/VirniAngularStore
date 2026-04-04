@@ -1,0 +1,14 @@
+{
+  "APP_TITLE": "Virni Store",
+  "MENU": {
+    "NEWS": "Actualités",
+    "SHOP": "Boutique",
+    "VIDEOS": "YouTube"
+  },
+  "WELCOME": "Bienvenue dans notre boutique !",
+  "VIDEOS": {
+    "SUBTITLE": "Dernières critiques de @VirniFashion",
+    "WATCH_LINK": "Regarder sur YouTube",
+    "LOADING": "Chargement des vidéos..."
+  }
+}

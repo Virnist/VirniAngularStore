@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router'; 
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { CommonModule, UpperCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -9,64 +10,74 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
     RouterOutlet, 
     RouterLink, 
     RouterLinkActive, 
-    TranslateModule
+    TranslateModule,
+    CommonModule,
+    UpperCasePipe
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
+  isDarkMode = false;
+  // Список підтримуваних мов (ISO-коди)
+  supportedLangs = ['uk', 'en', 'de', 'fr', 'pl'];
+
   constructor(private translate: TranslateService) {
-    this.translate.addLangs(['en', 'uk']);
+    this.translate.addLangs(this.supportedLangs);
     this.translate.setDefaultLang('en');
 
-    // 1. Перевіряємо, чи є збережена мова в пам'яті браузера
     const savedLang = localStorage.getItem('language');
     
-    if (savedLang) {
-      // Якщо користувач вже обирав мову — ставимо її
+    if (savedLang && this.supportedLangs.includes(savedLang)) {
       this.translate.use(savedLang);
     } else {
-      // Якщо це перший візит — визначаємо мову браузера
-      const browserLang = this.translate.getBrowserLang();
-      const langToUse = browserLang?.match(/en|uk/) ? browserLang : 'en';
+      const browserLang = this.translate.getBrowserLang() || 'en';
+      // Перевіряємо, чи мова браузера є у нашому списку
+      const langToUse = this.supportedLangs.includes(browserLang) ? browserLang : 'en';
       this.translate.use(langToUse);
+      localStorage.setItem('language', langToUse);
     }
   }
 
   changeLang(lang: string) {
-    this.translate.use(lang);
-    localStorage.setItem('language', lang);
+    if (this.supportedLangs.includes(lang)) {
+      this.translate.use(lang);
+      localStorage.setItem('language', lang);
+    }
   }
 
   get currentLang(): string {
-    return this.translate.currentLang;
-  }
-
-  isDarkMode = false;
-
-  ngOnInit() {
-    // Перевіряємо, чи користувач вже обирав тему раніше
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-      this.enableDarkMode();
-    }
+    return this.translate.currentLang || 'en';
   }
 
   toggleTheme() {
     this.isDarkMode ? this.disableDarkMode() : this.enableDarkMode();
   }
 
+  ngOnInit() {
+    const savedTheme = localStorage.getItem('theme');
+    
+    // Перевіряємо, чи є збережений вибір, АБО чи на ПК увімкнено Dark Mode
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+      this.enableDarkMode();
+    } else {
+      this.disableDarkMode();
+    }
+  }
+
   enableDarkMode() {
-    this.isDarkMode = true;
+    this.isDarkMode = true; // Тепер іконка (сонечко/місяць) синхронна
     document.body.classList.add('dark-theme');
-    document.body.classList.remove('light-theme'); // Видаляємо світлу
+    document.body.classList.remove('light-theme');
     localStorage.setItem('theme', 'dark');
   }
 
   disableDarkMode() {
     this.isDarkMode = false;
-    document.body.classList.add('light-theme');    // Додаємо світлу
-    document.body.classList.remove('dark-theme');  // Видаляємо темну
+    document.body.classList.add('light-theme');
+    document.body.classList.remove('dark-theme');
     localStorage.setItem('theme', 'light');
   }
 }

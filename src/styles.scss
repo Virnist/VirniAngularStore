@@ -1,6 +1,6 @@
 /* 1. БАЗОВІ СВІТЛІ КОЛЬОРИ (Default) */
 :root {
-  --primary: #2c3e50;
+  --primary: #1a1a1a;
   --accent: #d4af37;
   --bg-main: #ffffff;
   --bg-card: #f9f9f9;
@@ -31,9 +31,9 @@ body.dark-theme {
 }
 
 body.light-theme {
-  --primary: #2c3e50 !important;
+  --primary: #1a1a1a !important;
   --bg-main: #ffffff !important;
-  --bg-card: #f9f9f9 !important;
+  --bg-card: #e8e8e8 !important;
   --text-main: #333333 !important;
   --accent: #d4af37 !important;
 }
