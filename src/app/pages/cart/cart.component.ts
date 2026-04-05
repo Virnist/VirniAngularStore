@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { CartService } from '../../services/cart.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ConvertPricePipe } from '../../pipes/convert-price.pipe';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-cart',
@@ -28,8 +29,8 @@ export class CartComponent {
       return;
     }
 
-    const token = '8652253622:AAGDo1GYziEeqsWvCnpLsiJShQYaUbz3PxY'; // Вставте ваш Token
-    const chatId = '912941259';   // Вставте ваш Id
+    const token = environment.tgToken;
+    const chatId = environment.tgChatId;
 
     const text = `
 📦 *НОВЕ ЗАМОВЛЕННЯ (Virni)*
@@ -67,7 +68,7 @@ ${this.cartService.items().map(i => `• ${i.title} (x${i.quantity})`).join('\n'
   // 2. ВІДПРАВКА В WHATSAPP
   sendToWhatsApp() {
     const msg = `Привіт! Я хочу зробити замовлення.\nІм'я: ${this.order.name}\nТовари: ${this.cartService.items().map(i => i.title).join(', ')}\nСума: ${this.finalTotal()}$`;
-    window.open(`https://wa.me/380XXXXXXXXX?text=${encodeURIComponent(msg)}`, '_blank');
+    window.open(`https://wa.me/380685412442?text=${encodeURIComponent(msg)}`, '_blank');
   }
 
   // 3. ВІДПРАВКА ЧЕРЕЗ MAILTO (ПОШТА КЛІЄНТА)
