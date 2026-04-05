@@ -11,5 +11,9 @@
     "SUBTITLE": "Останні огляди від @VirniFashion",
     "WATCH_LINK": "Дивитися на YouTube",
     "LOADING": "Завантаження відео..."
-  }
+  },
+  "NEWS": {
+  "READ_MORE": "Читати далі",
+  "BACK": "Назад до новин"
+}
 }

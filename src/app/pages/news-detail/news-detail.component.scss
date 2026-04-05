@@ -1,0 +1,66 @@
+.article-wrapper {
+  padding-bottom: 100px; // Місце для кнопки
+  position: relative;
+  min-height: 80vh;
+}
+
+.actions-footer {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 100;
+}
+
+.btn-back {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 28px;
+  
+  // Ефект скляного морфізму
+  background: rgba(var(--primary-rgb), 0.8); 
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50px; // Повністю кругла по боках
+  cursor: pointer;
+  font-weight: 500;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  .icon {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover {
+    transform: scale(1.05) translateY(-5px);
+    background: var(--primary-color); // Основний колір вашого бренду
+    box-shadow: 0 12px 40px rgba(var(--primary-rgb), 0.4);
+
+    .icon {
+      transform: translateX(-5px);
+    }
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+// Адаптація для мобільних
+@media (max-width: 768px) {
+  .actions-footer {
+    bottom: 20px;
+    right: 20px;
+  }
+  
+  .btn-back {
+    padding: 12px 20px;
+    .text {
+      font-size: 14px;
+    }
+  }
+}

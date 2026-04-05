@@ -2,28 +2,61 @@
   {
     "id": 1,
     "date": "2026-04-01",
-    "title_uk": "Нова весняна колекція @VirniFashion",
-    "title_en": "New Spring Collection @VirniFashion",
-    "text_uk": "Зустрічайте ніжність та стиль у кожній деталі нашої нової лінійки.",
-    "text_en": "Experience tenderness and style in every detail of our new line.",
-    "image": "./assets/images/news/NewSpringCollection.webp"
+    "image": "./assets/images/news/NewSpringCollection.webp",
+    
+    "title_uk": "Нова весняна колекція 2026 — стиль, елегантність та тренди сезону",
+    "text_uk": "Відкрийте для себе нову весняну колекцію 2026, створену для тих, хто цінує сучасний стиль, елегантність та преміальну якість. Ця колекція поєднує головні модні тренди сезону: легкі тканини, ніжні кольори та витончені силуети. Натхненна природою та оновленням, вона ідеально підходить для створення стильних образів на кожен день і особливі події. Оберіть свій ідеальний look, підкресліть індивідуальність та залишайтесь у центрі моди 2026 року.",
+    
+    "title_en": "Spring Collection 2026 — Modern Style, Elegance & Fashion Trends",
+    "text_en": "Discover the Spring Collection 2026 designed for those who value modern style, elegance, and premium quality. This fashion collection highlights the latest trends of 2026, featuring lightweight fabrics, soft colors, and refined silhouettes. Inspired by nature and renewal, it offers versatile outfits perfect for everyday wear and special occasions. Upgrade your wardrobe with trendy looks, express your individuality, and stay ahead in the world of fashion.",
+    
+    "title_pl": "Kolekcja wiosenna 2026 — styl, elegancja i trendy mody",
+    "text_pl": "Poznaj kolekcję wiosenną 2026 stworzoną dla osób ceniących nowoczesny styl, elegancję i wysoką jakość. Kolekcja łączy najnowsze trendy mody: lekkie materiały, subtelne kolory oraz dopracowane kroje. Inspirowana naturą i odnową, idealnie sprawdzi się zarówno na co dzień, jak i na wyjątkowe okazje. Wybierz modne stylizacje, podkreśl swój charakter i bądź na bieżąco z trendami 2026 roku.",
+    
+    "title_fr": "Collection printemps 2026 — style moderne, élégance et tendances",
+    "text_fr": "Découvrez la collection printemps 2026 conçue pour ceux qui recherchent style moderne, élégance et qualité premium. Cette collection met en avant les tendances mode 2026 avec des tissus légers, des couleurs douces et des silhouettes raffinées. Inspirée par la nature et le renouveau, elle propose des tenues idéales pour le quotidien et les occasions spéciales. Adoptez un look tendance et affirmez votre style avec élégance.",
+    
+    "title_de": "Frühlingskollektion 2026 — moderner Stil, Eleganz und Trends",
+    "text_de": "Entdecken Sie die Frühlingskollektion 2026 für alle, die modernen Stil, Eleganz und hochwertige Qualität schätzen. Diese Modekollektion vereint die wichtigsten Trends 2026: leichte Stoffe, sanfte Farben und elegante Schnitte. Inspiriert von Natur und Erneuerung eignet sie sich perfekt für Alltag und besondere Anlässe. Finden Sie Ihren perfekten Look, unterstreichen Sie Ihre Persönlichkeit und bleiben Sie modisch immer einen Schritt voraus."
   },
   {
     "id": 2,
     "date": "2026-03-28",
-    "title_uk": "Як поєднувати аксесуари: поради від Virni",
-    "title_en": "How to Match Accessories: Tips from Virni",
-    "text_uk": "Золото чи срібло? Розбираємо головні тренди сезону.",
-    "text_en": "Gold or silver? Breaking down the main trends of the season.",
-    "image": "./assets/images/news/HowtoMatchAccessories.webp"
+    "image": "./assets/images/news/HowtoMatchAccessories.webp",
+    
+    "title_uk": "Як поєднувати аксесуари у 2026 — поради стилю від Virni",
+    "text_uk": "Як правильно поєднувати аксесуари у 2026 році? Це питання стає ключовим для створення стильного та гармонійного образу. Сучасні модні тренди дозволяють сміливі експерименти: золото і срібло більше не конкурують — вони доповнюють одне одного, створюючи унікальний стиль. У тренді багатошаровість, мінімалізм та акцентні деталі, які підкреслюють індивідуальність.\n\nЩоб виглядати модно, варто дотримуватись балансу: якщо обираєте масивні прикраси — залишайте одяг більш стриманим. Якщо ж образ мінімалістичний — додайте яскравий акцент у вигляді аксесуарів. У 2026 році популярні натуральні матеріали, геометричні форми та універсальні кольори, що легко комбінуються між собою.\n\nПоради від Virni допоможуть вам створити сучасний образ: комбінуйте різні текстури, експериментуйте зі стилями та не бійтеся виражати себе. Правильно підібрані аксесуари — це ключ до завершеного, стильного та впевненого look.",
+    
+    "title_en": "How to Match Accessories in 2026 — Style Tips from Virni",
+    "text_en": "How to match accessories in 2026? This question is essential for creating a modern and stylish look. Today’s fashion trends encourage bold combinations: gold and silver are no longer rivals — they work together to create a unique and expressive style. Layering, minimalism, and statement pieces are key elements that define contemporary fashion.\n\nTo achieve a balanced outfit, follow a simple rule: if you choose bold, chunky accessories, keep your clothing more minimal. If your outfit is simple, enhance it with eye-catching jewelry or details. In 2026, natural materials, geometric shapes, and versatile colors are trending, making it easier to mix and match.\n\nVirni’s styling tips will help you elevate your fashion game: combine textures, experiment with styles, and express your individuality with confidence. Well-chosen accessories are the final touch that transforms any outfit into a polished and fashionable look.",
+
+    "title_pl": "Jak łączyć dodatki w 2026 — porady stylu od Virni",
+    "text_pl": "Jak łączyć dodatki w 2026 roku, aby wyglądać modnie i stylowo? Współczesne trendy modowe stawiają na swobodę i kreatywność. Złoto i srebro nie są już przeciwieństwami — można je łączyć, tworząc nowoczesne i unikalne stylizacje. Na topie są warstwowość, minimalizm oraz wyraziste akcenty, które podkreślają indywidualny styl.\n\nAby zachować równowagę, warto kierować się prostą zasadą: jeśli wybierasz masywne dodatki, postaw na stonowany strój. Jeśli stylizacja jest minimalistyczna — dodaj wyraziste akcesoria. W 2026 roku modne są naturalne materiały, geometryczne formy oraz uniwersalne kolory, które łatwo ze sobą łączyć.\n\nPorady od Virni pomogą Ci stworzyć spójny i modny look: łącz różne faktury, eksperymentuj ze стилем i wyrażaj siebie. Dobrze dobrane dodatki to klucz do eleganckiej i nowoczesnej stylizacji.",
+    
+    "title_fr": "Comment assortir les accessoires en 2026 — conseils de style par Virni",
+    "text_fr": "Comment assortir les accessoires en 2026 pour créer un look moderne et élégant ? Les tendances actuelles de la mode encouragent la créativité et les combinaisons audacieuses. L’or et l’argent ne s’opposent plus — ils se complètent pour former un style unique. La superposition, le minimalisme et les pièces fortes sont au cœur des tendances.\n\nPour un look équilibré, suivez une règle simple : si vous portez des accessoires imposants, optez pour une tenue sobre. À l’inverse, une tenue minimaliste peut être sublimée par des accessoires marquants. En 2026, les matériaux naturels, les formes géométriques et les couleurs polyvalentes dominent la mode.\n\nLes conseils de Virni vous aideront à perfectionner votre style : mélangez les textures, osez les combinaisons et affirmez votre personnalité. Les accessoires bien choisis sont la touche finale d’un look élégant et tendance.",
+    
+    "title_de": "Accessoires kombinieren 2026 — Stil-Tipps von Virni",
+    "text_de": "Wie kombiniert man Accessoires im Jahr 2026 richtig? Moderne Modetrends setzen auf Kreativität und Individualität. Gold und Silber gelten nicht mehr als Gegensätze — sie lassen sich stilvoll kombinieren und sorgen für einen einzigartigen Look. Layering, Minimalismus und auffällige Details prägen die aktuellen Fashion-Trends.\n\nFür ein harmonisches Outfit gilt: Wählen Sie auffällige Accessoires, sollte die Kleidung eher schlicht sein. Ist das Outfit minimalistisch, können markante Schmuckstücke gezielt Akzente setzen. Im Trend liegen 2026 natürliche Materialien, geometrische Formen und vielseitige Farben.\n\nMit den Styling-Tipps von Virni gelingt Ihnen ein moderner Look: Kombinieren Sie verschiedene Texturen, experimentieren Sie mit Stilen und zeigen Sie Ihre Persönlichkeit. Perfekt gewählte Accessoires verleihen jedem Outfit Eleganz und Ausdruck."
   },
   {
     "id": 3,
     "date": "2026-04-01",
-    "title_uk": "Який колір вибрати у 2026?",
-    "title_en": "Which Color to Choose in 2026?",
-    "text_uk": "Оливковий чи теракотовий? Розбираємо головні тренди 2026.",
-    "text_en": "Olive or terracotta? We analyze the main trends of 2026.",
-    "image": "./assets/images/news/WhichColortoChoose.webp"
+    "image": "./assets/images/news/WhichColortoChoose.webp",
+    
+    "title_uk": "Який колір обрати у 2026 — тренди, стиль та поєднання",
+    "text_uk": "Який колір обрати у 2026 році, щоб виглядати стильно та сучасно? Головні модні тренди цього сезону зосереджені навколо природних відтінків і гармонії з природою. Оливковий, теракотовий, бежевий та теплі нейтральні кольори стали основою сучасного гардеробу. Вони легко поєднуються між собою та створюють елегантний і універсальний стиль.\n\nОливковий колір символізує спокій і баланс, ідеально підходить для повсякденних образів. Теракотовий додає тепла та характеру, роблячи look більш виразним. У 2026 році також актуальні монохромні образи та плавні переходи кольорів, що підкреслюють витонченість стилю.\n\nЩоб залишатися в тренді, обирайте кольори, які підкреслюють вашу індивідуальність, комбінуйте натуральні відтінки та експериментуйте з текстурами. Правильний вибір кольору — це ключ до стильного, гармонійного та сучасного образу.",
+    
+    "title_en": "Which Color to Choose in 2026 — Trends, Style & Combinations",
+    "text_en": "Which color should you choose in 2026 to stay stylish and on trend? This year’s fashion trends focus on natural tones and harmony with nature. Olive, terracotta, beige, and warm neutral shades dominate modern wardrobes, offering versatility and effortless elegance.\n\nOlive represents balance and calm, making it perfect for everyday outfits. Terracotta adds warmth and character, giving your look a bold and expressive touch. In 2026, monochrome outfits and smooth color transitions are also trending, enhancing a refined and modern aesthetic.\n\nTo stay ahead in fashion, choose colors that reflect your personality, mix natural tones, and experiment with textures. The right color choice is essential for creating a stylish, гармоничний і сучасний образ.",
+    
+    "title_pl": "Jaki kolor wybrać w 2026 — trendy, styl i połączenia",
+    "text_pl": "Jaki kolor wybrać w 2026 roku, aby wyglądać modnie i stylowo? Najnowsze trendy modowe koncentrują się na naturalnych odcieniach i harmonii z naturą. Oliwkowy, terakotowy, beżowy oraz ciepłe neutralne kolory dominują w nowoczesnych stylizacjach.\n\nKolor oliwkowy symbolizuje równowagę i spokój, idealnie sprawdzając się na co dzień. Terakotowy dodaje ciepła i charakteru, tworząc bardziej wyrazisty look. W 2026 roku modne są także stylizacje monochromatyczne oraz płynne przejścia kolorów.\n\nAby być na czasie, wybieraj kolory podkreślające Twoją osobowość, łącz naturalne odcienie i eksperymentuj z fakturami. Odpowiedni kolor to klucz do spójnego i nowoczesnego stylu.",
+    
+    "title_fr": "Quelle couleur choisir en 2026 — tendances et style",
+    "text_fr": "Quelle couleur choisir en 2026 pour rester tendance ? Les couleurs naturelles dominent la mode этой année. Les tons olive, terracotta, beige et neutres chauds créent un style élégant et polyvalent.\n\nLe vert olive symbolise l’équilibre et la sérénité, parfait pour un usage quotidien. Le terracotta apporte chaleur et caractère, rendant chaque tenue plus expressive. Les looks monochromes et les transitions de couleurs douces sont également très populaires en 2026.\n\nPour un style moderne, choisissez des couleurs qui reflètent votre personnalité, combinez des tons naturels et jouez avec les textures. Le bon choix de couleur est la base d’un look harmonieux et tendance.",
+    
+    "title_de": "Welche Farbe 2026 wählen — Trends und Stil",
+    "text_de": "Welche Farbe sollte man 2026 wählen, um modisch zu bleiben? Die aktuellen Trends setzen auf natürliche Farbtöne und Harmonie. Olivgrün, Terrakotta, Beige und warme neutrale Farben prägen die moderne Mode.\n\nOliv steht für Ruhe und Balance und eignet sich perfekt für den Alltag. Terrakotta verleiht Wärme und Ausdruck und macht jedes Outfit interessanter. Monochrome Looks und sanfte Farbübergänge gehören ebenfalls zu den wichtigsten Trends 2026.\n\nUm stilvoll zu bleiben, wählen Sie Farben, die Ihre Persönlichkeit unterstreichen, kombinieren Sie natürliche Töne und experimentieren Sie mit Materialien. Die richtige Farbwahl ist entscheidend für einen modernen und eleganten Look."
   }
 ]

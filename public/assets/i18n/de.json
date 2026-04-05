@@ -10,5 +10,9 @@
     "SUBTITLE": "Neueste Bewertungen von @VirniFashion",
     "WATCH_LINK": "Auf YouTube ansehen",
     "LOADING": "Videos werden geladen..."
+  },
+    "NEWS": {
+    "READ_MORE": "Mehr lesen",
+    "BACK": "Zurück zu den Nachrichten"
   }
 }

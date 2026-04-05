@@ -2,16 +2,20 @@
   <h2>{{ 'MENU.NEWS' | translate }}</h2>
 
   <div class="news-grid" *ngIf="news$ | async as allNews">
-    <article class="news-card" *ngFor="let item of allNews">
+    <article class="news-card" *ngFor="let item of allNews" [routerLink]="['/news', item.id]">
+      
       <div class="card-image" [style.backgroundImage]="'url(' + item.image + ')'"></div>
       <div class="card-content">
         <span class="date">{{ item.date | date:'dd.MM.yyyy' }}</span>
         
-        <h3>{{ translate.currentLang === 'uk' ? item.title_uk : item.title_en }}</h3>
-        <p>{{ translate.currentLang === 'uk' ? item.text_uk : item.text_en }}</p>
+        <h3>{{ getContent(item, 'title') }}</h3>
+        <p>{{ getContent(item, 'text') | slice:0:120 }}...</p>
         
-        <button class="read-more">Читати далі</button>
+        <button class="read-more">
+          {{ 'NEWS.READ_MORE' | translate }}
+        </button>
       </div>
+      
     </article>
   </div>
 </div>

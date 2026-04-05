@@ -10,5 +10,9 @@
     "SUBTITLE": "Dernières critiques de @VirniFashion",
     "WATCH_LINK": "Regarder sur YouTube",
     "LOADING": "Chargement des vidéos..."
+  },
+  "NEWS": {
+    "READ_MORE": "Lire la suite",
+    "BACK": "Retour aux actualités"
   }
 }
