@@ -40,7 +40,7 @@ export const appConfig: ApplicationConfig = {
           useFactory: HttpLoaderFactory,
           deps: [HttpClient]
         },
-        defaultLanguage: 'uk' // Можна змінити на вашу основну
+        fallbackLang: 'en'
       })
     )
   ]
