@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "virni-angular-store": {
+    "VirniAngularStore": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/virni-angular-store",
+            "outputPath": "dist/VirniAngularStore",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -64,10 +64,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "virni-angular-store:build:production"
+              "buildTarget": "VirniAngularStore:build:production"
             },
             "development": {
-              "buildTarget": "virni-angular-store:build:development"
+              "buildTarget": "VirniAngularStore:build:development"
             }
           },
           "defaultConfiguration": "development"

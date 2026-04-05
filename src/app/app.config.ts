@@ -1,36 +1,46 @@
 import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
-import { provideHttpClient } from '@angular/common/http';
+import { provideRouter, withHashLocation, withInMemoryScrolling } from '@angular/router';
+import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateHttpLoader, TRANSLATE_HTTP_LOADER_CONFIG } from '@ngx-translate/http-loader';
-
+import { Observable } from 'rxjs';
 import { routes } from './app.routes';
 
-// Функція-фабрика тепер просто повертає новий екземпляр
-export function HttpLoaderFactory() {
-  return new TranslateHttpLoader();
+// 1. Створюємо свій клас-завантажувач. Це позбавляє нас проблем із конструктором бібліотеки.
+export class CustomTranslateLoader implements TranslateLoader {
+  constructor(private http: HttpClient) {}
+
+  getTranslation(lang: string): Observable<any> {
+    // Тут ми чітко вказуємо шлях для Static HTML
+    return this.http.get(`./assets/i18n/${lang}.json`);
+  }
+}
+
+// 2. Фабрика, яка тепер використовує наш клас
+export function HttpLoaderFactory(http: HttpClient) {
+  return new CustomTranslateLoader(http);
 }
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes),
+    
+    // Вмикаємо решітку (#) для коректної роботи на GitHub Pages
+    provideRouter(
+      routes, 
+      withHashLocation(), 
+      withInMemoryScrolling({ scrollPositionRestoration: 'enabled' })
+    ),
+    
     provideHttpClient(),
-    // ЦЕЙ БЛОК ВИПРАВЛЯЄ NullInjectorError
-    {
-      provide: TRANSLATE_HTTP_LOADER_CONFIG,
-      useValue: {
-        prefix: './assets/i18n/',
-        suffix: '.json'
-      }
-    },
+
     importProvidersFrom(
       TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
           useFactory: HttpLoaderFactory,
-          deps: [] 
-        }
+          deps: [HttpClient]
+        },
+        defaultLanguage: 'uk' // Можна змінити на вашу основну
       })
     )
   ]
