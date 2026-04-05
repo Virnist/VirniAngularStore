@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "category": "Wedding",
+    "price": 850.00,
+    "image": "./assets/images/shop/WeddingDresses.webp",
+    "title_uk": "Весільна сукня 'Елеганс'",
+    "title_en": "Wedding Dress 'Elegance'",
+    "title_pl": "Suknia ślubna 'Elegancja'",
+    "title_fr": "Robe de mariée 'Élégance'",
+    "title_de": "Hochzeitskleid 'Eleganz'",
+    "description_uk": "Вишукана сукня з італійського мережива."
+  },
+  {
+    "id": 2,
+    "category": "Traditional",
+    "price": 120.00,
+    "image": "./assets/images/shop/vyshyvanka.webp",
+    "title_uk": "Вишивана сорочка 'Оберіг'",
+    "title_en": "Vyshyvanka 'Amulet'",
+    "title_pl": "Wyszywanka 'Amulet'",
+    "title_fr": "Vyshyvanka 'Amulette'",
+    "title_de": "Wyschywanka 'Amulett'",
+    "description_uk": "Ручна вишивка, натуральний льон."
+  },
+  {
+    "id": 3,
+    "category": "Perfume",
+    "price": 65.00,
+    "image": "./assets/images/shop/154.webp",
+    "title_uk": "Парфуми №154",
+    "title_en": "Perfume №154",
+    "title_pl": "Perfumy №154",
+    "title_fr": "Parfum №154",
+    "title_de": "Parfüm №154",
+    "description_uk": "Квітковий аромат з нотками сандалу."
+  },
+  {
+    "id": 4,
+    "category": "Electronics",
+    "price": 45.00,
+    "image": "./assets/images/shop/pentium.webp",
+    "title_uk": "Процесор Intel Pentium",
+    "title_en": "Intel Pentium Processor",
+    "title_pl": "Procesor Intel Pentium",
+    "title_fr": "Processeur Intel Pentium",
+    "title_de": "Intel Pentium Prozessor",
+    "description_uk": "Класичний процесор для базових завдань."
+  },
+  {
+    "id": 5,
+    "category": "Wedding",
+    "price": 95.00,
+    "image": "./assets/images/shop/veil.webp",
+    "title_uk": "Весільна фата 'Сяйво'",
+    "title_en": "Wedding Veil 'Glow'",
+    "title_pl": "Welon ślubny 'Blask'",
+    "title_fr": "Voile de mariée 'Éclat'",
+    "title_de": "Brautschleier 'Glanz'",
+    "description_uk": "Довга фата з дрібними кристалами."
+  }
+]

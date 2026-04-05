@@ -1,8 +1,8 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
 import { environment } from '../environments/environment';
-import { NewsItem } from '../models/news.model'; // Імпортуємо нашу модель
+import { NewsItem } from '../models/news.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,19 +10,18 @@ import { NewsItem } from '../models/news.model'; // Імпортуємо наш�
 export class DataService {
   private http = inject(HttpClient);
 
-  // Отримуємо весь список новин
+  // --- НОВИНИ ---
   getNews(): Observable<NewsItem[]> {
-    // Вказуємо шлях до вашого JSON файлу
     return this.http.get<NewsItem[]>('./assets/data/news.json');
   }
 
-  // МЕТОД ДЛЯ ДЕТАЛЬНОЇ СТОРІНКИ
   getNewsById(id: number): Observable<NewsItem | undefined> {
     return this.getNews().pipe(
       map(news => news.find(item => item.id === id))
     );
   }
 
+  // --- ВІДЕО (YouTube) ---
   getVideos(): Observable<any[]> {
     const url = `https://www.googleapis.com/youtube/v3/search?key=${environment.youtubeApiKey}&channelId=${environment.youtubeChannelId}&part=snippet,id&order=date&maxResults=6&type=video`;
     
@@ -34,5 +33,21 @@ export class DataService {
         thumbnail: item.snippet.thumbnails.high.url
       })))
     );
+  }
+
+  // --- ВАЛЮТИ ---
+  // Зберігаємо курси у сигналі для миттєвого доступу по всьому додатку
+  rates = signal<any>(null);
+
+  fetchExchangeRates(): Observable<any> {
+    const url = `https://open.er-api.com/v6/latest/USD`; 
+    return this.http.get<any>(url).pipe(
+      tap(data => this.rates.set(data.rates))
+    );
+  }
+
+  // --- МАГАЗИН ---
+  getProducts(): Observable<any[]> {
+    return this.http.get<any[]>('./assets/data/products.json');
   }
 }

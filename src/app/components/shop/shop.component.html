@@ -1,1 +1,24 @@
-<p>shop works!</p>
+<div class="shop-container">
+  <header class="shop-header">
+    <h1>{{ 'MENU.SHOP' | translate }}</h1>
+  </header>
+
+  <div class="product-grid" *ngIf="products$ | async as products">
+    @for (product of products; track product.id) {
+      <div class="product-card">
+        <div class="product-image" [style.backgroundImage]="'url(' + product.image + ')'">
+          <span class="category">{{ product.category }}</span>
+        </div>
+        
+        <div class="product-info">
+          <h3>{{ getContent(product, 'title') }}</h3>
+          <p class="price">{{ product.price | convertPrice }}</p>
+          
+          <button class="add-to-cart" (click)="addToCart(product)">
+            {{ 'SHOP.ADD_TO_CART' | translate }}
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+</div>

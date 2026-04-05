@@ -1,0 +1,49 @@
+<div class="cart-container">
+  @if (cartService.count() > 0) {
+    <div class="cart-grid">
+      <section class="items-list">
+        <h2>{{ 'CART.TITLE' | translate }}</h2>
+        @for (item of cartService.items(); track item.id) {
+          <div class="cart-item">
+             <img [src]="item.image" alt="">
+             <div class="info">
+               <h4>{{ item.title }}</h4>
+               <p>{{ item.price | convertPrice }} x {{ item.quantity }}</p>
+             </div>
+          </div>
+        }
+      </section>
+
+      <aside class="checkout-box">
+        <h3>{{ 'CART.CHECKOUT' | translate }}</h3>
+        
+        <div class="form">
+          <input [(ngModel)]="order.name" placeholder="Name" required>
+          <input [(ngModel)]="order.phone" placeholder="Phone" required>
+          <input [(ngModel)]="order.email" placeholder="Email (optional)">
+          <textarea [(ngModel)]="order.address" placeholder="Country, City, Address"></textarea>
+        </div>
+
+        <div class="totals">
+          <p>Total: <strong>{{ finalTotal() | convertPrice }}</strong></p>
+        </div>
+
+        <div class="actions">
+          <button class="tg-btn" (click)="sendToTelegram()">
+            <i class="fab fa-telegram"></i> Telegram Order
+          </button>
+          
+          <button class="wa-btn" (click)="sendToWhatsApp()">
+            <i class="fab fa-whatsapp"></i> WhatsApp Order
+          </button>
+
+          <button class="mail-link" (click)="sendToEmail()">
+            {{ 'CART.SEND_VIA_EMAIL' | translate }}
+          </button>
+        </div>
+      </aside>
+    </div>
+  } @else {
+    <div class="empty">Ваш кошик порожній</div>
+  }
+</div>

@@ -1,0 +1,36 @@
+.checkout-box {
+  background: var(--bg-card);
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+
+  .actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+
+    button {
+      padding: 14px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s;
+
+      &:hover { transform: scale(1.02); }
+    }
+
+    .tg-btn { background: #0088cc; color: white; }
+    .wa-btn { background: #25D366; color: white; }
+    
+    .mail-link {
+      background: transparent;
+      color: var(--text-muted);
+      text-decoration: underline;
+      font-size: 0.9rem;
+      font-weight: 400;
+      padding: 5px;
+    }
+  }
+}
