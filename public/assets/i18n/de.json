@@ -1,18 +1,35 @@
 {
   "APP_TITLE": "Virni Store",
+  "WELCOME": "Willkommen in unserem Online-Shop!",
   "MENU": {
-    "NEWS": "Neuigkeiten",
+    "NEWS": "News",
     "SHOP": "Shop",
     "VIDEOS": "YouTube"
   },
-  "WELCOME": "Willkommen in unserem Shop!",
+  "HOME": {
+    "FEED": {
+      "NEWS": "Artikel",
+      "PRODUCT": "Produkt",
+      "VIDEO": "YouTube"
+    }
+  },
+  "SHOP": {
+    "ADD_TO_CART": "In den Warenkorb",
+    "CATEGORIES": {
+      "ALL": "Alle Produkte",
+      "WEDDING": "Hochzeit",
+      "TRADITIONAL": "Bestickte Kleidung",
+      "PERFUME": "Parfüm",
+      "ELECTRONICS": "Elektronik"
+    }
+  },
   "VIDEOS": {
-    "SUBTITLE": "Neueste Bewertungen von @VirniFashion",
+    "SUBTITLE": "Neueste Videos von @VirniFashion",
     "WATCH_LINK": "Auf YouTube ansehen",
     "LOADING": "Videos werden geladen..."
   },
-    "NEWS": {
+  "NEWS": {
     "READ_MORE": "Mehr lesen",
-    "BACK": "Zurück zu den Nachrichten"
+    "BACK": "Zurück zu den News"
   }
 }

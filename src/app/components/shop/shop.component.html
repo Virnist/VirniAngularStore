@@ -1,24 +1,52 @@
-<div class="shop-container">
-  <header class="shop-header">
-    <h1>{{ 'MENU.SHOP' | translate }}</h1>
-  </header>
+<div class="news-container">
 
-  <div class="product-grid" *ngIf="products$ | async as products">
-    @for (product of products; track product.id) {
-      <div class="product-card">
-        <div class="product-image" [style.backgroundImage]="'url(' + product.image + ')'">
-          <span class="category">{{ product.category }}</span>
-        </div>
-        
-        <div class="product-info">
-          <h3>{{ getContent(product, 'title') }}</h3>
-          <p class="price">{{ product.price | convertPrice }}</p>
+  @if (categories$ | async; as cats) {
+    <div class="filter-buttons">
+      @for (cat of cats; track cat) {
+        <button 
+          class="filter-btn" 
+          [class.active]="selectedCategory() === cat.toUpperCase()"
+          (click)="setCategory(cat.toUpperCase())">
           
-          <button class="add-to-cart" (click)="addToCart(product)">
-            {{ 'SHOP.ADD_TO_CART' | translate }}
-          </button>
-        </div>
-      </div>
-    }
-  </div>
+          {{ cat === 'all' ? ('SHOP.CATEGORIES.ALL' | translate) : ('SHOP.CATEGORIES.' + cat.toUpperCase() | translate) }}
+          
+        </button>
+      }
+    </div>
+  }
+
+  @if (products$ | async; as allProducts) {
+    <div class="news-grid">
+      
+      @for (item of allProducts; track item.id) {
+        <article class="news-card" (click)="onCardAction(item, $event)">
+          
+          <div class="card-image" [style.backgroundImage]="'url(' + item.image + ')'">
+            <span class="type-badge" 
+                  [ngClass]="item.category.toLowerCase()" 
+                  (click)="onBadgeClick(item.category, $event)">
+              {{ 'SHOP.CATEGORIES.' + item.category.toUpperCase() | translate }}
+            </span>
+          </div>
+          
+          <div class="card-content">
+            <div class="price-container">
+              <span class="date">{{ getFormattedPrice(item.price) }}</span>
+            </div>
+            
+            <h3>{{ getLangContent(item, 'title') }}</h3>
+            <p>{{ getLangContent(item, 'description') | slice:0:120 }}...</p>
+            
+            <button class="read-more">
+              🛒 {{ 'SHOP.ADD_TO_CART' | translate }}
+            </button>
+          </div>
+          
+        </article>
+      }
+
+    </div>
+  } @else {
+    <div class="loader">Завантаження товарів...</div>
+  }
 </div>

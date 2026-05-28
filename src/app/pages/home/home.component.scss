@@ -1,0 +1,120 @@
+.home-container {
+  padding: 40px 20px;
+}
+
+.hero-section {
+  text-align: center;
+  padding: 60px 20px 40px;
+  h1 { font-size: 3rem; color: var(--text-main); font-weight: 900; margin-bottom: 10px; }
+  p { color: var(--text-muted); font-size: 1.1rem; }
+}
+
+// Твоя рідна грідові система та стилі карток новин
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.news-card {
+  background: var(--bg-card);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(128, 128, 128, 0.1);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    border-color: var(--accent);
+
+    .read-more {
+      background: var(--accent);
+      color: black !important;
+      box-shadow: 0 4px 15px rgba(var(--accent-rgb, 0, 0, 0), 0.3);
+    }
+  }
+
+  .card-image {
+    height: 220px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+
+    // Стильні мінімалістичні баджі на картинках
+    .type-badge {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      padding: 6px 14px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      border-radius: 30px;
+      color: #fff;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      cursor: pointer; // Змінює курсор на вказівний палець
+      transition: transform 0.2s ease, filter 0.2s ease;
+      z-index: 10; // Гарантує, що бейдж буде поверх картинки для кліку
+
+        &:hover {
+            transform: scale(1.05); // Легке збільшення при наведенні
+            filter: brightness(1.15); // Стає трішки яскравішим
+        }
+
+      &.news { background: #4a90e2; }
+      &.product { background: #e28743; }
+      &.video { background: #e03131; }
+    }
+  }
+
+  .card-content {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    .date {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    h3 { 
+      color: var(--text-main); 
+      margin: 12px 0; 
+      font-size: 1.3rem;
+      line-height: 1.4;
+    }
+
+    p { 
+      color: var(--text-muted);
+      margin-bottom: 25px;
+      flex-grow: 1;
+      line-height: 1.5;
+    }
+
+    .read-more {
+      align-self: flex-start;
+      background: transparent;
+      border: 2px solid var(--accent);
+      color: var(--accent);
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+      cursor: pointer;
+      
+      &:active {
+        transform: scale(0.95);
+      }
+    }
+  }
+}

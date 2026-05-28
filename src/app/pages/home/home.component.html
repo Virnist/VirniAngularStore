@@ -1,0 +1,46 @@
+<div class="home-container">
+  <div class="news-container">
+    
+    @if (feed$ | async; as allFeed) {
+      <div class="news-grid">
+        
+        @for (item of allFeed; track item.type + '-' + item.id) {
+          <article class="news-card" (click)="onCardAction(item, $event)">
+            
+            <div class="card-image" [style.backgroundImage]="'url(' + item.image + ')'">
+              <span class="type-badge" 
+                    [ngClass]="item.type" 
+                    (click)="onBadgeClick(item.type, $event)">
+                {{ 'HOME.FEED.' + item.type.toUpperCase() | translate }}
+              </span>
+            </div>
+            
+            <div class="card-content">
+              @if (item.date) {
+                <span class="date">{{ item.date | date:'dd.MM.yyyy' }}</span>
+              }
+              
+              <h3>{{ item.title }}</h3>
+              <p>{{ item.description | slice:0:120 }}...</p>
+              
+              <button class="read-more">
+                @if (item.type === 'news') {
+                  {{ 'NEWS.READ_MORE' | translate }}
+                } @else if (item.type === 'product') {
+                  🛒 {{ 'SHOP.ADD_TO_CART' | translate }}
+                } @else if (item.type === 'video') {
+                  ▶ {{ 'VIDEOS.WATCH_LINK' | translate }}
+                }
+              </button>
+            </div>
+            
+          </article>
+        }
+
+      </div>
+    } @else {
+      <div class="loader">Завантаження стрічки...</div>
+    }
+
+  </div>
+</div>

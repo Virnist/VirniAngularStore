@@ -1,18 +1,35 @@
 {
   "APP_TITLE": "Virni Store",
+  "WELCOME": "Welcome to our store!",
   "MENU": {
     "NEWS": "News",
     "SHOP": "Shop",
     "VIDEOS": "YouTube"
   },
-  "WELCOME": "Welcome to our store!",
+  "HOME": {
+    "FEED": {
+      "NEWS": "News",
+      "PRODUCT": "Shop",
+      "VIDEO": "YouTube"
+    }
+  },
+  "SHOP": {
+    "ADD_TO_CART": "Add to cart",
+    "CATEGORIES": {
+      "ALL": "All products",
+      "WEDDING": "Wedding",
+      "TRADITIONAL": "Embroidery",
+      "PERFUME": "Perfume",
+      "ELECTRONICS": "Electronics"
+    }
+  },
   "VIDEOS": {
     "SUBTITLE": "Latest reviews from @VirniFashion",
     "WATCH_LINK": "Watch on YouTube",
     "LOADING": "Loading videos..."
   },
   "NEWS": {
-  "READ_MORE": "Read more",
-  "BACK": "Back to news"
-}
+    "READ_MORE": "Read more",
+    "BACK": "Back to news"
+  }
 }

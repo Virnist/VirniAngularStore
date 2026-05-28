@@ -1,19 +1,35 @@
 {
-  "APP_TITLE": "Вірні",
+  "APP_TITLE": "Virni Store",
+  "WELCOME": "Ласкаво просимо до нашого магазину!",
   "MENU": {
     "NEWS": "Новини",
     "SHOP": "Магазин",
-    "VIDEOS": "Відео"
+    "VIDEOS": "YouTube"
   },
-  "WELCOME": "Ласкаво просимо до нашого магазину!",
-
+  "HOME": {
+    "FEED": {
+      "NEWS": "Новина",
+      "PRODUCT": "Товар",
+      "VIDEO": "YouTube"
+    }
+  },
+  "SHOP": {
+    "ADD_TO_CART": "В кошик",
+    "CATEGORIES": {
+      "ALL": "Всі товари",
+      "WEDDING": "Весільні сукні",
+      "TRADITIONAL": "Вишиванки",
+      "PERFUME": "Парфумерія",
+      "ELECTRONICS": "Електроніка"
+    }
+  },
   "VIDEOS": {
     "SUBTITLE": "Останні огляди від @VirniFashion",
-    "WATCH_LINK": "Дивитися на YouTube",
+    "WATCH_LINK": "Дивитись на YouTube",
     "LOADING": "Завантаження відео..."
   },
   "NEWS": {
-  "READ_MORE": "Читати далі",
-  "BACK": "Назад до новин"
-}
+    "READ_MORE": "Читати далі",
+    "BACK": "Назад до новин"
+  }
 }

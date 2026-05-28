@@ -1,13 +1,30 @@
 {
   "APP_TITLE": "Virni Store",
+  "WELCOME": "Bienvenue dans notre boutique !",
   "MENU": {
     "NEWS": "Actualités",
     "SHOP": "Boutique",
     "VIDEOS": "YouTube"
   },
-  "WELCOME": "Bienvenue dans notre boutique !",
+  "HOME": {
+    "FEED": {
+      "NEWS": "Actualité",
+      "PRODUCT": "Produit",
+      "VIDEO": "YouTube"
+    }
+  },
+  "SHOP": {
+    "ADD_TO_CART": "Ajouter au panier",
+    "CATEGORIES": {
+      "ALL": "Tous les produits",
+      "WEDDING": "Mariage",
+      "TRADITIONAL": "Robes brodées",
+      "PERFUME": "Parfumerie",
+      "ELECTRONICS": "Électronique"
+    }
+  },
   "VIDEOS": {
-    "SUBTITLE": "Dernières critiques de @VirniFashion",
+    "SUBTITLE": "Dernières vidéos de @VirniFashion",
     "WATCH_LINK": "Regarder sur YouTube",
     "LOADING": "Chargement des vidéos..."
   },

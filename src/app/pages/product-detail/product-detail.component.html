@@ -1,0 +1,32 @@
+<div class="product-container" *ngIf="product">
+  <div class="product-layout">
+    <div class="product-image">
+      <img [src]="product.image" [alt]="getContent('title')">
+    </div>
+
+    <div class="product-info">
+      <h1>{{ getContent('title') }}</h1>
+      <p class="category">{{ product.category }}</p>
+      
+      <div class="price-tag">
+        {{ product.price | convertPrice }}
+      </div>
+
+      <div class="description">
+        {{ getContent('description') }}
+      </div>
+
+      <div class="stock-status">
+        @if (product.stock > 0) {
+          <span class="in-stock">✅ {{ 'PRODUCT.IN_STOCK' | translate }}: {{ product.stock }}</span>
+        } @else {
+          <span class="pre-order">⏳ {{ 'PRODUCT.PRE_ORDER' | translate }}: {{ product.productionTime }} {{ 'PRODUCT.DAYS' | translate }}</span>
+        }
+      </div>
+
+      <button class="buy-btn" (click)="addToCart()">
+        {{ (product.stock > 0 ? 'SHOP.ADD_TO_CART' : 'SHOP.PRE_ORDER_BTN') | translate }}
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,79 +1,173 @@
-.shop-container {
-  padding: 80px 20px;
-  max-width: 1400px;
+// Головна обгортка для всього блоку магазину
+.news-container {
+  padding: 40px 20px;
+  max-width: 1200px;
   margin: 0 auto;
-}
 
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 40px;
-}
-
-.product-card {
-  background: var(--bg-card);
-  border-radius: 24px;
-  overflow: hidden;
-  border: 1px solid rgba(var(--accent-rgb, 128, 128, 128), 0.1);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-
-  &:hover {
-    transform: translateY(-12px);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
-    border-color: var(--accent);
+  h2 {
+    font-size: 2rem;
+    color: var(--text-main, #fff);
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
   }
 
-  .product-image {
-    height: 320px;
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    
-    .category {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(5px);
-      padding: 5px 15px;
-      border-radius: 50px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #000;
-      text-transform: uppercase;
-    }
-  }
+  // Стилі для блоку кнопок фільтрації категорій
+  .filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 40px;
+    justify-content: center; // Центруємо кнопочки
 
-  .product-info {
-    padding: 25px;
-    text-align: center;
-
-    h3 {
-      font-size: 1.2rem;
-      margin-bottom: 10px;
-      color: var(--text-main);
-    }
-
-    .price {
-      font-size: 1.4rem;
-      font-weight: 800;
-      color: var(--accent);
-      margin-bottom: 20px;
-    }
-
-    .add-to-cart {
-      width: 100%;
-      background: var(--accent);
-      color: white;
-      border: none;
-      padding: 14px;
-      border-radius: 12px;
+    .filter-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(128, 128, 128, 0.2);
+      color: var(--text-muted, #888);
+      padding: 10px 22px;
+      border-radius: 30px;
+      font-size: 0.9rem;
       font-weight: 600;
       cursor: pointer;
-      transition: filter 0.3s;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
 
       &:hover {
-        filter: brightness(1.2);
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--text-main, #fff);
+        border-color: rgba(128, 128, 128, 0.4);
+      }
+
+      // Стиль для активної (натиснутої) кнопки
+      &.active {
+        background: var(--accent, #ffd700);
+        color: #000 !important;
+        border-color: var(--accent, #ffd700);
+        box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+      }
+    }
+  }
+}
+
+// Оновлена та залізобетонна сітка товарів
+.news-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important;
+  gap: 30px !important;
+  width: 100%;
+}
+
+// Сама картка товару
+.news-card {
+  background: var(--bg-card, #1a1a1a);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(128, 128, 128, 0.1);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 100%; // Гарантує однакову висоту карток у рядку
+
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border-color: var(--accent, #ffd700);
+
+    .read-more {
+      background: var(--accent, #ffd700);
+      color: black !important;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  .card-image {
+    height: 220px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative; // Для точного позиціонування баджа
+    width: 100%;
+
+    // Стиль баджа категорії всередині картки
+    .type-badge {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      padding: 6px 14px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      border-radius: 30px;
+      color: #fff !important;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      display: inline-block;
+      z-index: 2;
+      cursor: pointer;
+      transition: transform 0.2s ease, filter 0.2s ease;
+
+      &:hover {
+        transform: scale(1.05);
+        filter: brightness(1.15);
+      }
+
+      // Кольорові мітки категорій під твій JSON
+      &.wedding { background: #9b5de5 !important; }
+      &.traditional { background: #e28743 !important; }
+      &.perfume { background: #00b4d8 !important; }
+      &.electronics { background: #2a9d8f !important; }
+    }
+  }
+
+  .card-content {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    .price-container {
+      margin-bottom: 4px;
+    }
+
+    .date {
+      color: var(--accent, #ffd700); 
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    h3 { 
+      color: var(--text-main, #fff); 
+      margin: 12px 0; 
+      font-size: 1.3rem;
+      line-height: 1.4;
+    }
+
+    p { 
+      color: var(--text-muted, #888);
+      margin-bottom: 25px;
+      flex-grow: 1;
+      line-height: 1.5;
+    }
+
+    .read-more {
+      align-self: flex-start;
+      background: transparent;
+      border: 2px solid var(--accent, #ffd700);
+      color: var(--accent, #ffd700);
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+      cursor: pointer;
+      
+      &:active {
+        transform: scale(0.95);
       }
     }
   }

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject, computed } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router'; 
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CommonModule, UpperCasePipe } from '@angular/common';
+import { CartService } from './services/cart.service';
 
 @Component({
   selector: 'app-root',
@@ -18,8 +19,13 @@ import { CommonModule, UpperCasePipe } from '@angular/common';
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
+  public cartService = inject(CartService);
+
+  public cartCount = computed(() => {
+    return this.cartService.items().reduce((total, item) => total + item.quantity, 0);
+  });
+
   isDarkMode = false;
-  // Список підтримуваних мов (ISO-коди)
   supportedLangs = ['uk', 'en', 'de', 'fr', 'pl'];
 
   constructor(private translate: TranslateService) {

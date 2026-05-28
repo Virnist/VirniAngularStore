@@ -30,30 +30,46 @@ export class CartService {
 
   // Додавання в кошик
   addToCart(product: any, title: string) {
-    const current = this.cartItems();
-    const existingIndex = current.findIndex(item => item.id === product.id);
+    this.cartItems.update(current => {
+      const existingIndex = current.findIndex(item => item.id === product.id);
 
-    if (existingIndex > -1) {
-      // Якщо товар вже є, збільшуємо кількість
-      current[existingIndex].quantity += 1;
-      this.cartItems.set([...current]);
-    } else {
-      // Якщо товару немає, додаємо новий об'єкт
-      const newItem: CartItem = {
-        id: product.id,
-        title: title,
-        price: product.price,
-        image: product.image,
-        quantity: 1
-      };
-      this.cartItems.set([...current, newItem]);
-    }
+      if (existingIndex > -1) {
+        // Створюємо новий масив з оновленим об'єктом (без мутацій старого)
+        return current.map((item, idx) => 
+          idx === existingIndex ? { ...item, quantity: item.quantity + 1 } : item
+        );
+      } else {
+        const newItem: CartItem = {
+          id: product.id,
+          title: title,
+          price: product.price,
+          image: product.image,
+          quantity: 1
+        };
+        return [...current, newItem];
+      }
+    });
     this.saveCart();
   }
 
-  // Видалення товару
-  removeFromCart(id: number) {
-    this.cartItems.set(this.cartItems().filter(item => item.id !== id));
+  // === НОВИЙ МЕТОД: Зміна кількості (+/- в кошику) ===
+  updateQuantity(id: number, newQuantity: number) {
+    if (newQuantity <= 0) {
+      this.removeItem(id); // Якщо зменшили до 0 — видаляємо товар
+      return;
+    }
+
+    this.cartItems.update(current =>
+      current.map(item =>
+        item.id === id ? { ...item, quantity: newQuantity } : item
+      )
+    );
+    this.saveCart();
+  }
+
+  // === ВИПРАВЛЕНО: Змінено назву з removeFromCart на removeItem для HTML-шаблону ===
+  removeItem(id: number) {
+    this.cartItems.update(current => current.filter(item => item.id !== id));
     this.saveCart();
   }
 

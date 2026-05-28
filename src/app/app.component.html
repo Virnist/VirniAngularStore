@@ -1,31 +1,56 @@
 <div class="container">
   <header>
-    <h1>Virni</h1>
+    <h1 routerLink="/" class="logo">Virni</h1>
     
     <div class="header-controls">
+      <a routerLink="/cart" class="cart-button" aria-label="Open cart">
+        <svg 
+          xmlns="http://www.w3.org/2000/svg" 
+          viewBox="0 0 24 24" 
+          fill="none" 
+          stroke="currentColor" 
+          stroke-width="1.5" 
+          stroke-linecap="round" 
+          stroke-linejoin="round" 
+          class="cart-icon"
+        >
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <path d="M16 10a4 4 0 0 1-8 0"></path>
+        </svg>
+
+        @if (cartCount() > 0) {
+          <span class="cart-badge">
+            {{ cartCount() }}
+          </span>
+        }
+      </a>
+
       <button class="theme-toggle" (click)="toggleTheme()">
         {{ isDarkMode ? '☀️' : '🌙' }}
       </button>
+
       <div class="lang-dropdown">
-          <button class="dropbtn">
-            {{ currentLang | uppercase }}
-            <span class="arrow">▼</span>
-          </button>
-          
-          <div class="dropdown-content">
-            @for (lang of supportedLangs; track lang) {
-              @if (lang !== currentLang) {
-                <button (click)="changeLang(lang)">
-                  {{ lang | uppercase }}
-                </button>
-              }
+        <button class="dropbtn">
+          {{ currentLang | uppercase }}
+          <span class="arrow">▼</span>
+        </button>
+        
+        <div class="dropdown-content">
+          @for (lang of supportedLangs; track lang) {
+            @if (lang !== currentLang) {
+              <button (click)="changeLang(lang)">
+                {{ lang | uppercase }}
+              </button>
             }
-          </div>
+          }
         </div>
+      </div>
     </div>
   </header>
 
   <nav class="main-nav">
+    <a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">Головна</a>
     <a routerLink="/news" routerLinkActive="active-link">{{ 'MENU.NEWS' | translate }}</a>
     <a routerLink="/shop" routerLinkActive="active-link">{{ 'MENU.SHOP' | translate }}</a>
     <a routerLink="/videos" routerLinkActive="active-link">{{ 'MENU.VIDEOS' | translate }}</a>

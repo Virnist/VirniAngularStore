@@ -1,6 +1,4 @@
 <div class="news-container">
-  <h2>{{ 'MENU.NEWS' | translate }}</h2>
-
   <div class="news-grid" *ngIf="news$ | async as allNews">
     <article class="news-card" *ngFor="let item of allNews" [routerLink]="['/news', item.id]">
       

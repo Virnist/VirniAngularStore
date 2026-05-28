@@ -3,5 +3,7 @@ export interface Product {
   image: string;
   category: string;
   price: number;
-  [key: string]: any; // Це дозволить звертатися до title_uk, title_en і т.д.
+  stock: number;          // Явно додаємо це поле
+  productionTime: number; // Явно додаємо це поле
+  [key: string]: any;     // Це залишається в самому кінці для title_uk, description_en тощо
 }
