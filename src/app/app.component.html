@@ -1,62 +1,103 @@
 <div class="container">
-  <header>
-    <h1 routerLink="/" class="logo">Virni</h1>
+  
+  <div 
+    class="smart-header" 
+    [class.header-hidden]="isHeaderHidden()" 
+    [class.header-scrolled]="isScrolled()">
     
-    <div class="header-controls">
-      <a routerLink="/cart" class="cart-button" aria-label="Open cart">
-        <svg 
-          xmlns="http://www.w3.org/2000/svg" 
-          viewBox="0 0 24 24" 
-          fill="none" 
-          stroke="currentColor" 
-          stroke-width="1.5" 
-          stroke-linecap="round" 
-          stroke-linejoin="round" 
-          class="cart-icon"
-        >
-          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-          <line x1="3" y1="6" x2="21" y2="6"></line>
-          <path d="M16 10a4 4 0 0 1-8 0"></path>
-        </svg>
+    <header>
+      <h1 routerLink="/" class="logo">Virni</h1>
+      
+      <div class="header-controls">
+        <a routerLink="/cart" class="cart-button" aria-label="Open cart">
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor" 
+            stroke-width="1.5" 
+            stroke-linecap="round" 
+            stroke-linejoin="round" 
+            class="cart-icon"
+          >
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
 
-        @if (cartCount() > 0) {
-          <span class="cart-badge">
-            {{ cartCount() }}
-          </span>
-        }
-      </a>
-
-      <button class="theme-toggle" (click)="toggleTheme()">
-        {{ isDarkMode ? '☀️' : '🌙' }}
-      </button>
-
-      <div class="lang-dropdown">
-        <button class="dropbtn">
-          {{ currentLang | uppercase }}
-          <span class="arrow">▼</span>
-        </button>
-        
-        <div class="dropdown-content">
-          @for (lang of supportedLangs; track lang) {
-            @if (lang !== currentLang) {
-              <button (click)="changeLang(lang)">
-                {{ lang | uppercase }}
-              </button>
-            }
+          @if (cartCount() > 0) {
+            <span class="cart-badge">
+              {{ cartCount() }}
+            </span>
           }
+        </a>
+
+        <button class="theme-toggle" (click)="toggleTheme()">
+          {{ isDarkMode ? '☀️' : '🌙' }}
+        </button>
+
+        <div class="lang-dropdown">
+          <button class="dropbtn">
+            {{ currentLang | uppercase }}
+            <span class="arrow">▼</span>
+          </button>
+          
+          <div class="dropdown-content">
+            @for (lang of supportedLangs; track lang) {
+              @if (lang !== currentLang) {
+                <button (click)="changeLang(lang)">
+                  {{ lang | uppercase }}
+                </button>
+              }
+            }
+          </div>
         </div>
       </div>
-    </div>
-  </header>
+    </header>
 
-  <nav class="main-nav">
-    <a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">Головна</a>
-    <a routerLink="/news" routerLinkActive="active-link">{{ 'MENU.NEWS' | translate }}</a>
-    <a routerLink="/shop" routerLinkActive="active-link">{{ 'MENU.SHOP' | translate }}</a>
-    <a routerLink="/videos" routerLinkActive="active-link">{{ 'MENU.VIDEOS' | translate }}</a>
-  </nav>
+    <nav class="main-nav">
+      <a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">Головна</a>
+      <a routerLink="/news" routerLinkActive="active-link">{{ 'MENU.NEWS' | translate }}</a>
+      <a routerLink="/shop" routerLinkActive="active-link">{{ 'MENU.SHOP' | translate }}</a>
+      <a routerLink="/videos" routerLinkActive="active-link">{{ 'MENU.VIDEOS' | translate }}</a>
+    </nav>
 
-  <main>
+  </div> <main>
     <router-outlet></router-outlet>
   </main>
+  <footer class="site-footer">
+    <div class="footer-content">
+      
+      <div class="footer-section brand-info">
+        <h2 class="footer-logo">Virni</h2>
+        <p class="brand-description">
+          {{ 'FOOTER.BRAND_TEXT' | translate }}
+        </p>
+      </div>
+
+      <div class="footer-section footer-links">
+        <h3>{{ 'FOOTER.NAVIGATION' | translate }}</h3>
+        <ul>
+          <li><a routerLink="/">Головна</a></li>
+          <li><a routerLink="/news">{{ 'MENU.NEWS' | translate }}</a></li>
+          <li><a routerLink="/shop">{{ 'MENU.SHOP' | translate }}</a></li>
+          <li><a routerLink="/videos">{{ 'MENU.VIDEOS' | translate }}</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section footer-socials">
+        <h3>{{ 'FOOTER.FOLLOW_US' | translate }}</h3>
+        <div class="social-icons">
+          <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">Instagram</a>
+          <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube">YouTube</a>
+          <a href="https://telegram.org" target="_blank" rel="noopener" aria-label="Telegram">Telegram</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 Virni. All rights reserved.</p>
+    </div>
+  </footer>
 </div>

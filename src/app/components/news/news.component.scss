@@ -1,11 +1,108 @@
+.news-container {
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  h2 {
+    font-size: 2rem;
+    color: var(--text-main, #fff);
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  // БЛОК КНОПОК-ФІЛЬТРІВ
+  .filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 40px;
+    justify-content: center;
+    width: 100%;
+
+    .filter-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(128, 128, 128, 0.2);
+      color: var(--text-muted, #888);
+      padding: 10px 22px;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--text-main, #fff);
+        border-color: rgba(128, 128, 128, 0.4);
+      }
+
+      &.active {
+        background: var(--accent, #ffd700);
+        color: #000 !important;
+        border-color: var(--accent, #ffd700);
+        box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+      }
+    }
+  }
+
+  /* Адаптивність кнопок-фільтрів через Media Queries */
+  @media (max-width: 576px) {
+    .filter-buttons {
+      gap: 6px;
+      .filter-btn {
+        padding: 6px 14px;
+        font-size: 0.75rem;
+
+        // Ховаємо кнопки, починаючи з 4-ї
+        &:nth-child(n+4) {
+          display: none !important;
+        }
+      }
+    }
+  }
+
+  @media (min-width: 577px) and (max-width: 992px) {
+    .filter-buttons {
+      gap: 10px;
+      .filter-btn {
+        padding: 8px 18px;
+        font-size: 0.85rem;
+
+        // Ховаємо кнопки, починаючи з 6-ї
+        &:nth-child(n+6) {
+          display: none !important;
+        }
+      }
+    }
+  }
+
+  @media (min-width: 1601px) {
+    .filter-buttons {
+      gap: 18px;
+      .filter-btn {
+        padding: 14px 32px;
+        font-size: 1.1rem;
+        letter-spacing: 1px;
+      }
+    }
+  }
+}
+
+// СІТКА НОВИН
 .news-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 30px;
+  width: 100%;
 }
 
+// КАРТКА НОВИНИ
 .news-card {
-  background: var(--bg-card);
+  background: var(--bg-card, #1a1a1a);
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
@@ -14,16 +111,17 @@
   cursor: pointer;
   display: flex;
   flex-direction: column;
+  height: 100%;
 
   &:hover {
     transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-    border-color: var(--accent);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border-color: var(--accent, #ffd700);
 
     .read-more {
-      background: var(--accent);
+      background: var(--accent, #ffd700);
       color: black !important;
-      box-shadow: 0 4px 15px rgba(var(--accent-rgb, 0, 0, 0), 0.3);
+      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
     }
   }
 
@@ -31,6 +129,29 @@
     height: 220px;
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    width: 100%;
+
+    // Бейдж категорії поверх зображення
+    .type-badge {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      padding: 6px 14px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      border-radius: 30px;
+      color: #fff !important;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      z-index: 2;
+
+      &.collections { background: #ff477e !important; }
+      &.accessories { background: #00b4d8 !important; }
+      &.style { background: #7209b7 !important; }
+    }
   }
 
   .card-content {
@@ -39,34 +160,84 @@
     flex-direction: column;
     flex-grow: 1;
 
+    .date {
+      color: var(--accent, #ffd700); 
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
     h3 { 
-      color: var(--text-main); 
+      color: var(--text-main, #fff); 
       margin: 12px 0; 
-      font-size: 1.3rem;
+      font-size: 1.2rem;
+      line-height: 1.4;
     }
 
     p { 
-      color: var(--text-muted);
+      color: var(--text-muted, #888);
       margin-bottom: 25px;
       flex-grow: 1;
+      line-height: 1.5;
     }
 
     .read-more {
-      align-self: flex-start; // Кнопка зліва
+      align-self: flex-start;
       background: transparent;
-      border: 2px solid var(--accent);
-      color: var(--accent); // У темній темі має бути яскравим
+      border: 2px solid var(--accent, #ffd700);
+      color: var(--accent, #ffd700);
       padding: 10px 24px;
-      border-radius: 50px; // Сучасний округлий стиль
+      border-radius: 50px;
       font-weight: 600;
       transition: all 0.3s ease;
       text-transform: uppercase;
       font-size: 0.8rem;
       letter-spacing: 1px;
-      
+      cursor: pointer;
+
       &:active {
         transform: scale(0.95);
       }
     }
+  }
+}
+
+// ПАГІНАЦІЯ
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 50px;
+  margin-bottom: 20px;
+
+  .pagination-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(128, 128, 128, 0.2);
+    color: var(--text-main, #fff);
+    width: 45px;
+    height: 45px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+
+    &:hover:not([disabled]) {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(128, 128, 128, 0.4);
+    }
+
+    &.active {
+      background: var(--accent, #ffd700);
+      color: #000 !important;
+      border-color: var(--accent, #ffd700);
+      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+    }
+
+    &.arrow { font-size: 1.2rem; }
+    &:disabled { opacity: 0.3; cursor: not-allowed; }
   }
 }

@@ -1,15 +1,15 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router'; // Додаємо для навігації
+import { Router, RouterLink } from '@angular/router'; 
 import { DataService } from '../../services/data.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { NewsItem } from '../../models/news.model'; // Імпортуємо модель
-import { Observable } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
+import { map, switchMap, startWith } from 'rxjs/operators';
+import { toObservable } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-news',
   standalone: true,
-  // Додаємо RouterLink в imports, щоб працював перехід на статтю
   imports: [CommonModule, TranslateModule, RouterLink], 
   templateUrl: './news.component.html',
   styleUrl: './news.component.scss'
@@ -17,18 +17,89 @@ import { Observable } from 'rxjs';
 export class NewsComponent {
   private dataService = inject(DataService);
   public translate = inject(TranslateService);
+  private router = inject(Router); 
 
-  // Створюємо потік новин з сервісу
-  public news$: Observable<NewsItem[]> = this.dataService.getNews();
+  // Сигнали для фільтрації та сторінок
+  public selectedCategory = signal<string>('all');
+  public currentPage = signal<number>(1);
+  private itemsPerPage = 10; // Показувати по 10 новин
 
-  /**
-   * Динамічно отримує контент для 5 мов:
-   * Шукає поле за схемою field_lang (наприклад: title_pl, text_fr)
-   */
-  getContent(item: NewsItem, field: 'title' | 'text'): string {
-    const lang = this.translate.currentLang || 'uk';
-    const key = `${field}_${lang}`;
-    // Якщо перекладу немає (наприклад, забули додати title_de), повертаємо українську версію
-    return item[key] || item[`${field}_uk`];
+  // Масив номерів сторінок (зберігається тут безпечно)
+  public pageNumbers: number[] = [];
+
+  // Отримуємо категорії, відсортовані за популярністю (кількістю новин)
+  public categories$: Observable<string[]> = this.dataService.getNews().pipe(
+    map(news => {
+      // 1. Рахуємо кількість новин для кожної категорії
+      const countMap: { [key: string]: number } = {};
+      news.forEach(item => {
+        const cat = (item['category'] || 'style').toLowerCase();
+        countMap[cat] = (countMap[cat] || 0) + 1;
+      });
+
+      // 2. Сортуємо категорії за кількістю згадок (від більшого до меншого)
+      const sortedCats = Object.keys(countMap).sort((a, b) => countMap[b] - countMap[a]);
+
+      // 3. Обмежуємо загальний максимум (не більше 6 найпопулярніших + 'all')
+      const topCategories = sortedCats.slice(0, 6);
+
+      return ['all', ...topCategories];
+    })
+  );
+
+  // Фільтруємо новини за категоріями та пагінацією
+  public news$: Observable<any[]> = combineLatest([
+    toObservable(this.selectedCategory),
+    toObservable(this.currentPage),
+    // ВИПРАВЛЕНО: Додано startWith, щоб потік мови вистрілював одразу при переході на сторінку
+    this.translate.onLangChange.pipe(
+      map(e => e.lang),
+      startWith(this.translate.currentLang || 'en'),
+      switchMap(() => [null])
+    )
+  ]).pipe(
+    switchMap(([category, page]) => {
+      return this.dataService.getNews().pipe(
+        map(news => {
+          // 1. Фільтрація
+          const filtered = category.toLowerCase() === 'all' 
+            ? news 
+            : news.filter(n => (n['category'] || '').toUpperCase() === category.toUpperCase());
+
+          // 2. Розрахунок сторінок для пагінації (очищення запобігає багам трекінгу в Angular)
+          this.pageNumbers = []; 
+          const totalPages = Math.ceil(filtered.length / this.itemsPerPage);
+          this.pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
+
+          // 3. Нарізаємо порцію з 10 елементів
+          const startIndex = (page - 1) * this.itemsPerPage;
+          const endIndex = startIndex + this.itemsPerPage;
+          
+          return filtered.slice(startIndex, endIndex);
+        })
+      );
+    })
+  );
+
+  // Метод для безпечного отримання перекладеного контенту
+  getContent(item: any, field: 'title' | 'text'): string {
+    const lang = this.translate.currentLang || 'en';
+    return item[`${field}_${lang}`] || item[`${field}_en`] || item[`${field}_uk`] || '';
+  }
+
+  // Метод перемикання категорій
+  setCategory(category: string) {
+    this.currentPage.set(1); // При зміні фільтра завжди скидаємо на 1 сторінку!
+    if (category.toLowerCase() === 'all') {
+      this.selectedCategory.set('all');
+    } else {
+      this.selectedCategory.set(category.toUpperCase());
+    }
+  }
+
+  // Метод зміни сторінки користувачем
+  setPage(page: number) {
+    this.currentPage.set(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' }); // Плавний скрол вгору
   }
 }

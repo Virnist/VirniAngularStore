@@ -2,21 +2,74 @@
 // 1. ЗАГАЛЬНІ СТИЛІ ТА КОНТЕЙНЕРИ
 // ==========================================
 .container {
+  position: relative;
+  width: 100%;
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 20px;
 }
 
+// ВІДСТУП ДЛЯ КОНТЕНТУ: щоб сторінки не залізали ПІД фіксовану шапку
+main {
+  padding-top: 160px; 
+  min-height: 100vh;
+  width: 100%;
+  
+  @media (max-width: 768px) {
+    padding-top: 130px;
+  }
+}
+
 // ==========================================
-// 2. ГЛОБАЛЬНИЙ ХЕДЕР (ВЕРХНЯ ПАНЕЛЬ)
+// 2. РОЗУМНА ПЛАВАЮЧА ОБГОРТКА (SMART HEADER)
+// ==========================================
+.smart-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: transparent;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  
+  // Апаратне прискорення для ультра-плавної анімації
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+              background-color 0.3s ease, 
+              box-shadow 0.3s ease,
+              border-color 0.3s ease;
+  transform: translateY(0); 
+
+  // Стан 1: Гортаємо вниз — ховаємо меню
+  &.header-hidden {
+    transform: translateY(-100%);
+  }
+
+  // Стан 2: Ефект преміального матового скла при скролі (Світла тема)
+  &.header-scrolled {
+    background: rgba(255, 255, 255, 0.75); 
+    backdrop-filter: blur(20px);        
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom-color: rgba(0, 0, 0, 0.03);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04), 
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    
+    .main-nav {
+      padding: 12px 0; // Навігація стає компактнішою
+    }
+  }
+}
+
+// ==========================================
+// 3. ГЛОБАЛЬНИЙ ХЕДЕР ТА ЕЛЕМЕНТИ
 // ==========================================
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 25px 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
+  padding: 20px 0;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
 
   .logo {
     font-size: 1.8rem;
@@ -24,22 +77,18 @@ header {
     letter-spacing: 1px;
     cursor: pointer;
     margin: 0;
-    color: inherit;
+    color: #1a1a1a;
     text-decoration: none;
     text-transform: uppercase;
+    transition: color 0.3s ease;
   }
 }
 
-// Блок елементів праворуч (Кошик + Тема + Мова)
 .header-controls {
   display: flex;
   align-items: center;
   gap: 20px;
 }
-
-// ==========================================
-// 3. КОМПОНЕНТИ КОНТРОЛІВ (КОШИК, ТЕМА, МОВА)
-// ==========================================
 
 // Кнопка кошика
 .cart-button {
@@ -78,7 +127,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
     animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
   }
 }
@@ -100,12 +149,11 @@ header {
   }
 }
 
-// Випадаючий список мов (Преміум мінімалізм)
+// Список мов
 .lang-dropdown {
   position: relative;
   display: inline-block;
 
-  // Місток, щоб меню не зникало при переході мишкою
   &::after {
     content: "";
     position: absolute;
@@ -129,7 +177,7 @@ header {
     display: flex;
     align-items: center;
     gap: 6px;
-    color: inherit;
+    color: #1a1a1a;
     transition: all 0.3s ease;
 
     .arrow {
@@ -140,6 +188,7 @@ header {
 
     &:hover {
       border-color: #a38a5e;
+      color: #a38a5e;
     }
   }
 
@@ -175,10 +224,9 @@ header {
     }
   }
 
-  // Поведінка при наведенні (Hover)
   &:hover {
     &::after { display: block; }
-
+    
     .dropdown-content {
       display: block;
       animation: fadeIn 0.2s ease-out;
@@ -186,35 +234,32 @@ header {
 
     .dropbtn {
       border-color: #a38a5e;
+      color: #a38a5e;
       .arrow { transform: rotate(180deg); }
     }
   }
 }
 
 // ==========================================
-// 4. ГОЛОВНА НАВІГАЦІЯ (ГОРИЗОНТАЛЬНЕ МЕНЮ)
+// 4. ГОЛОВНА НАВІГАЦІЯ (МЕНЮ)
 // ==========================================
 .main-nav {
   display: flex;
   justify-content: center;
   gap: 40px;
-  padding: 20px 0;
-  background: transparent;
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  padding: 16px 0;
+  transition: padding 0.3s ease;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
   overflow-x: auto;
   white-space: nowrap;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   
-  // Приховуємо стандартний скроллбар для збереження краси на мобільних
   &::-webkit-scrollbar { display: none; }
   -ms-overflow-style: none;
   scrollbar-width: none;
 
   @media (max-width: 768px) {
-    justify-content: flex-start; // На мобільних дозволяємо скролити зліва направо
-    padding: 15px 10px;
+    justify-content: flex-start;
+    padding: 12px 10px;
     gap: 25px;
   }
 
@@ -242,31 +287,42 @@ header {
 
     &:hover, &.active-link {
       color: #1a1a1a;
-      
-      &::after {
-        width: 100%;
-      }
+      &::after { width: 100%; }
     }
   }
 }
 
 // ==========================================
-// 5. АДАПТАЦІЯ ПІД ТЕМНУ ТЕМУ (.dark-theme)
+// 5. АДАТАЦІЯ ПІД ТЕМНУ ТЕМУ (.dark-theme)
 // ==========================================
 :host-context(.dark-theme) {
-  header { 
-    border-bottom-color: rgba(255, 255, 255, 0.08); 
+  .smart-header {
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+
+    // Матове скло для темної теми
+    &.header-scrolled {
+      background: rgba(26, 26, 26, 0.75); 
+      border-bottom-color: rgba(255, 255, 255, 0.03);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 
+                  inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+  }
+
+  header .logo {
+    color: #ffffff;
   }
   
   .cart-button {
     color: #ffffff;
     &:hover { color: #e5c185; }
+    .cart-badge { background: #e5c185; color: #000; }
   }
 
   .lang-dropdown {
     .dropbtn {
       border-color: rgba(255, 255, 255, 0.2);
-      &:hover { border-color: #e5c185; }
+      color: #ffffff;
+      &:hover { border-color: #e5c185; color: #e5c185; }
     }
     
     .dropdown-content {
@@ -285,11 +341,13 @@ header {
   }
 
   .main-nav {
-    border-bottom-color: rgba(255, 255, 255, 0.08);
+    border-top-color: rgba(255, 255, 255, 0.08);
 
     a {
       color: #aaaaaa;
-      &:hover, &.active-link { color: #ffffff; }
+      &:hover, &.active-link { 
+        color: #ffffff; 
+      }
       &::after { background: #e5c185; }
     }
   }
@@ -307,4 +365,170 @@ header {
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-5px); }
   to { opacity: 1; transform: translateY(0); }
+}
+// ==========================================
+// 7. СУЧАСНИЙ МІНІМАЛІСТИЧНИЙ ФУТЕР
+// ==========================================
+.site-footer {
+  width: 100%;
+  background: #fdfdfd; // Дуже легкий світлий фон для контрасту з білим main
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 60px 0 20px 0;
+  margin-top: 80px; // Відступ від контенту сторінки
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+
+  .footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr; // Асиметрична сітка (Бренд ширший)
+    gap: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr; // На мобільних все стає в один стовпчик
+      gap: 30px;
+      padding: 0 20px;
+    }
+  }
+
+  .footer-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    h3 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #1a1a1a;
+      margin: 0;
+      transition: color 0.3s ease;
+    }
+  }
+
+  // Секція бренду
+  .brand-info {
+    .footer-logo {
+      font-size: 1.6rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 0;
+      color: #1a1a1a;
+      transition: color 0.3s ease;
+    }
+
+    .brand-description {
+      color: #666666;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      max-width: 320px;
+      margin: 0;
+      transition: color 0.3s ease;
+    }
+  }
+
+  // Навігаційні посилання
+  .footer-links {
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      a {
+        text-decoration: none;
+        color: #555555;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: color 0.2s ease;
+        display: inline-block;
+
+        &:hover {
+          color: #a38a5e;
+        }
+      }
+    }
+  }
+
+  // Соціальні мережі
+  .footer-socials {
+    .social-icons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      a {
+        text-decoration: none;
+        color: #555555;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: color 0.2s ease;
+        position: relative;
+        align-self: flex-start;
+
+        &:hover {
+          color: #a38a5e;
+        }
+      }
+    }
+  }
+
+  // Нижня лінія з копірайтом
+  .footer-bottom {
+    max-width: 1400px;
+    margin: 40px auto 0 auto;
+    padding: 20px 40px 0 40px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    text-align: center;
+    transition: border-color 0.3s ease;
+
+    p {
+      font-size: 0.8rem;
+      color: #888888;
+      margin: 0;
+    }
+
+    @media (max-width: 768px) {
+      padding: 20px 20px 0 20px;
+    }
+  }
+}
+
+// ==========================================
+// АДАПТАЦІЯ ФУТЕРА ПІД ТЕМНУ ТЕМУ
+// ==========================================
+:host-context(.dark-theme) {
+  .site-footer {
+    background: #151515; // Глибокий благородний темний фон
+    border-top-color: rgba(255, 255, 255, 0.05);
+
+    .footer-section h3 {
+      color: #ffffff;
+    }
+
+    .brand-info {
+      .footer-logo { color: #ffffff; }
+      .brand-description { color: #aaaaaa; }
+    }
+
+    .footer-links ul a {
+      color: #aaaaaa;
+      &:hover { color: #e5c185; } // Преміум золото для темної теми
+    }
+
+    .footer-socials .social-icons a {
+      color: #aaaaaa;
+      &:hover { color: #e5c185; }
+    }
+
+    .footer-bottom {
+      border-top-color: rgba(255, 255, 255, 0.05);
+      p { color: #666666; }
+    }
+  }
 }

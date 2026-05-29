@@ -1,11 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { CommonModule, AsyncPipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router'; 
 import { DataService } from '../../services/data.service';
 import { CartService } from '../../services/cart.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { forkJoin, Observable, combineLatest } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { map, startWith, shareReplay } from 'rxjs/operators';
 import { Product } from '../../models/product.model';
 
 interface FeedItem {
@@ -21,7 +21,7 @@ interface FeedItem {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, AsyncPipe, TranslateModule],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -31,7 +31,6 @@ export class HomeComponent implements OnInit {
   public translate = inject(TranslateService);
   private router = inject(Router);
 
-  // Тепер просто оголошуємо потік, а створювати будемо в ngOnInit
   public feed$!: Observable<FeedItem[]>;
 
   ngOnInit() {
@@ -41,53 +40,84 @@ export class HomeComponent implements OnInit {
       });
     }
 
-    // 1. Створюємо потік подій зміни мови, який відразу дає поточну мову (через startWith)
+    // 1. Потік зміни мови із початковим значенням
     const langChanges$ = this.translate.onLangChange.pipe(
       startWith({ lang: this.translate.currentLang || 'en' })
     );
 
-    // 2. Робимо твій запит до даних
-    const data$ = forkJoin({
+    // 2. Запит до даних з вибіркою НАЙНОВІШИХ по 3 штуки та їх подальшим перемішуванням
+    const mixedData$ = forkJoin({
       news: this.dataService.getNews(),
       products: this.dataService.getProducts() as Observable<Product[]>,
       videos: this.dataService.getVideos()
-    });
-
-    // 3. Магія: combineLatest змушує Angular перераховувати назви КОЖЕН раз, коли міняється мова
-    this.feed$ = combineLatest([data$, langChanges$]).pipe(
-      map(([{ news, products, videos }, _]) => {
+    }).pipe(
+      map(({ news, products, videos }) => {
         
-        const mappedNews: FeedItem[] = (news || []).map(item => ({
-          type: 'news', id: item.id, image: item.image,
-          title: this.getContent(item, 'title'), 
-          description: this.getContent(item, 'text'),
-          date: item.date, rawItem: item
-        }));
+        // --- 1. ОБРОБКА НОВИН (Сортування за датою від новіших до старіших) ---
+        const latestNews = (news || [])
+          .sort((a, b) => {
+            const dateA = a.date ? new Date(a.date).getTime() : 0;
+            const dateB = b.date ? new Date(b.date).getTime() : 0;
+            return dateB - dateA; // Спочатку новіші
+          })
+          .slice(0, 3) // Беремо топ-3
+          .map(item => ({ ...item, FEED_TYPE: 'news' }));
 
-        const mappedProducts: FeedItem[] = (products || []).map(item => ({
-          type: 'product', id: item.id, image: item.image,
-          title: this.getLangContent(item, 'title'), 
-          description: this.getLangContent(item, 'description') || '',
-          rawItem: item
-        }));
+        // --- 2. ОБРОБКА ТОВАРІВ (Сортування за спаданням ID або дати додавання) ---
+        const latestProducts = (products || [])
+          .sort((a, b) => Number(b.id) - Number(a.id)) // Припускаємо, що більший ID — новіший товар
+          .slice(0, 3) // Беремо топ-3
+          .map(item => ({ ...item, FEED_TYPE: 'product' }));
 
-        const mappedVideos: FeedItem[] = (videos || []).map(item => ({
-          type: 'video', id: item.id, image: item.thumbnail,
-          title: item.title, description: item.description, rawItem: item
-        }));
+        // --- 3. ОБРОБКА ВІДЕО (Беремо останні 3 додані відео з масиву) ---
+        const latestVideos = (videos || [])
+          .sort((a, b) => {
+            // Якщо у відео є дата, сортуємо за нею, якщо ні — за ID у зворотньому порядку
+            const dateA = a.date ? new Date(a.date).getTime() : 0;
+            const dateB = b.date ? new Date(b.date).getTime() : 0;
+            return dateB !== 0 || dateA !== 0 ? dateB - dateA : Number(b.id) - Number(a.id);
+          })
+          .slice(0, 3) // Беремо топ-3
+          .map(item => ({ ...item, FEED_TYPE: 'video' }));
 
-        return this.shuffleArray([...mappedNews, ...mappedProducts, ...mappedVideos]);
+        // Об'єднуємо відібрані 9 елементів (3 + 3 + 3) в єдиний масив
+        const topNineItems = [...latestNews, ...latestProducts, ...latestVideos];
+
+        // Перемішуємо ці 9 елементів між собою, щоб вони не йшли групами
+        return this.shuffleArray(topNineItems);
+      }),
+      shareReplay(1) // Кешуємо результат, щоб уникнути повторних запитів
+    );
+
+    // 3. Комбінуємо фіксований за структурою масив із потоком мови
+    this.feed$ = combineLatest([mixedData$, langChanges$]).pipe(
+      map(([shuffledItems, _]) => {
+        return shuffledItems.map(item => {
+          if (item.FEED_TYPE === 'news') {
+            return {
+              type: 'news', id: item.id, image: item.image,
+              title: this.getLangContent(item, 'title'), 
+              description: this.getLangContent(item, 'text'),
+              date: item.date, rawItem: item
+            };
+          } else if (item.FEED_TYPE === 'product') {
+            return {
+              type: 'product', id: item.id, image: item.image,
+              title: this.getLangContent(item, 'title'), 
+              description: this.getLangContent(item, 'description') || '',
+              rawItem: item
+            };
+          } else {
+            return {
+              type: 'video', id: item.id, image: item.thumbnail,
+              title: item.title, description: item.description, rawItem: item
+            };
+          }
+        });
       })
     );
   }
 
-  // Оновлено: тепер пріоритет на поточну мову -> потім англійська -> потім українська
-  getContent(item: any, field: 'title' | 'text'): string {
-    const lang = this.translate.currentLang || 'en';
-    return item[`${field}_${lang}`] || item[`${field}_en`] || item[`${field}_uk`] || '';
-  }
-
-  // Оновлено: тепер пріоритет на поточну мову -> потім англійська -> потім українська
   getLangContent(item: any, field: string): string {
     const lang = this.translate.currentLang || 'en';
     return item[`${field}_${lang}`] || item[`${field}_en`] || item[`${field}_uk`] || '';
@@ -133,7 +163,7 @@ export class HomeComponent implements OnInit {
     }
   }
   
-  private shuffleArray(array: FeedItem[]): FeedItem[] {
+  private shuffleArray(array: any[]): any[] {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [array[i], array[j]] = [array[j], array[i]];

@@ -1,12 +1,12 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, computed } from '@angular/core';
 import { CommonModule, AsyncPipe } from '@angular/common';
 import { Router } from '@angular/router'; 
 import { DataService } from '../../services/data.service';
 import { CartService } from '../../services/cart.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { toObservable } from '@angular/core/rxjs-interop'; // ДОДАНО для правильної роботи сигналів у потоках
+import { toObservable } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-shop',
@@ -21,24 +21,58 @@ export class ShopComponent {
   public translate = inject(TranslateService);
   private router = inject(Router); 
 
-  // Спеціальний сигнал для зберігання обраної категорії
   public selectedCategory = signal<string>('all');
+  
+  // ДОДАНО: Сигнал для поточної сторінки (починаємо з 1)
+  public currentPage = signal<number>(1);
+  private itemsPerPage = 10; // Кількість товарів на сторінці
 
-  // ДОДАНО: Список унікальних категорій для меню фільтрів (те, що вимагає HTML)
+  // ДОДАНО: Змінна для зберігання масиву номерів сторінок (наприклад, [1, 2, 3])
+  public pageNumbers: number[] = [];
+
+  // Отримуємо категорії товарів, відсортовані за кількістю товарів у них
   public categories$: Observable<string[]> = this.dataService.getProducts().pipe(
     map(products => {
-      const cats = products.map(p => p.category.toLowerCase());
-      return ['all', ...new Set(cats)]; // Повертає ['all', 'wedding', 'traditional', ...]
+      // 1. Рахуємо, скільки товарів припадає на кожну категорію
+      const countMap: { [key: string]: number } = {};
+      products.forEach(item => {
+        const cat = (item['category'] || 'other').toLowerCase();
+        countMap[cat] = (countMap[cat] || 0) + 1;
+      });
+
+      // 2. Сортуємо за популярністю (де більше товарів — ті перші)
+      const sortedCats = Object.keys(countMap).sort((a, b) => countMap[b] - countMap[a]);
+
+      // 3. Обмежуємо топ-6 найпопулярніших категорій для виведення на екран
+      const topCategories = sortedCats.slice(0, 6);
+
+      // Повертаємо масив із дефолтним варіантом 'all' на початку
+      return ['all', ...topCategories];
     })
   );
 
-  // ВИПРАВЛЕНО: Тепер потік товарів автоматично перераховується, коли змінюється сигнал selectedCategory
-  public products$: Observable<any[]> = toObservable(this.selectedCategory).pipe(
-    switchMap(category => {
+  // ВИПРАВЛЕНО: Тепер потік реагує і на зміну категорії, і на зміну сторінки
+  public products$: Observable<any[]> = combineLatest([
+    toObservable(this.selectedCategory),
+    toObservable(this.currentPage)
+  ]).pipe(
+    switchMap(([category, page]) => {
       return this.dataService.getProducts().pipe(
         map(products => {
-          if (category.toLowerCase() === 'all') return products;
-          return products.filter(p => p.category.toUpperCase() === category.toUpperCase());
+          // 1. Спочатку фільтруємо за категорією
+          const filtered = category.toLowerCase() === 'all' 
+            ? products 
+            : products.filter(p => p.category.toUpperCase() === category.toUpperCase());
+
+          // 2. Рахуємо масив сторінок для HTML
+          const totalPages = Math.ceil(filtered.length / this.itemsPerPage);
+          this.pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
+
+          // 3. Нарізаємо масив товарів (наприклад, для сторінки 1: з 0 по 10)
+          const startIndex = (page - 1) * this.itemsPerPage;
+          const endIndex = startIndex + this.itemsPerPage;
+          
+          return filtered.slice(startIndex, endIndex);
         })
       );
     })
@@ -58,7 +92,6 @@ export class ShopComponent {
     return `${price} $`;
   }
 
-  // Обробка загального кліку на картку або кнопку додавання
   onCardAction(item: any, event: Event) {
     const target = event.target as HTMLElement;
     const isButtonClick = target.classList.contains('read-more') || target.closest('.read-more');
@@ -73,7 +106,9 @@ export class ShopComponent {
     }
   }
 
+  // При зміні категорії завжди скидаємо сторінку на 1
   setCategory(category: string) {
+    this.currentPage.set(1); 
     if (category.toLowerCase() === 'all') {
       this.selectedCategory.set('all');
     } else {
@@ -81,15 +116,20 @@ export class ShopComponent {
     }
   }
 
-  // Клік по бейджу: якщо він уже активний — скидаємо фільтр на 'all', якщо ні — фільтруємо
   onBadgeClick(category: string, event: Event) {
     event.stopPropagation();
     event.preventDefault();
-
+    this.currentPage.set(1); // Скидаємо сторінку
     if (this.selectedCategory() === category.toUpperCase()) {
       this.selectedCategory.set('all'); 
     } else {
       this.selectedCategory.set(category.toUpperCase()); 
     }
+  }
+
+  // ДОДАНО: Метод для зміни сторінки користувачем
+  setPage(page: number) {
+    this.currentPage.set(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' }); // Плавний скролл вгору при зміні сторінки
   }
 }

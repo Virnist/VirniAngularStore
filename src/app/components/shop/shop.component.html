@@ -1,5 +1,4 @@
 <div class="news-container">
-
   @if (categories$ | async; as cats) {
     <div class="filter-buttons">
       @for (cat of cats; track cat) {
@@ -17,10 +16,8 @@
 
   @if (products$ | async; as allProducts) {
     <div class="news-grid">
-      
       @for (item of allProducts; track item.id) {
         <article class="news-card" (click)="onCardAction(item, $event)">
-          
           <div class="card-image" [style.backgroundImage]="'url(' + item.image + ')'">
             <span class="type-badge" 
                   [ngClass]="item.category.toLowerCase()" 
@@ -33,19 +30,43 @@
             <div class="price-container">
               <span class="date">{{ getFormattedPrice(item.price) }}</span>
             </div>
-            
             <h3>{{ getLangContent(item, 'title') }}</h3>
             <p>{{ getLangContent(item, 'description') | slice:0:120 }}...</p>
-            
             <button class="read-more">
               🛒 {{ 'SHOP.ADD_TO_CART' | translate }}
             </button>
           </div>
-          
         </article>
       }
-
     </div>
+
+    @if (pageNumbers.length > 1) {
+      <div class="pagination-container">
+        <button 
+          class="pagination-btn arrow" 
+          [disabled]="currentPage() === 1"
+          (click)="setPage(currentPage() - 1)">
+          &laquo;
+        </button>
+
+        @for (page of pageNumbers; track page) {
+          <button 
+            class="pagination-btn"
+            [class.active]="currentPage() === page"
+            (click)="setPage(page)">
+            {{ page }}
+          </button>
+        }
+
+        <button 
+          class="pagination-btn arrow" 
+          [disabled]="currentPage() === pageNumbers.length"
+          (click)="setPage(currentPage() + 1)">
+          &raquo;
+        </button>
+      </div>
+    }
+
   } @else {
     <div class="loader">Завантаження товарів...</div>
   }

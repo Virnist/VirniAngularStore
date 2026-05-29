@@ -1,19 +1,73 @@
 <div class="news-container">
-  <div class="news-grid" *ngIf="news$ | async as allNews">
-    <article class="news-card" *ngFor="let item of allNews" [routerLink]="['/news', item.id]">
+  @if (categories$ | async; as cats) {
+    <div class="filter-buttons">
+      @for (cat of cats; track cat; let i = $index) {
+        <button 
+          class="filter-btn" 
+          [class.active]="selectedCategory() === cat.toUpperCase()"
+          (click)="setCategory(cat.toUpperCase())"
+          [style.--btn-index]="i"> {{ cat === 'all' ? ('NEWS.CATEGORIES.ALL' | translate) : ('NEWS.CATEGORIES.' + cat.toUpperCase() | translate) }}
+        </button>
+      }
+    </div>
+  }
+
+  @if (news$ | async; as allNews) {
+    <div class="news-grid">
       
-      <div class="card-image" [style.backgroundImage]="'url(' + item.image + ')'"></div>
-      <div class="card-content">
-        <span class="date">{{ item.date | date:'dd.MM.yyyy' }}</span>
-        
-        <h3>{{ getContent(item, 'title') }}</h3>
-        <p>{{ getContent(item, 'text') | slice:0:120 }}...</p>
-        
-        <button class="read-more">
-          {{ 'NEWS.READ_MORE' | translate }}
+      @for (item of allNews; track item.id + '-' + $index) {
+          <article class="news-card" [routerLink]="['/news', item.id]">
+          
+          <div class="card-image" [style.backgroundImage]="'url(' + item.image + ')'">
+            <span class="type-badge" [ngClass]="item.category.toLowerCase()">
+              {{ 'NEWS.CATEGORIES.' + item.category.toUpperCase() | translate }}
+            </span>
+          </div>
+          
+          <div class="card-content">
+            <span class="date">{{ item.date | date:'dd.MM.yyyy' }}</span>
+            
+            <h3>{{ getContent(item, 'title') }}</h3>
+            <p>{{ getContent(item, 'text') | slice:0:120 }}...</p>
+            
+            <button class="read-more">
+              {{ 'NEWS.READ_MORE' | translate }}
+            </button>
+          </div>
+          
+        </article>
+      }
+
+    </div>
+
+    @if (pageNumbers.length > 1) {
+      <div class="pagination-container">
+        <button 
+          class="pagination-btn arrow" 
+          [disabled]="currentPage() === 1"
+          (click)="setPage(currentPage() - 1)">
+          &laquo;
+        </button>
+
+        @for (page of pageNumbers; track $index) {
+          <button 
+            class="pagination-btn"
+            [class.active]="currentPage() === page"
+            (click)="setPage(page)">
+            {{ page }}
+          </button>
+        }
+
+        <button 
+          class="pagination-btn arrow" 
+          [disabled]="currentPage() === pageNumbers.length"
+          (click)="setPage(currentPage() + 1)">
+          &raquo;
         </button>
       </div>
-      
-    </article>
-  </div>
+    }
+
+  } @else {
+    <div class="loader">Завантаження новин...</div>
+  }
 </div>

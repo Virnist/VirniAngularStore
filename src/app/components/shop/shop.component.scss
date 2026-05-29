@@ -1,4 +1,4 @@
-// Головна обгортка для всього блоку магазину
+// Головна обгортка для всього блоку магазину (синхронізовано з твоїм HTML)
 .news-container {
   padding: 40px 20px;
   max-width: 1200px;
@@ -19,6 +19,7 @@
     gap: 12px;
     margin-bottom: 40px;
     justify-content: center; // Центруємо кнопочки
+    width: 100%;
 
     .filter-btn {
       background: rgba(255, 255, 255, 0.05);
@@ -29,9 +30,10 @@
       font-size: 0.9rem;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.25s ease;
       text-transform: uppercase;
       letter-spacing: 0.5px;
+      white-space: nowrap;
 
       &:hover {
         background: rgba(255, 255, 255, 0.1);
@@ -48,17 +50,68 @@
       }
     }
   }
+
+  /* ==========================================================================
+     АДАПТИВНІСТЬ КАТЕГОРІЙ МАГАЗИНУ (MEDIA QUERIES)
+     ========================================================================== */
+
+  // 1. СМАРТФОНИ (До 576px) — залишаємо "Усі" + 2 топ-категорії товарів
+  @media (max-width: 576px) {
+    .filter-buttons {
+      gap: 6px;
+      
+      .filter-btn {
+        padding: 6px 14px;
+        font-size: 0.75rem;
+
+        // Ховаємо всі кнопки, починаючи з 4-ї
+        &:nth-child(n+4) {
+          display: none !important;
+        }
+      }
+    }
+  }
+
+  // 2. ПЛАНШЕТИ (Від 577px до 992px) — залишаємо "Усі" + 4 топ-категорії товарів
+  @media (min-width: 577px) and (max-width: 992px) {
+    .filter-buttons {
+      gap: 10px;
+      
+      .filter-btn {
+        padding: 8px 18px;
+        font-size: 0.85rem;
+
+        // Ховаємо всі кнопки, починаючи з 6-ї
+        &:nth-child(n+6) {
+          display: none !important;
+        }
+      }
+    }
+  }
+
+  // 3. ТЕЛЕВІЗОРИ ТА ВЕЛИКІ ЕКРАНИ (Від 1601px і вище) — масштабуємо під 4К
+  @media (min-width: 1601px) {
+    .filter-buttons {
+      gap: 18px;
+
+      .filter-btn {
+        padding: 14px 32px;
+        font-size: 1.1rem;
+        letter-spacing: 1px;
+      }
+    }
+  }
 }
 
-// Оновлена та залізобетонна сітка товарів
+// Адаптивна сітка товарів
 .news-grid {
-  display: grid !important;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important;
-  gap: 30px !important;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
   width: 100%;
 }
 
-// Сама картка товару
+// Картка товару в магазині
 .news-card {
   background: var(--bg-card, #1a1a1a);
   border-radius: 16px;
@@ -69,7 +122,7 @@
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  height: 100%; // Гарантує однакову висоту карток у рядку
+  height: 100%; // Однакова висота карток у рядку
 
   &:hover {
     transform: translateY(-10px);
@@ -79,7 +132,7 @@
     .read-more {
       background: var(--accent, #ffd700);
       color: black !important;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
     }
   }
 
@@ -88,10 +141,10 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    position: relative; // Для точного позиціонування баджа
+    position: relative; 
     width: 100%;
 
-    // Стиль баджа категорії всередині картки
+    // Бадж категорії на картці товару
     .type-badge {
       position: absolute;
       top: 15px;
@@ -106,7 +159,6 @@
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
       display: inline-block;
       z-index: 2;
-      cursor: pointer;
       transition: transform 0.2s ease, filter 0.2s ease;
 
       &:hover {
@@ -114,7 +166,7 @@
         filter: brightness(1.15);
       }
 
-      // Кольорові мітки категорій під твій JSON
+      // Кольори баджів категорій під твій JSON магазину
       &.wedding { background: #9b5de5 !important; }
       &.traditional { background: #e28743 !important; }
       &.perfume { background: #00b4d8 !important; }
@@ -130,12 +182,13 @@
 
     .price-container {
       margin-bottom: 4px;
-    }
 
-    .date {
-      color: var(--accent, #ffd700); 
-      font-weight: 700;
-      font-size: 1.1rem;
+      // Твій клас .date, який у магазині працює як ціна
+      .date {
+        color: var(--accent, #ffd700); 
+        font-weight: 700;
+        font-size: 1.1rem;
+      }
     }
 
     h3 { 
@@ -152,6 +205,7 @@
       line-height: 1.5;
     }
 
+    // Кнопка додавання до кошика 🛒
     .read-more {
       align-self: flex-start;
       background: transparent;
@@ -170,5 +224,46 @@
         transform: scale(0.95);
       }
     }
+  }
+}
+
+// Стилі для блоку пагінації магазину
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 50px;
+  margin-bottom: 20px;
+
+  .pagination-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(128, 128, 128, 0.2);
+    color: var(--text-main, #fff);
+    width: 45px;
+    height: 45px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+
+    &:hover:not([disabled]) {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(128, 128, 128, 0.4);
+    }
+
+    &.active {
+      background: var(--accent, #ffd700);
+      color: #000 !important;
+      border-color: var(--accent, #ffd700);
+      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+    }
+
+    &.arrow { font-size: 1.2rem; }
+    &:disabled { opacity: 0.3; cursor: not-allowed; }
   }
 }
