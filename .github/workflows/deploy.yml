@@ -26,7 +26,7 @@ jobs:
       with:
         client-id: ${{ secrets.INFISICAL_CLIENT_ID }}
         client-secret: ${{ secrets.INFISICAL_CLIENT_SECRET }}
-        project-slug: "ee2ef1c0-3627-43e5-91d0-2227fb38b293" # ЗАМІНИ НА СВІЙ SLUG З КРОКУ 2 (наприклад, "virnistore")
+        project-slug: "virni-store-u-i-ye" # ЗАМІНИ НА СВІЙ SLUG З КРОКУ 2 (наприклад, "virnistore")
         env-slug: "dev" # Оскільки ми закинули ключі в секцію Development
 
     # 4. Встановлюємо залежності проєкту (включаючи dotenv, який ми ставили раніше)
