@@ -1,38 +1,42 @@
-name: Deploy to GitHub Pages
+name: Build Angular App with Infisical
 
 on:
   push:
-    branches: [ main ] # Спрацьовувати при пуші в main
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+    branches: [ main, master ] # Спрацьовує, коли ти робиш git push у main або master
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+    # 1. Копіюємо код проєкту на віртуальний сервер GitHub
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20 # ВИПРАВЛЕНО: Стабільна LTS версія Node.js, яка підтримує Angular
+    # 2. Встановлюємо Node.js
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
 
-      - name: Install dependencies
-        run: npm ci
+    # 3. МАГІЯ: Звертаємося до Infisical за ключами
+    - name: Fetch secrets from Infisical
+      uses: Infisical/secrets-action@v1.0.7
+      with:
+        client-id: ${{ secrets.INFISICAL_CLIENT_ID }}
+        client-secret: ${{ secrets.INFISICAL_CLIENT_SECRET }}
+        project-slug: "ee2ef1c0-3627-43e5-91d0-2227fb38b293" # ЗАМІНИ НА СВІЙ SLUG З КРОКУ 2 (наприклад, "virnistore")
+        env-slug: "dev" # Оскільки ми закинули ключі в секцію Development
 
-      - name: Build
-        run: npx ng build --configuration production --base-href /VirniAngularStore/
-        env:
-          CI: false # ДОДАНО: Щоб GitHub проігнорував попередження (warnings) про ліміти CSS
+    # 4. Встановлюємо залежності проєкту (включаючи dotenv, який ми ставили раніше)
+    - name: Install dependencies
+      run: npm ci
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist/VirniAngularStore/browser # Шлях до вашої збірки
+    # 5. Запускаємо наш set-env.js. Він візьме ключі з пам'яті process.env і створить файл для Angular
+    - name: Generate Environment File
+      run: node set-env.js
 
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v4
+    # 6. Тестова збірка проєкту, щоб переконатися, що все компилюється без помилок
+    - name: Build Angular Application
+      run: npm run build
