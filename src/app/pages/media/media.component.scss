@@ -115,7 +115,6 @@
 .media-header {
   margin-bottom: 22px;
 }
-
 .eyebrow {
   margin: 0 0 8px;
   text-transform: uppercase;
@@ -296,6 +295,17 @@
   .media-panel {
     width: 100%;
     flex-basis: auto;
+    top: 160px;
+  }
+
+  :host-context(main.header-hidden) .media-panel {
+    top: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .media-panel {
+    top: 130px;
   }
 }
 
