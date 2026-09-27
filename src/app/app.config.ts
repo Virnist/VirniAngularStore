@@ -1,5 +1,5 @@
 import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter, withHashLocation, withInMemoryScrolling } from '@angular/router';
+import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
@@ -24,10 +24,8 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     
-    // Вмикаємо решітку (#) для коректної роботи на GitHub Pages
     provideRouter(
-      routes, 
-      withHashLocation(), 
+      routes,
       withInMemoryScrolling({ scrollPositionRestoration: 'enabled' })
     ),
     

@@ -3,7 +3,8 @@ const path = require('node:path');
 
 const repositoryRoot = path.resolve(__dirname, '..');
 const outputRoot = path.join(repositoryRoot, 'dist', 'VirniAngularStore', 'browser');
-const siteUrl = 'https://virnist.github.io/VirniAngularStore/';
+const configuredSiteUrl = process.env.SITE_URL || 'https://virnist.github.io/VirniAngularStore/';
+const siteUrl = new URL(configuredSiteUrl.endsWith('/') ? configuredSiteUrl : `${configuredSiteUrl}/`).href;
 const products = JSON.parse(fs.readFileSync(path.join(repositoryRoot, 'public/assets/data/products.json'), 'utf8'));
 const news = JSON.parse(fs.readFileSync(path.join(repositoryRoot, 'public/assets/data/news.json'), 'utf8'));
 
@@ -105,7 +106,7 @@ for (const product of products) {
     <p class="description">${escapeHtml(description)}</p>
     <p class="price">$${Number(product.price).toFixed(2)} USD</p>
     <p>${product.stock > 0 ? `В наявності: ${Number(product.stock)} шт.` : `Під замовлення · виготовлення ${Number(product.productionTime)} днів`}</p>
-    <a class="action" href="${siteUrl}#/product/${encodeURIComponent(product.id)}">Переглянути товар і замовити</a>
+    <a class="action" href="${siteUrl}shop/">Переглянути магазин і замовити</a>
   </article>`;
 
   sitemapUrls.push(writePage(route, { title: name, description, image, schema, content, type: 'product' }));
@@ -134,7 +135,7 @@ for (const article of news) {
     <time datetime="${escapeHtml(article.date)}">${escapeHtml(article.date)}</time>
     <img class="hero" src="${image}" alt="${escapeHtml(headline)}">
     <p class="description">${escapeHtml(description)}</p>
-    <a class="action" href="${siteUrl}#/news/${encodeURIComponent(article.id)}">Відкрити новину на Virni</a>
+    <a class="action" href="${siteUrl}news/">Відкрити всі новини Virni</a>
   </article>`;
 
   sitemapUrls.push(writePage(route, { title: headline, description, image, schema, content, type: 'article' }));
@@ -147,4 +148,14 @@ ${sitemapUrls.map(url => `  <url><loc>${escapeHtml(url)}</loc></url>`).join('\n'
 `;
 fs.writeFileSync(path.join(outputRoot, 'sitemap.xml'), sitemap);
 fs.writeFileSync(path.join(outputRoot, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${siteUrl}sitemap.xml\n`);
+
+const appRoutes = ['shop', 'news', 'media', 'videos', 'cart'];
+for (const route of appRoutes) {
+  const routeDirectory = path.join(outputRoot, route);
+  fs.mkdirSync(routeDirectory, { recursive: true });
+  fs.copyFileSync(path.join(outputRoot, 'index.html'), path.join(routeDirectory, 'index.html'));
+}
+
+fs.copyFileSync(path.join(outputRoot, 'index.html'), path.join(outputRoot, '404.html'));
 console.log(`Generated ${products.length} Product pages and ${news.length} NewsArticle pages.`);
+console.log(`Generated app shells for ${appRoutes.length} clean routes and a GitHub Pages fallback.`);
