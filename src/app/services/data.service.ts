@@ -27,7 +27,9 @@ export class DataService {
     if (!this.videosCache) {
       const channelId = environment.youtubeChannelId || 'UCNilfw7uSJVDhUcLLYcD_Cw';
       const uploadsPlaylistId = channelId.startsWith('UC') ? `UU${channelId.slice(2)}` : channelId;
-      const fallback = () => this.http.get<any[]>('./assets/data/videos.json');
+      const fallback = () => this.http.get<any[]>('./assets/data/videos.json').pipe(
+        map(videos => this.shuffleVideos(videos))
+      );
 
       if (!environment.youtubeApiKey) {
         console.warn('YouTube API key is missing. Using the local videos.json fallback.');
@@ -54,6 +56,15 @@ export class DataService {
     }
 
     return this.videosCache;
+  }
+
+  private shuffleVideos<T>(videos: T[]): T[] {
+    const shuffledVideos = [...videos];
+    for (let index = shuffledVideos.length - 1; index > 0; index--) {
+      const randomIndex = Math.floor(Math.random() * (index + 1));
+      [shuffledVideos[index], shuffledVideos[randomIndex]] = [shuffledVideos[randomIndex], shuffledVideos[index]];
+    }
+    return shuffledVideos;
   }
 
   // --- ВАЛЮТИ ---
