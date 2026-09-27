@@ -5,7 +5,7 @@
 
   h2 {
     font-size: 2rem;
-    color: var(--text-main, #fff);
+    color: var(--text-main);
     margin-bottom: 30px;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -21,9 +21,9 @@
     width: 100%;
 
     .filter-btn {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(128, 128, 128, 0.2);
-      color: var(--text-muted, #888);
+      background: var(--surface-muted);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
       padding: 10px 22px;
       border-radius: 30px;
       font-size: 0.9rem;
@@ -35,15 +35,15 @@
       white-space: nowrap;
 
       &:hover {
-        background: rgba(255, 255, 255, 0.1);
-        color: var(--text-main, #fff);
-        border-color: rgba(128, 128, 128, 0.4);
+        background: var(--surface-raised);
+        color: var(--text-main);
+        border-color: var(--text-muted);
       }
 
       &.active {
-        background: var(--accent, #ffd700);
-        color: #000 !important;
-        border-color: var(--accent, #ffd700);
+        background: var(--accent-fill);
+        color: var(--on-accent);
+        border-color: var(--accent-fill);
         box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
       }
     }
@@ -102,12 +102,12 @@
 
 // КАРТКА НОВИНИ
 .news-card {
-  background: var(--bg-card, #1a1a1a);
+  background: var(--bg-card);
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
-  border: 1px solid rgba(128, 128, 128, 0.1);
+  border: 1px solid var(--border-color);
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -116,11 +116,11 @@
   &:hover {
     transform: translateY(-10px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-    border-color: var(--accent, #ffd700);
+    border-color: var(--accent);
 
     .read-more {
-      background: var(--accent, #ffd700);
-      color: black !important;
+      background: var(--accent-fill);
+      color: var(--on-accent);
       box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
     }
   }
@@ -143,14 +143,14 @@
       font-weight: 700;
       text-transform: uppercase;
       border-radius: 30px;
-      color: #fff !important;
+      color: #ffffff;
       letter-spacing: 0.5px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
       z-index: 2;
 
-      &.collections { background: #ff477e !important; }
-      &.accessories { background: #00b4d8 !important; }
-      &.style { background: #7209b7 !important; }
+      &.collections { background: #9f1239; }
+      &.accessories { background: #0369a1; }
+      &.style { background: #581c87; }
     }
   }
 
@@ -161,20 +161,20 @@
     flex-grow: 1;
 
     .date {
-      color: var(--accent, #ffd700); 
+      color: var(--accent);
       font-weight: 600;
       font-size: 0.9rem;
     }
 
     h3 { 
-      color: var(--text-main, #fff); 
+      color: var(--text-main);
       margin: 12px 0; 
       font-size: 1.2rem;
       line-height: 1.4;
     }
 
     p { 
-      color: var(--text-muted, #888);
+      color: var(--text-muted);
       margin-bottom: 25px;
       flex-grow: 1;
       line-height: 1.5;
@@ -183,8 +183,8 @@
     .read-more {
       align-self: flex-start;
       background: transparent;
-      border: 2px solid var(--accent, #ffd700);
-      color: var(--accent, #ffd700);
+      border: 2px solid var(--accent);
+      color: var(--accent);
       padding: 10px 24px;
       border-radius: 50px;
       font-weight: 600;
@@ -211,9 +211,9 @@
   margin-bottom: 20px;
 
   .pagination-btn {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(128, 128, 128, 0.2);
-    color: var(--text-main, #fff);
+    background: var(--surface-muted);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
     width: 45px;
     height: 45px;
     border-radius: 50px;
@@ -226,14 +226,14 @@
     transition: all 0.3s ease;
 
     &:hover:not([disabled]) {
-      background: rgba(255, 255, 255, 0.15);
-      border-color: rgba(128, 128, 128, 0.4);
+      background: var(--surface-raised);
+      border-color: var(--text-muted);
     }
 
     &.active {
-      background: var(--accent, #ffd700);
-      color: #000 !important;
-      border-color: var(--accent, #ffd700);
+      background: var(--accent-fill);
+      color: var(--on-accent);
+      border-color: var(--accent-fill);
       box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
     }
 

@@ -112,15 +112,20 @@ export class AppComponent implements OnInit {
 
   enableDarkMode() {
     this.isDarkMode = true;
-    document.body.classList.add('dark-theme');
-    document.body.classList.remove('light-theme');
-    localStorage.setItem('theme', 'dark');
+    this.applyTheme('dark');
   }
 
   disableDarkMode() {
     this.isDarkMode = false;
-    document.body.classList.add('light-theme');
-    document.body.classList.remove('dark-theme');
-    localStorage.setItem('theme', 'light');
+    this.applyTheme('light');
+  }
+
+  private applyTheme(theme: 'dark' | 'light') {
+    const body = document.body;
+    body.classList.add('theme-switching');
+    body.classList.toggle('dark-theme', theme === 'dark');
+    body.classList.toggle('light-theme', theme === 'light');
+    localStorage.setItem('theme', theme);
+    requestAnimationFrame(() => body.classList.remove('theme-switching'));
   }
 }

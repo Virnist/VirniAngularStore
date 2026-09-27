@@ -68,8 +68,8 @@
 
       .play-icon {
         font-size: 1.5rem;
-        color: white;
-        background: var(--accent);
+        color: var(--on-accent);
+        background: var(--accent-fill);
         width: 60px; 
         height: 60px;
         display: flex;

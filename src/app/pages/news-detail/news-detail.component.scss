@@ -18,12 +18,12 @@
   padding: 14px 28px;
   
   // Ефект скляного морфізму
-  background: rgba(var(--primary-rgb), 0.8); 
+  background: var(--text-main);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--bg-main);
+  border: 1px solid var(--border-color);
   border-radius: 50px; // Повністю кругла по боках
   cursor: pointer;
   font-weight: 500;
@@ -37,7 +37,8 @@
 
   &:hover {
     transform: scale(1.05) translateY(-5px);
-    background: var(--primary-color); // Основний колір вашого бренду
+    background: var(--accent-fill);
+    color: var(--on-accent);
     box-shadow: 0 12px 40px rgba(var(--primary-rgb), 0.4);
 
     .icon {

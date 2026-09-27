@@ -22,8 +22,8 @@
   position: sticky;
   top: 110px;
   z-index: 5;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: 20px;
   padding: 18px;
   backdrop-filter: blur(8px);
@@ -71,8 +71,8 @@
   align-items: center;
   gap: 12px;
   text-align: left;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: var(--surface-muted);
+  border: 1px solid var(--border-color);
   border-radius: 14px;
   padding: 10px;
   color: inherit;
@@ -82,7 +82,7 @@
 
 .video-select:hover {
   transform: translateY(-1px);
-  border-color: rgba(255, 255, 255, 0.15);
+  border-color: var(--text-muted);
 }
 
 .video-select img {
@@ -136,8 +136,8 @@
 }
 
 .player-shell {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: 24px;
   overflow: hidden;
 }
@@ -148,7 +148,7 @@
   justify-content: space-between;
   gap: 16px;
   padding: 16px 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--border-color);
   font-weight: 600;
 }
 
@@ -164,7 +164,7 @@
   max-width: 220px;
   min-height: 38px;
   padding: 0 10px;
-  border: 1px solid rgba(128, 128, 128, 0.3);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   background: var(--bg-main);
   color: var(--text-main);
@@ -203,8 +203,8 @@
 .track-card {
   display: flex;
   align-items: stretch;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--surface-muted);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
   overflow: hidden;
   transition: border-color 0.2s ease, transform 0.2s ease;
@@ -262,9 +262,9 @@
 }
 
 .secondary-btn {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: inherit;
+  background: var(--surface-muted);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
 }
 
 .primary-btn:hover,

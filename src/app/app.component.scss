@@ -46,7 +46,7 @@ main {
 
   // Стан 2: Ефект преміального матового скла при скролі (Світла тема)
   &.header-scrolled {
-    background: rgba(255, 255, 255, 0.75); 
+    background: var(--header-bg);
     backdrop-filter: blur(20px);        
     -webkit-backdrop-filter: blur(20px);
     border-bottom-color: rgba(0, 0, 0, 0.03);
@@ -77,7 +77,7 @@ header {
     letter-spacing: 1px;
     cursor: pointer;
     margin: 0;
-    color: #1a1a1a;
+    color: var(--text-main);
     text-decoration: none;
     text-transform: uppercase;
     transition: color 0.3s ease;
@@ -97,12 +97,12 @@ header {
   align-items: center;
   justify-content: center;
   padding: 6px;
-  color: #1a1a1a;
+  color: var(--text-main);
   text-decoration: none;
   transition: color 0.3s ease;
 
   &:hover {
-    color: #a38a5e;
+    color: var(--accent);
     .cart-icon { transform: scale(1.05); }
   }
 
@@ -116,8 +116,8 @@ header {
     position: absolute;
     top: -2px;
     right: -2px;
-    background: #a38a5e;
-    color: #ffffff;
+    background: var(--accent-fill);
+    color: var(--on-accent);
     font-size: 0.65rem;
     font-weight: 700;
     min-width: 16px;
@@ -168,7 +168,7 @@ header {
 
   .dropbtn {
     background: none;
-    border: 1px solid rgba(0, 0, 0, 0.15);
+    border: 1px solid var(--border-color);
     padding: 6px 14px;
     font-size: 0.85rem;
     font-weight: 600;
@@ -177,7 +177,7 @@ header {
     display: flex;
     align-items: center;
     gap: 6px;
-    color: #1a1a1a;
+    color: var(--text-main);
     transition: all 0.3s ease;
 
     .arrow {
@@ -187,8 +187,8 @@ header {
     }
 
     &:hover {
-      border-color: #a38a5e;
-      color: #a38a5e;
+      border-color: var(--accent);
+      color: var(--accent);
     }
   }
 
@@ -197,18 +197,18 @@ header {
     position: absolute;
     right: 0;
     top: calc(100% + 8px);
-    background: #ffffff;
+    background: var(--surface-raised);
     min-width: 90px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
     border-radius: 12px;
     overflow: hidden;
     z-index: 1000;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border-color);
 
     button {
       background: none;
       border: none;
-      color: #1a1a1a;
+      color: var(--text-main);
       padding: 12px 16px;
       width: 100%;
       text-align: center;
@@ -218,8 +218,8 @@ header {
       transition: all 0.2s ease;
 
       &:hover {
-        background: #f5f5f3;
-        color: #a38a5e;
+        background: var(--surface-muted);
+        color: var(--accent);
       }
     }
   }
@@ -233,8 +233,8 @@ header {
     }
 
     .dropbtn {
-      border-color: #a38a5e;
-      color: #a38a5e;
+      border-color: var(--accent);
+      color: var(--accent);
       .arrow { transform: rotate(180deg); }
     }
   }
@@ -249,7 +249,7 @@ header {
   gap: 40px;
   padding: 16px 0;
   transition: padding 0.3s ease;
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  border-top: 1px solid var(--border-color);
   overflow-x: auto;
   white-space: nowrap;
   
@@ -265,7 +265,7 @@ header {
 
   a {
     text-decoration: none;
-    color: #555555;
+    color: var(--text-muted);
     font-size: 0.95rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -281,80 +281,19 @@ header {
       left: 0;
       width: 0;
       height: 2px;
-      background: #a38a5e;
+      background: var(--accent-fill);
       transition: width 0.3s ease;
     }
 
     &:hover, &.active-link {
-      color: #1a1a1a;
+      color: var(--text-main);
       &::after { width: 100%; }
     }
   }
 }
 
 // ==========================================
-// 5. АДАТАЦІЯ ПІД ТЕМНУ ТЕМУ (.dark-theme)
-// ==========================================
-:host-context(.dark-theme) {
-  .smart-header {
-    border-bottom-color: rgba(255, 255, 255, 0.08);
-
-    // Матове скло для темної теми
-    &.header-scrolled {
-      background: rgba(26, 26, 26, 0.75); 
-      border-bottom-color: rgba(255, 255, 255, 0.03);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 
-                  inset 0 1px 0 rgba(255, 255, 255, 0.05);
-    }
-  }
-
-  header .logo {
-    color: #ffffff;
-  }
-  
-  .cart-button {
-    color: #ffffff;
-    &:hover { color: #e5c185; }
-    .cart-badge { background: #e5c185; color: #000; }
-  }
-
-  .lang-dropdown {
-    .dropbtn {
-      border-color: rgba(255, 255, 255, 0.2);
-      color: #ffffff;
-      &:hover { border-color: #e5c185; color: #e5c185; }
-    }
-    
-    .dropdown-content {
-      background: #252525;
-      border-color: rgba(255, 255, 255, 0.05);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-
-      button {
-        color: #ffffff;
-        &:hover { 
-          background: #333333; 
-          color: #e5c185; 
-        }
-      }
-    }
-  }
-
-  .main-nav {
-    border-top-color: rgba(255, 255, 255, 0.08);
-
-    a {
-      color: #aaaaaa;
-      &:hover, &.active-link { 
-        color: #ffffff; 
-      }
-      &::after { background: #e5c185; }
-    }
-  }
-}
-
-// ==========================================
-// 6. АНІМАЦІЇ
+// 5. АНІМАЦІЇ
 // ==========================================
 @keyframes popIn {
   0% { transform: scale(0.5); opacity: 0; }
@@ -371,8 +310,8 @@ header {
 // ==========================================
 .site-footer {
   width: 100%;
-  background: #fdfdfd; // Дуже легкий світлий фон для контрасту з білим main
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  background: var(--surface-muted);
+  border-top: 1px solid var(--border-color);
   padding: 60px 0 20px 0;
   margin-top: 80px; // Відступ від контенту сторінки
   transition: background-color 0.3s ease, border-color 0.3s ease;
@@ -402,7 +341,7 @@ header {
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1.5px;
-      color: #1a1a1a;
+      color: var(--text-main);
       margin: 0;
       transition: color 0.3s ease;
     }
@@ -416,12 +355,12 @@ header {
       text-transform: uppercase;
       letter-spacing: 1px;
       margin: 0;
-      color: #1a1a1a;
+      color: var(--text-main);
       transition: color 0.3s ease;
     }
 
     .brand-description {
-      color: #666666;
+      color: var(--text-muted);
       font-size: 0.9rem;
       line-height: 1.6;
       max-width: 320px;
@@ -442,14 +381,14 @@ header {
 
       a {
         text-decoration: none;
-        color: #555555;
+        color: var(--text-muted);
         font-size: 0.9rem;
         font-weight: 500;
         transition: color 0.2s ease;
         display: inline-block;
 
         &:hover {
-          color: #a38a5e;
+          color: var(--accent);
         }
       }
     }
@@ -464,7 +403,7 @@ header {
 
       a {
         text-decoration: none;
-        color: #555555;
+        color: var(--text-muted);
         font-size: 0.9rem;
         font-weight: 500;
         transition: color 0.2s ease;
@@ -472,7 +411,7 @@ header {
         align-self: flex-start;
 
         &:hover {
-          color: #a38a5e;
+          color: var(--accent);
         }
       }
     }
@@ -483,13 +422,13 @@ header {
     max-width: 1400px;
     margin: 40px auto 0 auto;
     padding: 20px 40px 0 40px;
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    border-top: 1px solid var(--border-color);
     text-align: center;
     transition: border-color 0.3s ease;
 
     p {
       font-size: 0.8rem;
-      color: #888888;
+      color: var(--text-muted);
       margin: 0;
     }
 
@@ -499,36 +438,3 @@ header {
   }
 }
 
-// ==========================================
-// АДАПТАЦІЯ ФУТЕРА ПІД ТЕМНУ ТЕМУ
-// ==========================================
-:host-context(.dark-theme) {
-  .site-footer {
-    background: #151515; // Глибокий благородний темний фон
-    border-top-color: rgba(255, 255, 255, 0.05);
-
-    .footer-section h3 {
-      color: #ffffff;
-    }
-
-    .brand-info {
-      .footer-logo { color: #ffffff; }
-      .brand-description { color: #aaaaaa; }
-    }
-
-    .footer-links ul a {
-      color: #aaaaaa;
-      &:hover { color: #e5c185; } // Преміум золото для темної теми
-    }
-
-    .footer-socials .social-icons a {
-      color: #aaaaaa;
-      &:hover { color: #e5c185; }
-    }
-
-    .footer-bottom {
-      border-top-color: rgba(255, 255, 255, 0.05);
-      p { color: #666666; }
-    }
-  }
-}

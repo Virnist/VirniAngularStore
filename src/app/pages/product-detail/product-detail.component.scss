@@ -29,7 +29,7 @@
   border-radius: 24px;
   overflow: hidden;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
-  background: #f9f9f9;
+  background: var(--surface-muted);
   aspect-ratio: 3 / 4; // Ідеальна пропорція для одягу та парфумів
   display: flex;
   align-items: center;
@@ -57,7 +57,7 @@
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 2px;
-    color: var(--accent, #a38a5e); // Золотавий або ваш акцентний колір
+    color: var(--accent);
     font-weight: 700;
     margin-bottom: 12px;
   }
@@ -66,7 +66,7 @@
     font-size: 2.5rem;
     font-weight: 800;
     line-height: 1.2;
-    color: #1a1a1a;
+    color: var(--text-main);
     margin-bottom: 15px;
 
     @media (max-width: 480px) {
@@ -77,17 +77,17 @@
   .price-tag {
     font-size: 2rem;
     font-weight: 700;
-    color: #1a1a1a;
+    color: var(--text-main);
     margin-bottom: 25px;
     padding-bottom: 20px;
     width: 100%;
-    border-bottom: 1px solid #eaeaea; // Тонка лінія розмежування
+    border-bottom: 1px solid var(--border-color);
   }
 
   .description {
     font-size: 1.05rem;
     line-height: 1.7;
-    color: #555555;
+    color: var(--text-muted);
     margin-bottom: 30px;
     white-space: pre-line; // Зберігає абзаци з тексту
   }
@@ -106,13 +106,13 @@
     }
 
     .in-stock {
-      background: rgba(46, 204, 113, 0.1);
-      color: #27ae60;
+      background: var(--success-bg);
+      color: var(--success);
     }
 
     .pre-order {
-      background: rgba(241, 196, 15, 0.1);
-      color: #d35400;
+      background: var(--warning-bg);
+      color: var(--warning);
     }
   }
 
@@ -120,8 +120,8 @@
   .buy-btn {
     width: 100%;
     max-width: 350px;
-    background: #1a1a1a; // Елегантний чорний колір
-    color: #ffffff;
+    background: var(--text-main);
+    color: var(--bg-main);
     border: none;
     padding: 18px 35px;
     font-size: 1.1rem;
@@ -134,7 +134,8 @@
     letter-spacing: 1px;
 
     &:hover {
-      background: var(--accent, #a38a5e); // Зміна кольору на акцентний при наведенні
+      background: var(--accent-fill);
+      color: var(--on-accent);
       transform: translateY(-3px);
       box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
     }

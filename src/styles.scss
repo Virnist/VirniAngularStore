@@ -1,52 +1,89 @@
-/* 1. БАЗОВІ СВІТЛІ КОЛЬОРИ (Default) */
+/* Accessible theme tokens: primary text and controls meet WCAG AA contrast. */
 :root {
-  --primary: #1a1a1a;
-  --accent: #d4af37;
-  --bg-main: #ffffff;
-  --bg-card: #f9f9f9;
-  --text-main: #333333;
-  --text-muted: #777777;
+  color-scheme: light;
+  --primary: #1f2937;
+  --accent: #765400;
+  --accent-fill: #f2c75c;
+  --on-accent: #18212f;
+  --bg-main: #f8fafc;
+  --bg-card: #ffffff;
+  --surface-raised: #ffffff;
+  --surface-muted: #f1f5f9;
+  --header-bg: rgba(248, 250, 252, 0.96);
+  --text-main: #1f2937;
+  --text-muted: #526071;
+  --border-color: #748399;
+  --input-bg: #ffffff;
+  --danger: #b42318;
+  --danger-bg: #fef3f2;
+  --success: #137547;
+  --success-bg: #eaf7ef;
+  --warning: #8a4b08;
+  --warning-bg: #fffaeb;
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  --primary-rgb: 30, 30, 30;
+  --primary-rgb: 31, 41, 55;
 }
 
-/* 2. АВТОМАТИЧНА ТЕМНА ТЕМА (Тільки якщо користувач НЕ обрав інше) */
-@media (prefers-color-scheme: dark) {
-  :root:not(.light-theme) { 
-    --primary: #1a1a1a;
-    --accent: #efcf6e;
-    --bg-main: #121212;
-    --bg-card: #1e1e1e;
-    --text-main: #e0e0e0;
-    --text-muted: #aaaaaa;
-    --primary-rgb: 30, 30, 30;
-  }
-}
-
-/* 3. РУЧНЕ ПЕРЕМИКАННЯ (Має найвищий пріоритет) */
+/* Explicit theme classes override the browser preference. */
 body.dark-theme {
-  --primary: #1a1a1a !important;
-  --bg-main: #121212 !important;
-  --bg-card: #1e1e1e !important;
-  --text-main: #e0e0e0 !important;
-  --accent: #efcf6e !important;
+  color-scheme: dark;
+  --primary: #f1f5f9;
+  --accent: #f2c65d;
+  --accent-fill: #e7b849;
+  --on-accent: #17202b;
+  --bg-main: #111827;
+  --bg-card: #1f2937;
+  --surface-raised: #273449;
+  --surface-muted: #334155;
+  --header-bg: rgba(17, 24, 39, 0.96);
+  --text-main: #f1f5f9;
+  --text-muted: #c0cad7;
+  --border-color: #8796aa;
+  --input-bg: #111827;
+  --danger: #fda29b;
+  --danger-bg: #3b1d21;
+  --success: #75d69b;
+  --success-bg: #142d22;
+  --warning: #f6c453;
+  --warning-bg: #332713;
+  --primary-rgb: 241, 245, 249;
 }
 
 body.light-theme {
-  --primary: #1a1a1a !important;
-  --bg-main: #ffffff !important;
-  --bg-card: #e8e8e8 !important;
-  --text-main: #333333 !important;
-  --accent: #d4af37 !important;
+  color-scheme: light;
+  --primary: #1f2937;
+  --accent: #765400;
+  --accent-fill: #f2c75c;
+  --on-accent: #18212f;
+  --bg-main: #f8fafc;
+  --bg-card: #ffffff;
+  --surface-raised: #ffffff;
+  --surface-muted: #f1f5f9;
+  --header-bg: rgba(248, 250, 252, 0.96);
+  --text-main: #1f2937;
+  --text-muted: #526071;
+  --border-color: #748399;
+  --input-bg: #ffffff;
+  --danger: #b42318;
+  --danger-bg: #fef3f2;
+  --success: #137547;
+  --success-bg: #eaf7ef;
+  --warning: #8a4b08;
+  --warning-bg: #fffaeb;
+  --primary-rgb: 31, 41, 55;
 }
 
-/* 4. ЗАСТОСУВАННЯ */
+/* Apply the active theme to the document and native controls. */
 body {
   margin: 0;
   background-color: var(--bg-main);
   color: var(--text-main);
-  transition: background-color 0.5s ease, color 0.5s ease;
   font-family: 'Inter', sans-serif;
+}
+
+body.theme-switching,
+body.theme-switching * {
+  transition: none !important;
 }
 
 html, body {
@@ -62,7 +99,7 @@ html, body {
   box-sizing: inherit; // Усі елементи рахують свою ширину разом з падінгами
 }
 
-/* 3. КОМПОНЕНТИ ТА КНОПКИ */
+/* Shared layout and controls. */
 .container {
   width: 100%;
   max-width: 1200px;
@@ -77,8 +114,8 @@ html, body {
   padding: 12px 24px;
   border-radius: 12px;
   border: none;
-  background: var(--accent);
-  color: var(--primary);
+  background: var(--accent-fill);
+  color: var(--on-accent);
   font-weight: 600;
   cursor: pointer;
   box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
@@ -91,9 +128,9 @@ html, body {
 }
 
 .theme-toggle {
-  background: rgba(128, 128, 128, 0.1); // Зробив сіруватим для видимості на білому
+  background: var(--surface-muted);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(128, 128, 128, 0.2);
+  border: 1px solid var(--border-color);
   width: 45px;
   height: 45px;
   border-radius: 50%;
@@ -108,4 +145,9 @@ html, body {
     transform: rotate(15deg);
     background: rgba(128, 128, 128, 0.2);
   }
+}
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
 }
