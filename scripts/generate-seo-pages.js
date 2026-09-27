@@ -54,6 +54,15 @@ function writePage(route, { title, description, image, schema, content, type }) 
     .site-nav a { padding: 10px 0; color: #526071; font-size: .95rem; font-weight: 700; text-decoration: none; }
     .site-nav a:hover { color: #765400; }
     .detail-main { flex: 1 0 auto; width: min(calc(100% - 48px), 860px); margin: 0 auto; padding-block: 36px 48px; }
+    .product-main { width: min(calc(100% - 40px), 1200px); min-height: calc(100vh - 160px); display: flex; align-items: center; padding-block: 32px 60px; }
+    .product-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 60px; width: 100%; }
+    .product-image { width: 100%; aspect-ratio: 3 / 4; max-height: 72vh; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 24px; background: #f1f5f9; }
+    .product-image .hero { width: 100%; height: 100%; max-height: 72vh; object-fit: contain; }
+    .product-info { min-width: 0; }
+    .product-info h1 { margin-bottom: 14px; }
+    .product-category { margin: 0 0 12px; color: #765400; font-size: .85rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    .product-price { margin: 0 0 20px; padding-bottom: 16px; border-bottom: 1px solid #cbd5e1; font-size: 2rem; font-weight: 800; }
+    .product-stock { margin: 0 0 22px; color: #137547; font-weight: 700; }
     .eyebrow, time { color: #526071; font-size: .9rem; }
     h1 { max-width: 760px; margin: 8px 0 20px; font-size: 2.5rem; line-height: 1.12; overflow-wrap: anywhere; }
     .hero { display: block; width: 100%; height: auto; max-height: 560px; object-fit: cover; border-radius: 12px; }
@@ -74,6 +83,11 @@ function writePage(route, { title, description, image, schema, content, type }) 
       .site-nav { width: 100%; justify-content: flex-start; gap: 4px 18px; }
       .site-nav a { padding: 7px 0; font-size: .88rem; }
       .detail-main { width: calc(100% - 32px); padding-block: 24px 36px; }
+      .product-main { width: calc(100% - 32px); min-height: 0; padding-block: 24px 40px; }
+      .product-layout { grid-template-columns: 1fr; gap: 24px; }
+      .product-image { max-height: none; }
+      .product-image .hero { max-height: none; }
+      .product-info h1 { font-size: 1.8rem; }
       h1 { font-size: 1.8rem; }
       .site-footer-inner { width: calc(100% - 32px); grid-template-columns: 1fr 1fr; gap: 24px; }
       .footer-brand { grid-column: 1 / -1; }
@@ -85,6 +99,14 @@ function writePage(route, { title, description, image, schema, content, type }) 
       .hero { max-height: 42vh; }
       h1 { font-size: 2rem; }
       .description { margin-block: 16px; }
+      .product-main { min-height: calc(100vh - 144px); padding-block: 24px 32px; }
+      .product-layout { gap: 40px; }
+      .product-image { max-height: 62vh; }
+      .product-image .hero { max-height: 62vh; }
+      .product-info h1 { font-size: 2rem; }
+      .product-price { margin-bottom: 14px; padding-bottom: 10px; }
+      .product-stock { margin-bottom: 14px; }
+      .product-info .description { margin-block: 12px; line-height: 1.45; }
       .site-footer-inner { padding-block: 22px; }
     }
   </style>
@@ -102,7 +124,7 @@ function writePage(route, { title, description, image, schema, content, type }) 
       </nav>
     </div>
   </header>
-  <main class="detail-main">${content}</main>
+  <main class="detail-main ${type === 'product' ? 'product-main' : 'article-main'}">${content}</main>
   <footer class="site-footer">
     <div class="site-footer-inner">
       <section class="footer-brand">
@@ -164,14 +186,16 @@ for (const product of products) {
       itemCondition: 'https://schema.org/NewCondition'
     }
   };
-  const content = `<article>
-    <p class="eyebrow">Virni · ${escapeHtml(product.category)}</p>
-    <h1>${escapeHtml(name)}</h1>
-    <img class="hero" src="${image}" alt="${escapeHtml(name)}">
-    <p class="description">${escapeHtml(description)}</p>
-    <p class="price">$${Number(product.price).toFixed(2)} USD</p>
-    <p>${product.stock > 0 ? `В наявності: ${Number(product.stock)} шт.` : `Під замовлення · виготовлення ${Number(product.productionTime)} днів`}</p>
-    <a class="action" href="${siteUrl}shop/">Переглянути магазин і замовити</a>
+  const content = `<article class="product-layout">
+    <div class="product-image"><img class="hero" src="${image}" alt="${escapeHtml(name)}"></div>
+    <div class="product-info">
+      <p class="product-category">${escapeHtml(product.category)}</p>
+      <h1>${escapeHtml(name)}</h1>
+      <p class="product-price">$${Number(product.price).toFixed(2)} USD</p>
+      <p class="description">${escapeHtml(description)}</p>
+      <p class="product-stock">${product.stock > 0 ? `В наявності: ${Number(product.stock)} шт.` : `Під замовлення · виготовлення ${Number(product.productionTime)} днів`}</p>
+      <a class="action" href="${siteUrl}shop/">Переглянути магазин і замовити</a>
+    </div>
   </article>`;
 
   sitemapUrls.push(writePage(route, { title: name, description, image, schema, content, type: 'product' }));
