@@ -30,7 +30,7 @@
             <div class="price-container">
               <span class="date">{{ item.price | convertPrice }}</span>
             </div>
-            <h3>{{ getLangContent(item, 'title') }}</h3>
+            <h3><a [href]="getSeoPageUrl(item.id)">{{ getLangContent(item, 'title') }}</a></h3>
             <p>{{ getLangContent(item, 'description') | slice:0:120 }}...</p>
             <button class="read-more">
               🛒 {{ 'SHOP.ADD_TO_CART' | translate }}

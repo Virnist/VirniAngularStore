@@ -1,6 +1,15 @@
 {
   "APP_TITLE": "Virni Store",
   "WELCOME": "Witamy w naszym sklepie!",
+  "PWA": {
+    "INSTALL_TITLE": "Dodaj Virni do ekranu głównego",
+    "INSTALL_DESCRIPTION": "Szybki dostęp do sklepu i aktualności.",
+    "INSTALL_BUTTON": "Zainstaluj",
+    "INSTALL_HELP_BUTTON": "Jak dodać skrót",
+    "INSTALL_DISMISS_BUTTON": "Nie teraz",
+    "INSTALL_IOS_STEPS": "W Safari stuknij Udostępnij, a następnie Do ekranu początkowego.",
+    "INSTALL_ANDROID_STEPS": "Otwórz menu przeglądarki ⋮ i wybierz Zainstaluj aplikację lub Dodaj do ekranu głównego."
+  },
   "MENU": {
     "NEWS": "Aktualności",
     "SHOP": "Sklep",

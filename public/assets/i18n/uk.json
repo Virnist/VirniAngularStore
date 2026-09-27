@@ -1,6 +1,15 @@
 {
   "APP_TITLE": "Virni Store",
   "WELCOME": "Ласкаво просимо до нашого магазину!",
+  "PWA": {
+    "INSTALL_TITLE": "Додайте Virni на головний екран",
+    "INSTALL_DESCRIPTION": "Швидкий доступ до магазину й новин.",
+    "INSTALL_BUTTON": "Встановити",
+    "INSTALL_HELP_BUTTON": "Як додати ярлик",
+    "INSTALL_DISMISS_BUTTON": "Не зараз",
+    "INSTALL_IOS_STEPS": "Натисніть «Поділитися» в Safari, потім «На початковий екран».",
+    "INSTALL_ANDROID_STEPS": "Відкрийте меню браузера ⋮ і виберіть «Установити додаток» або «Додати на головний екран»."
+  },
   "MENU": {
     "NEWS": "Новини",
     "SHOP": "Магазин",

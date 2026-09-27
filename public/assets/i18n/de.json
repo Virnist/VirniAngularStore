@@ -1,6 +1,15 @@
 {
   "APP_TITLE": "Virni Store",
   "WELCOME": "Willkommen in unserem Shop!",
+  "PWA": {
+    "INSTALL_TITLE": "Virni zum Startbildschirm hinzufügen",
+    "INSTALL_DESCRIPTION": "Schneller Zugriff auf Shop und Neuigkeiten.",
+    "INSTALL_BUTTON": "Installieren",
+    "INSTALL_HELP_BUTTON": "Verknüpfung hinzufügen",
+    "INSTALL_DISMISS_BUTTON": "Nicht jetzt",
+    "INSTALL_IOS_STEPS": "Tippen Sie in Safari auf Teilen und dann auf Zum Home-Bildschirm.",
+    "INSTALL_ANDROID_STEPS": "Öffnen Sie das Browsermenü ⋮ und wählen Sie App installieren oder Zum Startbildschirm hinzufügen."
+  },
   "MENU": {
     "NEWS": "News",
     "SHOP": "Shop",

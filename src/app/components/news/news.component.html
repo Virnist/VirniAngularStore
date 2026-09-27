@@ -16,7 +16,7 @@
     <div class="news-grid">
       
       @for (item of allNews; track item.id + '-' + $index) {
-          <article class="news-card" [routerLink]="['/news', item.id]">
+          <article class="news-card">
           
           <div class="card-image" [style.backgroundImage]="'url(' + item.image + ')'">
             <span class="type-badge" [ngClass]="item.category.toLowerCase()">
@@ -27,12 +27,12 @@
           <div class="card-content">
             <span class="date">{{ item.date | date:'dd.MM.yyyy' }}</span>
             
-            <h3>{{ getContent(item, 'title') }}</h3>
+            <h3><a [href]="getSeoPageUrl(item.id)">{{ getContent(item, 'title') }}</a></h3>
             <p>{{ getContent(item, 'text') | slice:0:120 }}...</p>
             
-            <button class="read-more">
+            <a class="read-more" [href]="getSeoPageUrl(item.id)">
               {{ 'NEWS.READ_MORE' | translate }}
-            </button>
+            </a>
           </div>
           
         </article>

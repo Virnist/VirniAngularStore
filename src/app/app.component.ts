@@ -4,6 +4,11 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CommonModule, UpperCasePipe } from '@angular/common';
 import { CartService } from './services/cart.service';
 
+interface InstallPromptEvent extends Event {
+  prompt(): Promise<void>;
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed'; platform: string }>;
+}
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -30,6 +35,11 @@ export class AppComponent implements OnInit {
   // Нові сигнали для контролю розумної шапки
   public isHeaderHidden = signal<boolean>(false);
   public isScrolled = signal<boolean>(false);
+  public showInstallPrompt = signal(false);
+  public showInstallInstructions = signal(false);
+
+  private deferredInstallPrompt: InstallPromptEvent | null = null;
+  private readonly installDismissedKey = 'virniInstallPromptDismissedUntil';
   
   private lastScrollTop = 0;
   private scrollThreshold = 10; // Мінімальна дельта скролу в пікселях, щоб уникнути сіпання екрану
@@ -63,6 +73,59 @@ export class AppComponent implements OnInit {
     } else {
       this.disableDarkMode();
     }
+
+    this.scheduleInstallPrompt();
+  }
+
+  @HostListener('window:beforeinstallprompt', ['$event'])
+  onBeforeInstallPrompt(event: Event) {
+    if (!this.isMobileDevice() || this.isInstalledAsPwa()) return;
+
+    event.preventDefault();
+    this.deferredInstallPrompt = event as InstallPromptEvent;
+    if (!this.isInstallPromptDismissed()) {
+      this.showInstallPrompt.set(true);
+    }
+  }
+
+  @HostListener('window:appinstalled')
+  onAppInstalled() {
+    this.deferredInstallPrompt = null;
+    this.showInstallPrompt.set(false);
+    localStorage.removeItem(this.installDismissedKey);
+  }
+
+  async installApp() {
+    if (!this.deferredInstallPrompt) {
+      this.showInstallInstructions.set(true);
+      return;
+    }
+
+    const installPrompt = this.deferredInstallPrompt;
+    await installPrompt.prompt();
+    const choice = await installPrompt.userChoice;
+    this.deferredInstallPrompt = null;
+
+    if (choice.outcome === 'accepted') {
+      this.showInstallPrompt.set(false);
+    } else {
+      this.showInstallInstructions.set(true);
+    }
+  }
+
+  hasNativeInstallPrompt(): boolean {
+    return this.deferredInstallPrompt !== null;
+  }
+
+  isIosDevice(): boolean {
+    return /iPhone|iPad|iPod/i.test(navigator.userAgent)
+      || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  }
+
+  dismissInstallPrompt() {
+    const dismissUntil = Date.now() + 30 * 24 * 60 * 60 * 1000;
+    localStorage.setItem(this.installDismissedKey, String(dismissUntil));
+    this.showInstallPrompt.set(false);
   }
 
   // Декоратор HostListener для відстеження розумного скролу шапки
@@ -127,5 +190,38 @@ export class AppComponent implements OnInit {
     body.classList.toggle('light-theme', theme === 'light');
     localStorage.setItem('theme', theme);
     requestAnimationFrame(() => body.classList.remove('theme-switching'));
+  }
+
+  private scheduleInstallPrompt() {
+    if (!this.isMobileDevice() || this.isInstalledAsPwa() || this.isInstallPromptDismissed()) return;
+
+    window.setTimeout(() => {
+      if (!this.isInstalledAsPwa() && !this.isInstallPromptDismissed()) {
+        this.showInstallPrompt.set(true);
+      }
+    }, 1800);
+  }
+
+  private isMobileDevice(): boolean {
+    const capacitor = (window as Window & {
+      Capacitor?: { isNativePlatform?: () => boolean };
+    }).Capacitor;
+    if (capacitor?.isNativePlatform?.()) return false;
+
+    return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
+      || window.matchMedia('(max-width: 768px)').matches;
+  }
+
+  private isInstalledAsPwa(): boolean {
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+    const isIosStandalone = (navigator as Navigator & { standalone?: boolean }).standalone === true;
+    return isStandalone || isIosStandalone;
+  }
+
+  private isInstallPromptDismissed(): boolean {
+    const dismissUntil = Number(localStorage.getItem(this.installDismissedKey) || 0);
+    if (dismissUntil > Date.now()) return true;
+    if (dismissUntil) localStorage.removeItem(this.installDismissedKey);
+    return false;
   }
 }

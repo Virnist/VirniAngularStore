@@ -123,8 +123,13 @@ export class HomeComponent implements OnInit {
     return item[`${field}_${lang}`] || item[`${field}_en`] || item[`${field}_uk`] || '';
   }
 
+  getSeoPageUrl(type: 'news' | 'product', id: number | string): string {
+    return new URL(`${type}/${id}/`, document.baseURI).href;
+  }
+
   onCardAction(item: FeedItem, event: Event) {
     const target = event.target as HTMLElement;
+    if (target.closest('a')) return;
     const isButtonClick = target.classList.contains('read-more') || target.closest('.read-more');
 
     if (isButtonClick) {
@@ -137,13 +142,13 @@ export class HomeComponent implements OnInit {
       } else if (item.type === 'video') {
         window.open(`https://www.youtube.com/watch?v=${item.id}`, '_blank');
       } else if (item.type === 'news') {
-        this.router.navigate(['/news', item.id]);
+        window.location.assign(this.getSeoPageUrl('news', item.id));
       }
     } else {
       if (item.type === 'news') {
-        this.router.navigate(['/news', item.id]);
+        window.location.assign(this.getSeoPageUrl('news', item.id));
       } else if (item.type === 'product') {
-        this.router.navigate(['/product', item.id]); 
+        window.location.assign(this.getSeoPageUrl('product', item.id));
       } else if (item.type === 'video') {
         window.open(`https://www.youtube.com/watch?v=${item.id}`, '_blank');
       }

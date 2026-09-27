@@ -1,6 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterLink } from '@angular/router'; 
 import { DataService } from '../../services/data.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Observable, combineLatest } from 'rxjs';
@@ -10,14 +9,13 @@ import { toObservable } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-news',
   standalone: true,
-  imports: [CommonModule, TranslateModule, RouterLink], 
+  imports: [CommonModule, TranslateModule],
   templateUrl: './news.component.html',
   styleUrl: './news.component.scss'
 })
 export class NewsComponent {
   private dataService = inject(DataService);
   public translate = inject(TranslateService);
-  private router = inject(Router); 
 
   // Сигнали для фільтрації та сторінок
   public selectedCategory = signal<string>('all');
@@ -85,6 +83,10 @@ export class NewsComponent {
   getContent(item: any, field: 'title' | 'text'): string {
     const lang = this.translate.currentLang || 'en';
     return item[`${field}_${lang}`] || item[`${field}_en`] || item[`${field}_uk`] || '';
+  }
+
+  getSeoPageUrl(articleId: number): string {
+    return new URL(`news/${articleId}/`, document.baseURI).href;
   }
 
   private setCategoryState(category: string) {

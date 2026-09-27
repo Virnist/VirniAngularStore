@@ -78,9 +78,14 @@ export class ShopComponent {
     return item[`${field}_${lang}`] || item[`${field}_en`] || item[`${field}_uk`] || '';
   }
 
+  getSeoPageUrl(productId: number): string {
+    return new URL(`product/${productId}/`, document.baseURI).href;
+  }
+
   // Обробка кліку на картку або кнопку "В кошик"
   onCardAction(item: any, event: Event) {
     const target = event.target as HTMLElement;
+    if (target.closest('a')) return;
     const isButtonClick = target.classList.contains('read-more') || target.closest('.read-more');
 
     if (isButtonClick) {
@@ -89,7 +94,7 @@ export class ShopComponent {
       const title = this.getLangContent(item, 'title');
       this.cartService.addToCart(item, title);
     } else {
-      this.router.navigate(['/product', item.id]);
+      window.location.assign(this.getSeoPageUrl(item.id));
     }
   }
 

@@ -445,3 +445,81 @@ header {
   }
 }
 
+.install-prompt {
+  position: fixed;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  left: max(16px, env(safe-area-inset-left));
+  z-index: 1200;
+  width: min(100% - 32px, 440px);
+  margin-left: auto;
+  padding: 18px;
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  background: var(--bg-card);
+  color: var(--text-main);
+  box-shadow: 0 18px 48px rgba(15, 23, 42, 0.24);
+}
+
+.install-prompt-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--surface-muted);
+  color: var(--text-main);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.install-prompt-content {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-right: 34px;
+
+  img {
+    flex: 0 0 52px;
+    border-radius: 12px;
+  }
+
+  strong {
+    display: block;
+    font-size: 1rem;
+  }
+
+  p {
+    margin: 4px 0 0;
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    line-height: 1.45;
+  }
+}
+
+.install-instructions {
+  margin: 14px 0 0;
+  padding: 12px;
+  border-radius: 10px;
+  background: var(--surface-muted);
+  color: var(--text-main);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.install-prompt-action {
+  width: 100%;
+  min-height: 44px;
+  margin-top: 16px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--accent-fill);
+  color: var(--on-accent);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+

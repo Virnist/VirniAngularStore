@@ -1,6 +1,15 @@
 {
   "APP_TITLE": "Virni Store",
   "WELCOME": "Welcome to our store!",
+  "PWA": {
+    "INSTALL_TITLE": "Add Virni to your Home Screen",
+    "INSTALL_DESCRIPTION": "Quick access to the shop and latest news.",
+    "INSTALL_BUTTON": "Install",
+    "INSTALL_HELP_BUTTON": "How to add a shortcut",
+    "INSTALL_DISMISS_BUTTON": "Not now",
+    "INSTALL_IOS_STEPS": "Tap Share in Safari, then choose Add to Home Screen.",
+    "INSTALL_ANDROID_STEPS": "Open your browser menu ⋮ and choose Install app or Add to Home screen."
+  },
   "MENU": {
     "NEWS": "News",
     "SHOP": "Shop",
