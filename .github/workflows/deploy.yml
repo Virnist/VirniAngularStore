@@ -40,3 +40,10 @@ jobs:
     # 6. Тестова збірка проєкту, щоб переконатися, що все компилюється без помилок
     - name: Build Angular Application
       run: npm run build
+
+    # 7. Публікація зібраних файлів на GitHub Pages
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./dist/VirniAngularStore/browser
