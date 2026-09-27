@@ -6,6 +6,11 @@
   min-height: 80vh;
   display: flex;
   align-items: center;
+
+  @media (max-width: 360px) {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
 }
 
 // Сітка для фото та інформації

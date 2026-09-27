@@ -7,6 +7,11 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 20px;
+
+  @media (max-width: 360px) {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
 }
 
 // ВІДСТУП ДЛЯ КОНТЕНТУ: щоб сторінки не залізали ПІД фіксовану шапку
@@ -16,7 +21,7 @@ main {
   width: 100%;
   
   @media (max-width: 768px) {
-    padding-top: 130px;
+    padding-top: 160px;
   }
 }
 
@@ -252,6 +257,7 @@ header {
 // ==========================================
 .main-nav {
   display: flex;
+  align-items: center;
   justify-content: center;
   gap: 40px;
   padding: 16px 0;
@@ -270,7 +276,18 @@ header {
     gap: 25px;
   }
 
+  @media (max-width: 480px) {
+    justify-content: space-between;
+    gap: 0;
+    padding: 8px 4px;
+    overflow-x: hidden;
+  }
+
   a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     text-decoration: none;
     color: var(--text-muted);
     font-size: 0.95rem;
@@ -278,8 +295,16 @@ header {
     text-transform: uppercase;
     letter-spacing: 1px;
     position: relative;
+    min-height: 44px;
     padding: 6px 0;
     transition: color 0.3s ease;
+
+    .nav-icon {
+      display: block;
+      flex: 0 0 20px;
+      width: 20px;
+      height: 20px;
+    }
 
     &::after {
       content: '';
@@ -295,6 +320,25 @@ header {
     &:hover, &.active-link {
       color: var(--text-main);
       &::after { width: 100%; }
+    }
+  }
+
+  @media (max-width: 480px) {
+    a {
+      flex: 1 1 0;
+      min-width: 44px;
+      padding: 8px 2px;
+      gap: 0;
+
+      .nav-label {
+        display: none;
+      }
+
+      .nav-icon {
+        flex-basis: 22px;
+        width: 22px;
+        height: 22px;
+      }
     }
   }
 }

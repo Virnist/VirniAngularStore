@@ -10,6 +10,11 @@
   padding: 32px 20px 48px;
   max-width: 1500px;
   margin: 0 auto;
+
+  @media (max-width: 360px) {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
 }
 
 .media-content {
@@ -57,7 +62,7 @@
   margin: 0 0 22px;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
   gap: 12px;
 }
 

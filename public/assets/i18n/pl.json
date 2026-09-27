@@ -11,6 +11,7 @@
     "INSTALL_ANDROID_STEPS": "Otwórz menu przeglądarki ⋮ i wybierz Zainstaluj aplikację lub Dodaj do ekranu głównego."
   },
   "MENU": {
+    "HOME": "Strona główna",
     "NEWS": "Aktualności",
     "SHOP": "Sklep",
     "MEDIA": "Media",

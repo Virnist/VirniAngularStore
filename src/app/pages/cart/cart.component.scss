@@ -3,6 +3,11 @@
   margin: 0 auto;
   padding: 120px 20px 60px;
   min-height: 80vh;
+
+  @media (max-width: 360px) {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
 }
 
 // Сітка кошика (Макет 2026)
@@ -11,6 +16,11 @@
   grid-template-columns: 1fr 400px;
   gap: 50px;
   align-items: start;
+  min-width: 0;
+
+  > * {
+    min-width: 0;
+  }
 
   @media (max-width: 992px) {
     grid-template-columns: 1fr;
@@ -36,6 +46,8 @@
 // Картка окремого товару у списку
 .cart-item {
   display: flex;
+  width: 100%;
+  min-width: 0;
   gap: 20px;
   padding: 20px;
   background: var(--bg-card);
@@ -68,6 +80,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    min-width: 0;
     gap: 15px;
   }
 
@@ -75,8 +88,12 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    gap: 8px;
+    min-width: 0;
 
     h4 {
+      flex: 1 1 auto;
+      min-width: 0;
       font-size: 1.1rem;
       font-weight: 700;
       margin: 0;
@@ -84,6 +101,7 @@
     }
 
     .item-single-price {
+      flex: 0 0 auto;
       font-size: 0.95rem;
       color: var(--text-muted);
       margin: 0;
@@ -95,6 +113,7 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    min-width: 0;
   }
 }
 
@@ -160,6 +179,10 @@
   border-radius: 24px;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.04);
   border: 1px solid var(--border-color);
+
+  @media (max-width: 576px) {
+    padding: 20px;
+  }
 
   h3 {
     font-size: 1.4rem;
@@ -231,11 +254,22 @@
   .method-chips {
     display: flex;
     gap: 10px;
+    min-width: 0;
+
+    @media (max-width: 576px) {
+      flex-wrap: wrap;
+      gap: 8px;
+    }
   }
 
   .chip {
     flex: 1;
     cursor: pointer;
+
+    @media (max-width: 576px) {
+      flex: 1 1 calc(50% - 4px);
+      min-width: 0;
+    }
 
     input { display: none; }
 
@@ -249,6 +283,11 @@
       font-weight: 600;
       color: var(--text-main);
       transition: all 0.2s ease;
+
+      @media (max-width: 576px) {
+        padding: 10px 6px;
+        overflow-wrap: anywhere;
+      }
     }
 
     input:checked + span {

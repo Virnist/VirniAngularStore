@@ -11,6 +11,7 @@
     "INSTALL_ANDROID_STEPS": "Open your browser menu ⋮ and choose Install app or Add to Home screen."
   },
   "MENU": {
+    "HOME": "Home",
     "NEWS": "News",
     "SHOP": "Shop",
     "MEDIA": "Media",

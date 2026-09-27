@@ -56,11 +56,46 @@
     </header>
 
     <nav class="main-nav">
-      <a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">Головна</a>
-      <a routerLink="/news" routerLinkActive="active-link">{{ 'MENU.NEWS' | translate }}</a>
-      <a routerLink="/shop" routerLinkActive="active-link">{{ 'MENU.SHOP' | translate }}</a>
-      <a routerLink="/media" routerLinkActive="active-link">{{ 'MENU.MEDIA' | translate }}</a>
-      <a routerLink="/videos" routerLinkActive="active-link">{{ 'MENU.VIDEOS' | translate }}</a>
+      <a
+        routerLink="/"
+        routerLinkActive="active-link"
+        [routerLinkActiveOptions]="{exact: true}"
+        [attr.aria-label]="'MENU.HOME' | translate"
+        [attr.title]="'MENU.HOME' | translate"
+      >
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m3 10 9-7 9 7"></path>
+          <path d="M5 9v12h14V9M9 21v-7h6v7"></path>
+        </svg>
+      </a>
+      <a routerLink="/news" routerLinkActive="active-link" [attr.aria-label]="'MENU.NEWS' | translate" [attr.title]="'MENU.NEWS' | translate">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 4h16v17H4zM8 8h8M8 12h8M8 16h5"></path>
+        </svg>
+        <span class="nav-label">{{ 'MENU.NEWS' | translate }}</span>
+      </a>
+      <a routerLink="/shop" routerLinkActive="active-link" [attr.aria-label]="'MENU.SHOP' | translate" [attr.title]="'MENU.SHOP' | translate">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 8h14l1 13H4L5 8Z"></path>
+          <path d="M9 9V6a3 3 0 0 1 6 0v3"></path>
+        </svg>
+        <span class="nav-label">{{ 'MENU.SHOP' | translate }}</span>
+      </a>
+      <a routerLink="/media" routerLinkActive="active-link" [attr.aria-label]="'MENU.MEDIA' | translate" [attr.title]="'MENU.MEDIA' | translate">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M9 18V5l12-2v13"></path>
+          <circle cx="6" cy="18" r="3"></circle>
+          <circle cx="18" cy="16" r="3"></circle>
+        </svg>
+        <span class="nav-label">{{ 'MENU.MEDIA' | translate }}</span>
+      </a>
+      <a routerLink="/videos" routerLinkActive="active-link" [attr.aria-label]="'MENU.VIDEOS' | translate" [attr.title]="'MENU.VIDEOS' | translate">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="5" width="18" height="14" rx="4"></rect>
+          <path d="m10 9 5 3-5 3z" fill="currentColor" stroke="none"></path>
+        </svg>
+        <span class="nav-label">{{ 'MENU.VIDEOS' | translate }}</span>
+      </a>
     </nav>
 
   </div> <main [class.header-hidden]="isHeaderHidden()">

@@ -11,6 +11,7 @@
     "INSTALL_ANDROID_STEPS": "Öffnen Sie das Browsermenü ⋮ und wählen Sie App installieren oder Zum Startbildschirm hinzufügen."
   },
   "MENU": {
+    "HOME": "Startseite",
     "NEWS": "News",
     "SHOP": "Shop",
     "MEDIA": "Media",

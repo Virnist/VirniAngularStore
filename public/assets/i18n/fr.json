@@ -11,6 +11,7 @@
     "INSTALL_ANDROID_STEPS": "Ouvrez le menu du navigateur ⋮ puis choisissez Installer l’application ou Ajouter à l’écran d’accueil."
   },
   "MENU": {
+    "HOME": "Accueil",
     "NEWS": "Actualités",
     "SHOP": "Boutique",
     "MEDIA": "Média",
