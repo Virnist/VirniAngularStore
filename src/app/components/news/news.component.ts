@@ -38,10 +38,7 @@ export class NewsComponent {
       // 2. Сортуємо категорії за кількістю згадок (від більшого до меншого)
       const sortedCats = Object.keys(countMap).sort((a, b) => countMap[b] - countMap[a]);
 
-      // 3. Обмежуємо загальний максимум (не більше 6 найпопулярніших + 'all')
-      const topCategories = sortedCats.slice(0, 6);
-
-      return ['all', ...topCategories];
+      return ['all', ...sortedCats];
     })
   );
 
@@ -87,6 +84,14 @@ export class NewsComponent {
 
   getSeoPageUrl(articleId: number): string {
     return new URL(`news/${articleId}/`, document.baseURI).href;
+  }
+
+  onBadgeClick(category: string, event: Event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const normalizedCategory = category.toUpperCase();
+    this.setCategoryState(this.selectedCategory() === normalizedCategory ? 'all' : normalizedCategory);
   }
 
   private setCategoryState(category: string) {

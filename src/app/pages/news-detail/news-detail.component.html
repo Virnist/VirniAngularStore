@@ -2,7 +2,7 @@
   <div class="article-wrapper">
     <div class="container">
       <header class="article-header">
-        <div class="image-hero" [style.backgroundImage]="'url(' + article.image + ')'"></div>
+          <img class="image-hero" [src]="article.image" [alt]="getContent('title')" fetchpriority="high">
         <div class="header-content">
           <span class="date">{{ article.date | date:'longDate' }}</span>
           <h1>{{ getContent('title') }}</h1>

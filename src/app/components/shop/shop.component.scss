@@ -229,6 +229,11 @@
       font-size: 0.8rem;
       letter-spacing: 1px;
       cursor: pointer;
+      border: 0;
+      font: inherit;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
       
       &:active {
         transform: scale(0.95);

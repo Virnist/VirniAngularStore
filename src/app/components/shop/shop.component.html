@@ -19,11 +19,13 @@
       @for (item of allProducts; track item.id) {
         <article class="news-card" (click)="onCardAction(item, $event)">
           <div class="card-image" [style.backgroundImage]="'url(' + item.image + ')'">
-            <span class="type-badge" 
+            <button type="button" class="type-badge"
                   [ngClass]="item.category.toLowerCase()" 
+              [attr.aria-label]="('SHOP.CATEGORIES.' + item.category.toUpperCase() | translate)"
+              [attr.title]="'SHOP.CATEGORIES.' + item.category.toUpperCase() | translate"
                   (click)="onBadgeClick(item.category, $event)">
               {{ 'SHOP.CATEGORIES.' + item.category.toUpperCase() | translate }}
-            </span>
+            </button>
           </div>
           
           <div class="card-content">

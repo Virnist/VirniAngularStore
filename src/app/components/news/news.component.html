@@ -16,25 +16,28 @@
     <div class="news-grid">
       
       @for (item of allNews; track item.id + '-' + $index) {
-          <article class="news-card">
-          
-          <div class="card-image" [style.backgroundImage]="'url(' + item.image + ')'">
-            <span class="type-badge" [ngClass]="item.category.toLowerCase()">
-              {{ 'NEWS.CATEGORIES.' + item.category.toUpperCase() | translate }}
-            </span>
-          </div>
-          
-          <div class="card-content">
-            <span class="date">{{ item.date | date:'dd.MM.yyyy' }}</span>
-            
-            <h3><a [href]="getSeoPageUrl(item.id)">{{ getContent(item, 'title') }}</a></h3>
-            <p>{{ getContent(item, 'text') | slice:0:120 }}...</p>
-            
-            <a class="read-more" [href]="getSeoPageUrl(item.id)">
-              {{ 'NEWS.READ_MORE' | translate }}
-            </a>
-          </div>
-          
+        <article class="news-card">
+          <a class="news-card-link" [href]="getSeoPageUrl(item.id)" [attr.aria-label]="getContent(item, 'title')">
+            <div class="card-image" [style.backgroundImage]="'url(' + item.image + ')'" aria-hidden="true"></div>
+
+            <div class="card-content">
+              <span class="date">{{ item.date | date:'dd.MM.yyyy' }}</span>
+              <h3>{{ getContent(item, 'title') }}</h3>
+              <p>{{ getContent(item, 'text') | slice:0:120 }}...</p>
+              <span class="read-more">{{ 'NEWS.READ_MORE' | translate }}</span>
+            </div>
+          </a>
+
+          <button
+            type="button"
+            class="type-badge"
+            [ngClass]="item.category.toLowerCase()"
+            [attr.aria-label]="('NEWS.CATEGORIES.' + item.category.toUpperCase() | translate)"
+            [attr.title]="'NEWS.CATEGORIES.' + item.category.toUpperCase() | translate"
+            (click)="onBadgeClick(item.category, $event)"
+          >
+            {{ 'NEWS.CATEGORIES.' + item.category.toUpperCase() | translate }}
+          </button>
         </article>
       }
 

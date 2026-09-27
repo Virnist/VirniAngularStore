@@ -112,6 +112,8 @@
 
 // КАРТКА НОВИНИ
 .news-card {
+  position: relative;
+  color: inherit;
   background: var(--bg-card);
   border-radius: 16px;
   overflow: hidden;
@@ -143,25 +145,36 @@
     position: relative;
     width: 100%;
 
-    // Бейдж категорії поверх зображення
-    .type-badge {
-      position: absolute;
-      top: 15px;
-      left: 15px;
-      padding: 6px 14px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      border-radius: 30px;
-      color: #ffffff;
-      letter-spacing: 0.5px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-      z-index: 2;
+  }
 
-      &.collections { background: #9f1239; }
-      &.accessories { background: #0369a1; }
-      &.style { background: #581c87; }
-    }
+  .type-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 2;
+    padding: 6px 14px;
+    border: 0;
+    border-radius: 30px;
+    color: #ffffff;
+    font: inherit;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+
+    &.collections { background: #9f1239; }
+    &.accessories { background: #0369a1; }
+    &.style { background: #581c87; }
+  }
+
+  .news-card-link {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    color: inherit;
+    text-decoration: none;
   }
 
   .card-content {

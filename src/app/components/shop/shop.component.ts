@@ -42,9 +42,7 @@ export class ShopComponent {
       });
 
       const sortedCats = Object.keys(countMap).sort((a, b) => countMap[b] - countMap[a]);
-      const topCategories = sortedCats.slice(0, 6);
-
-      return ['all', ...topCategories];
+      return ['all', ...sortedCats];
     })
   );
 
