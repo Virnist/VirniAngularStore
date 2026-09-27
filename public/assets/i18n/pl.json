@@ -4,24 +4,31 @@
   "MENU": {
     "NEWS": "Aktualności",
     "SHOP": "Sklep",
+    "MEDIA": "Media",
     "VIDEOS": "YouTube"
   },
   "HOME": {
     "FEED": {
-      "NEWS": "Artykuł",
+      "NEWS": "Aktualność",
       "PRODUCT": "Produkt",
       "VIDEO": "YouTube"
     }
   },
   "SHOP": {
-    "ADD_TO_CART": "Dodaj do koszyka",
+    "ADD_TO_CART": "Do koszyka",
+    "PRE_ORDER_BTN": "Zamów w przedsprzedaży",
     "CATEGORIES": {
       "ALL": "Wszystkie produkty",
-      "WEDDING": "Ślubne",
-      "TRADITIONAL": "Haftowane",
+      "WEDDING": "Suknie ślubne",
+      "TRADITIONAL": "Wyszywanki",
       "PERFUME": "Perfumy",
       "ELECTRONICS": "Elektronika"
     }
+  },
+  "PRODUCT": {
+    "IN_STOCK": "W magazynie",
+    "PRE_ORDER": "Przedsprzedaż. Czas realizacji",
+    "DAYS": "dni"
   },
   "VIDEOS": {
     "SUBTITLE": "Najnowsze recenzje od @VirniFashion",
@@ -29,7 +36,60 @@
     "LOADING": "Ładowanie filmów..."
   },
   "NEWS": {
+    "CATEGORIES": {
+      "ALL": "Wszystkie aktualności",
+      "COLLECTIONS": "Kolekcje",
+      "ACCESSORIES": "Akcesoria",
+      "STYLE": "Wskazówki dotyczące stylu"
+    },
     "READ_MORE": "Czytaj więcej",
     "BACK": "Powrót do aktualności"
+  },
+  "FOOTER": {
+    "BRAND_TEXT": "Twoja przestrzeń dla autentycznego stylu, wysokiej jakości muzyki i ekskluzywnych produktów. Twórzmy historię razem.",
+    "NAVIGATION": "Nawigacja",
+    "FOLLOW_US": "Obserwuj nas"
+  },
+  "CART": {
+    "TITLE": "Twój koszyk",
+    "CHECKOUT": "Realizacja zamówienia",
+    "SUBTOTAL": "Suma częściowa",
+    "SHIPPING": "Wysyłka",
+    "FREE": "Darmowa",
+    "TOTAL_TO_PAY": "Razem do zapłaty",
+    "FORM": {
+      "NAME": "Twoje imię",
+      "PHONE": "Numer telefonu",
+      "EMAIL": "E-mail (opcjonalnie)",
+      "ADDRESS": "Kraj, miasto, adres dostawy",
+      "CONFIRM_METHOD": "Metoda potwierdzenia:",
+      "SUBMIT_BTN": "Potwierdź zamówienie"
+    },
+    "EMPTY": {
+      "TITLE": "Twój koszyk jest pusty",
+      "SUBTITLE": "Wygląda na to, że nic jeszcze nie dodano.",
+      "GO_SHOP": "Przejdź do sklepu"
+    }
+  },
+  "MEDIA": {
+    "TITLE": "Muzyka i wideo",
+    "SUBTITLE": "Ciesz się najnowszymi opowieściami wizualnymi i zbiorem utworów Virni.",
+    "HEADER_TAG": "Media",
+    "VIDEO_PANEL": "Najnowsze wideo",
+    "WATCH_ON_YOUTUBE": "Obejrzyj na YouTube",
+    "PLAYER_TITLE": "Biblioteka audio",
+    "SORT_BY": "Sortuj według",
+    "SORT_TITLE_ASC": "Tytuł: A–Z",
+    "SORT_TITLE_DESC": "Tytuł: Z–A",
+    "SORT_POPULAR": "Najczęściej otwierane na tym urządzeniu",
+    "SORT_RANDOM": "Losowa kolejność",
+    "PAGINATION_LABEL": "Strony biblioteki audio",
+    "PAGE_OF": "Strona {{current}} z {{total}}",
+    "PREVIOUS": "Wstecz",
+    "NEXT": "Dalej",
+    "PLAY_IN_DRIVE": "Odtwórz na Dysku Google",
+    "DOWNLOAD": "Pobierz",
+    "LOADING_TRACKS": "Ładowanie utworów...",
+    "NO_VIDEOS": "Brak dostępnych filmów."
   }
 }

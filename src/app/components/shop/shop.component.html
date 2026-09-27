@@ -28,7 +28,7 @@
           
           <div class="card-content">
             <div class="price-container">
-              <span class="date">{{ getFormattedPrice(item.price) }}</span>
+              <span class="date">{{ item.price | convertPrice }}</span>
             </div>
             <h3>{{ getLangContent(item, 'title') }}</h3>
             <p>{{ getLangContent(item, 'description') | slice:0:120 }}...</p>

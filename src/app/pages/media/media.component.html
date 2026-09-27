@@ -1,0 +1,115 @@
+<div class="media-page" [class.is-landscape]="isLandscape()" [class.is-portrait]="!isLandscape()">
+  <aside class="media-panel">
+    <div class="panel-label">
+      <span>{{ 'MEDIA.VIDEO_PANEL' | translate }}</span>
+    </div>
+
+    @if (videos$ | async; as videos) {
+      @if (videos.length) {
+        <div class="video-embed-wrap">
+          <iframe
+            [src]="getEmbedUrl(selectedVideoId() || videos[0].id)"
+            title="Latest Virni video"
+            allow="autoplay; encrypted-media; picture-in-picture"
+            allowfullscreen
+            loading="lazy"
+          ></iframe>
+        </div>
+
+      } @else {
+        <p class="empty-state">{{ 'MEDIA.NO_VIDEOS' | translate }}</p>
+      }
+    }
+  </aside>
+
+  <main class="media-content">
+    <header class="media-header">
+      <p class="eyebrow">{{ 'MEDIA.HEADER_TAG' | translate }}</p>
+      <h1>{{ 'MEDIA.TITLE' | translate }}</h1>
+      <p class="subtitle">{{ 'MEDIA.SUBTITLE' | translate }}</p>
+    </header>
+
+    @if (videos$ | async; as videos) {
+      @if (videos.length > 1) {
+        <ul class="video-list">
+          @for (video of videos.slice(0, 4); track video.id; let i = $index) {
+            <li class="video-item" [class.is-active]="selectedVideoId() === video.id || (!selectedVideoId() && i === 0)">
+              <button type="button" class="video-select" (click)="setActiveVideo(video.id)">
+                <img [src]="video.thumbnail" [alt]="video.title" />
+                <div class="video-copy">
+                  <strong>{{ video.title }}</strong>
+                  <small>{{ 'MEDIA.WATCH_ON_YOUTUBE' | translate }}</small>
+                </div>
+              </button>
+            </li>
+          }
+        </ul>
+      }
+    }
+
+    <section class="player-shell">
+      <div class="player-toolbar">
+        <span>{{ 'MEDIA.PLAYER_TITLE' | translate }}</span>
+        <label class="sort-control">
+          <span>{{ 'MEDIA.SORT_BY' | translate }}</span>
+          <select [value]="sortOrder()" (change)="setSortOrder($event)">
+            <option value="title-asc">{{ 'MEDIA.SORT_TITLE_ASC' | translate }}</option>
+            <option value="title-desc">{{ 'MEDIA.SORT_TITLE_DESC' | translate }}</option>
+            <option value="popular">{{ 'MEDIA.SORT_POPULAR' | translate }}</option>
+            <option value="random">{{ 'MEDIA.SORT_RANDOM' | translate }}</option>
+          </select>
+        </label>
+      </div>
+
+      @if (tracks().length) {
+        <div class="track-grid">
+          @for (track of visibleTracks(); track track.id) {
+            <article class="track-card">
+              <img [src]="track.poster || defaultPoster" [alt]="track.title" />
+
+              <div class="track-details">
+                <h3>{{ track.title }}</h3>
+
+                <div class="track-actions">
+                  <a
+                    class="primary-btn"
+                    [href]="getDrivePreviewUrl(track)"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    (click)="recordTrackOpen(track)"
+                  >
+                    {{ 'MEDIA.PLAY_IN_DRIVE' | translate }}
+                  </a>
+
+                  <a
+                    class="secondary-btn"
+                    [href]="track.downloadUrl"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    [download]="track.title + '.mp3'"
+                  >
+                    {{ 'MEDIA.DOWNLOAD' | translate }}
+                  </a>
+                </div>
+              </div>
+            </article>
+          }
+        </div>
+
+        @if (pageCount() > 1) {
+          <nav class="pagination" [attr.aria-label]="'MEDIA.PAGINATION_LABEL' | translate">
+            <button type="button" [disabled]="currentPage() === 1" (click)="setPage(currentPage() - 1)">
+              {{ 'MEDIA.PREVIOUS' | translate }}
+            </button>
+            <span>{{ 'MEDIA.PAGE_OF' | translate: { current: currentPage(), total: pageCount() } }}</span>
+            <button type="button" [disabled]="currentPage() === pageCount()" (click)="setPage(currentPage() + 1)">
+              {{ 'MEDIA.NEXT' | translate }}
+            </button>
+          </nav>
+        }
+      } @else {
+        <p class="empty-state">{{ 'MEDIA.LOADING_TRACKS' | translate }}</p>
+      }
+    </section>
+  </main>
+</div>

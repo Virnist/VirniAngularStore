@@ -1,4 +1,8 @@
+import { importProvidersFrom } from '@angular/core';
+import { provideHttpClient } from '@angular/common/http';
+import { provideRouter } from '@angular/router';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { NewsDetailComponent } from './news-detail.component';
 
@@ -8,7 +12,12 @@ describe('NewsDetailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NewsDetailComponent]
+      imports: [NewsDetailComponent],
+      providers: [
+        provideHttpClient(),
+        provideRouter([]),
+        importProvidersFrom(TranslateModule.forRoot())
+      ]
     })
     .compileComponents();
 

@@ -1,35 +1,95 @@
 {
   "APP_TITLE": "Virni Store",
-  "WELCOME": "Willkommen in unserem Online-Shop!",
+  "WELCOME": "Willkommen in unserem Shop!",
   "MENU": {
     "NEWS": "News",
     "SHOP": "Shop",
+    "MEDIA": "Media",
     "VIDEOS": "YouTube"
   },
   "HOME": {
     "FEED": {
-      "NEWS": "Artikel",
+      "NEWS": "News",
       "PRODUCT": "Produkt",
       "VIDEO": "YouTube"
     }
   },
   "SHOP": {
     "ADD_TO_CART": "In den Warenkorb",
+    "PRE_ORDER_BTN": "Vorbestellen",
     "CATEGORIES": {
       "ALL": "Alle Produkte",
-      "WEDDING": "Hochzeit",
-      "TRADITIONAL": "Bestickte Kleidung",
-      "PERFUME": "Parfüm",
+      "WEDDING": "Brautkleider",
+      "TRADITIONAL": "Wyschywankas",
+      "PERFUME": "Parfümerie",
       "ELECTRONICS": "Elektronik"
     }
   },
+  "PRODUCT": {
+    "IN_STOCK": "Auf Lager",
+    "PRE_ORDER": "Vorbestellung. Produktionszeit",
+    "DAYS": "Tage"
+  },
   "VIDEOS": {
-    "SUBTITLE": "Neueste Videos von @VirniFashion",
+    "SUBTITLE": "Aktuelle Rezensionen von @VirniFashion",
     "WATCH_LINK": "Auf YouTube ansehen",
     "LOADING": "Videos werden geladen..."
   },
   "NEWS": {
-    "READ_MORE": "Mehr lesen",
+    "CATEGORIES": {
+      "ALL": "Alle News",
+      "COLLECTIONS": "Kollektionen",
+      "ACCESSORIES": "Zubehör",
+      "STYLE": "Stiltipps"
+    },
+    "READ_MORE": "Weiterlesen",
     "BACK": "Zurück zu den News"
+  },
+  "FOOTER": {
+    "BRAND_TEXT": "Ihr Raum für authentischen Stil, Qualitätsmusik und exklusive Produkte. Lassen Sie uns gemeinsam Geschichte schreiben.",
+    "NAVIGATION": "Navigation",
+    "FOLLOW_US": "Folgen Sie uns"
+  },
+  "CART": {
+    "TITLE": "Ihr Warenkorb",
+    "CHECKOUT": "Bestellung aufgeben",
+    "SUBTOTAL": "Zwischensumme",
+    "SHIPPING": "Versand",
+    "FREE": "Kostenlos",
+    "TOTAL_TO_PAY": "Gesamtsumme",
+    "FORM": {
+      "NAME": "Ihr Name",
+      "PHONE": "Telefonnummer",
+      "EMAIL": "E-Mail (optional)",
+      "ADDRESS": "Land, Stadt, Lieferadresse",
+      "CONFIRM_METHOD": "Bestätigungsmethode:",
+      "SUBMIT_BTN": "Bestellung bestätigen"
+    },
+    "EMPTY": {
+      "TITLE": "Ihr Warenkorb ist leer",
+      "SUBTITLE": "Es sieht so aus, als hätten Sie noch nichts hinzugefügt.",
+      "GO_SHOP": "Zum Shop"
+    }
+  },
+  "MEDIA": {
+    "TITLE": "Musik und Video",
+    "SUBTITLE": "Genießen Sie die neuesten visuellen Geschichten und eine kuratierte Musikbibliothek von Virni.",
+    "HEADER_TAG": "Media",
+    "VIDEO_PANEL": "Neueste Videos",
+    "WATCH_ON_YOUTUBE": "Auf YouTube ansehen",
+    "PLAYER_TITLE": "Audio-Bibliothek",
+    "SORT_BY": "Sortieren nach",
+    "SORT_TITLE_ASC": "Titel: A bis Z",
+    "SORT_TITLE_DESC": "Titel: Z bis A",
+    "SORT_POPULAR": "Auf diesem Gerät am häufigsten geöffnet",
+    "SORT_RANDOM": "Zufällige Reihenfolge",
+    "PAGINATION_LABEL": "Seiten der Audiothek",
+    "PAGE_OF": "Seite {{current}} von {{total}}",
+    "PREVIOUS": "Zurück",
+    "NEXT": "Weiter",
+    "PLAY_IN_DRIVE": "In Drive abspielen",
+    "DOWNLOAD": "Herunterladen",
+    "LOADING_TRACKS": "Titel werden geladen...",
+    "NO_VIDEOS": "Derzeit sind keine Videos verfügbar."
   }
 }

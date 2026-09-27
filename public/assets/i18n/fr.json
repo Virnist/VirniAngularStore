@@ -4,6 +4,7 @@
   "MENU": {
     "NEWS": "Actualités",
     "SHOP": "Boutique",
+    "MEDIA": "Média",
     "VIDEOS": "YouTube"
   },
   "HOME": {
@@ -15,21 +16,80 @@
   },
   "SHOP": {
     "ADD_TO_CART": "Ajouter au panier",
+    "PRE_ORDER_BTN": "Précommander",
     "CATEGORIES": {
       "ALL": "Tous les produits",
-      "WEDDING": "Mariage",
-      "TRADITIONAL": "Robes brodées",
+      "WEDDING": "Robes de mariée",
+      "TRADITIONAL": "Vyshyvankas",
       "PERFUME": "Parfumerie",
       "ELECTRONICS": "Électronique"
     }
   },
+  "PRODUCT": {
+    "IN_STOCK": "En stock",
+    "PRE_ORDER": "Précommande. Délai de fabrication",
+    "DAYS": "jours"
+  },
   "VIDEOS": {
-    "SUBTITLE": "Dernières vidéos de @VirniFashion",
+    "SUBTITLE": "Dernières critiques de @VirniFashion",
     "WATCH_LINK": "Regarder sur YouTube",
     "LOADING": "Chargement des vidéos..."
   },
   "NEWS": {
+    "CATEGORIES": {
+      "ALL": "Toutes les actualités",
+      "COLLECTIONS": "Collections",
+      "ACCESSORIES": "Accessoires",
+      "STYLE": "Conseils de style"
+    },
     "READ_MORE": "Lire la suite",
     "BACK": "Retour aux actualités"
+  },
+  "FOOTER": {
+    "BRAND_TEXT": "Votre espace pour un style authentique, une musique de qualité et des produits exclusifs. Écrivons l'histoire ensemble.",
+    "NAVIGATION": "Navigation",
+    "FOLLOW_US": "Suivez-nous"
+  },
+  "CART": {
+    "TITLE": "Votre panier",
+    "CHECKOUT": "Passer la commande",
+    "SUBTOTAL": "Sous-total",
+    "SHIPPING": "Livraison",
+    "FREE": "Gratuite",
+    "TOTAL_TO_PAY": "Total à payer",
+    "FORM": {
+      "NAME": "Votre nom",
+      "PHONE": "Numéro de téléphone",
+      "EMAIL": "E-mail (optionnel)",
+      "ADDRESS": "Pays, ville, adresse de livraison",
+      "CONFIRM_METHOD": "Méthode de confirmation :",
+      "SUBMIT_BTN": "Confirmer la commande"
+    },
+    "EMPTY": {
+      "TITLE": "Votre panier est vide",
+      "SUBTITLE": "Il semble que vous n'avez encore rien ajouté.",
+      "GO_SHOP": "Aller à la boutique"
+    }
+  },
+  "MEDIA": {
+    "TITLE": "Musique et vidéos",
+    "SUBTITLE": "Profitez des dernières histoires visuelles et d'une sélection musicale organisée par Virni.",
+    "HEADER_TAG": "Média",
+    "VIDEO_PANEL": "Dernière vidéo",
+    "WATCH_ON_YOUTUBE": "Regarder sur YouTube",
+    "PLAYER_TITLE": "Bibliothèque audio",
+    "SORT_BY": "Trier par",
+    "SORT_TITLE_ASC": "Titre : A à Z",
+    "SORT_TITLE_DESC": "Titre : Z à A",
+    "SORT_POPULAR": "Les plus ouverts sur cet appareil",
+    "SORT_RANDOM": "Ordre aléatoire",
+    "PAGINATION_LABEL": "Pages de la bibliothèque audio",
+    "PAGE_OF": "Page {{current}} sur {{total}}",
+    "PREVIOUS": "Précédent",
+    "NEXT": "Suivant",
+    "PLAY_IN_DRIVE": "Lire dans Drive",
+    "DOWNLOAD": "Télécharger",
+    "LOADING_TRACKS": "Chargement des titres...",
+    "NO_VIDEOS": "Aucune vidéo n'est disponible pour le moment."
   }
 }

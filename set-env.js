@@ -22,7 +22,9 @@ const envConfigFile = `export const environment = {
   tgToken: '${process.env.tgToken || ''}',
   tgChatId: '${process.env.tgChatId || ''}',
   youtubeApiKey: '${process.env.youtubeApiKey || ''}',
-  youtubeChannelId: '${process.env.youtubeChannelId || ''}'
+  youtubeChannelId: '${process.env.youtubeChannelId || 'UCNilfw7uSJVDhUcLLYcD_Cw'}',
+  whatsappNumber: '${process.env.whatsappNumber || '380685412442'}',
+  supportEmail: '${process.env.supportEmail || 'hello@virni.com'}'
 };
 `;
 

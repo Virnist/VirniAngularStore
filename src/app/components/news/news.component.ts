@@ -87,19 +87,20 @@ export class NewsComponent {
     return item[`${field}_${lang}`] || item[`${field}_en`] || item[`${field}_uk`] || '';
   }
 
+  private setCategoryState(category: string) {
+    const normalized = category.toLowerCase() === 'all' ? 'all' : category.toUpperCase();
+    this.currentPage.set(1);
+    this.selectedCategory.set(normalized);
+  }
+
   // Метод перемикання категорій
   setCategory(category: string) {
-    this.currentPage.set(1); // При зміні фільтра завжди скидаємо на 1 сторінку!
-    if (category.toLowerCase() === 'all') {
-      this.selectedCategory.set('all');
-    } else {
-      this.selectedCategory.set(category.toUpperCase());
-    }
+    this.setCategoryState(category);
   }
 
   // Метод зміни сторінки користувачем
   setPage(page: number) {
     this.currentPage.set(page);
-    window.scrollTo({ top: 0, behavior: 'smooth' }); // Плавний скрол вгору
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }

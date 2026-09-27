@@ -1,31 +1,36 @@
 import { Pipe, PipeTransform, inject } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { DataService } from '../services/data.service';
+import { CartService } from '../services/cart.service'; // Перевір шлях до свого CartService
 
 @Pipe({
   name: 'convertPrice',
   standalone: true,
-  pure: false
+  pure: false // Залишаємо false, щоб пайп миттєво реагував на зміну мови в додатку
 })
 export class ConvertPricePipe implements PipeTransform {
-  private translate = inject(TranslateService);
-  private dataService = inject(DataService);
+  private cartService = inject(CartService);
 
-  private symbols: any = { 'uk': '₴', 'en': '$', 'pl': 'zł', 'fr': '€', 'de': '€' };
-  private codes: any = { 'uk': 'UAH', 'en': 'USD', 'pl': 'PLN', 'fr': 'EUR', 'de': 'EUR' };
+  transform(usdPrice: number | undefined | null): string {
+    if (usdPrice === undefined || usdPrice === null) return '';
 
-  transform(usdPrice: number): string {
-    const lang = this.translate.currentLang || 'uk';
-    const currencyCode = this.codes[lang];
-    const symbol = this.symbols[lang];
-    const rates = this.dataService.rates();
-
-    if (!rates || !rates[currencyCode]) {
-      return `$${usdPrice.toFixed(2)}`; // Fallback на долар
-    }
-
-    const converted = (usdPrice * rates[currencyCode]).toFixed(2);
+    // Отримуємо вже прорахований курс та значок валюти з CartService
+    const currentCurrency = this.cartService.currency();
+    const lang = this.cartService['currentLang'] ? this.cartService['currentLang']() : 'uk';
     
-    return lang === 'en' ? `${symbol}${converted}` : `${converted} ${symbol}`;
+    // Перераховуємо ціну
+    const converted = usdPrice * currentCurrency.rate;
+
+    // Красиве форматування: округлюємо гривні (₴) та злоті (zł) до цілих чисел,
+    // а для долара ($) та євро (€) залишаємо 2 знаки після коми (центи)
+    let formattedPrice: string;
+    if (currentCurrency.symbol === '₴' || currentCurrency.symbol === 'zł') {
+      formattedPrice = Math.round(converted).toString();
+    } else {
+      formattedPrice = converted.toFixed(2);
+    }
+    
+    // Форматування відображення (значок спереду для EN, для інших — ззаду)
+    return currentCurrency.symbol === '$' 
+      ? `${currentCurrency.symbol}${formattedPrice}` 
+      : `${formattedPrice} ${currentCurrency.symbol}`;
   }
 }

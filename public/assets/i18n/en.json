@@ -4,24 +4,31 @@
   "MENU": {
     "NEWS": "News",
     "SHOP": "Shop",
+    "MEDIA": "Media",
     "VIDEOS": "YouTube"
   },
   "HOME": {
     "FEED": {
       "NEWS": "News",
-      "PRODUCT": "Shop",
+      "PRODUCT": "Product",
       "VIDEO": "YouTube"
     }
   },
   "SHOP": {
     "ADD_TO_CART": "Add to cart",
+    "PRE_ORDER_BTN": "Pre-order",
     "CATEGORIES": {
       "ALL": "All products",
-      "WEDDING": "Wedding",
-      "TRADITIONAL": "Embroidery",
-      "PERFUME": "Perfume",
+      "WEDDING": "Wedding dresses",
+      "TRADITIONAL": "Vyshyvankas",
+      "PERFUME": "Perfumes",
       "ELECTRONICS": "Electronics"
     }
+  },
+  "PRODUCT": {
+    "IN_STOCK": "In stock",
+    "PRE_ORDER": "Pre-order. Production time",
+    "DAYS": "days"
   },
   "VIDEOS": {
     "SUBTITLE": "Latest reviews from @VirniFashion",
@@ -29,7 +36,60 @@
     "LOADING": "Loading videos..."
   },
   "NEWS": {
+    "CATEGORIES": {
+      "ALL": "All news",
+      "COLLECTIONS": "Collections",
+      "ACCESSORIES": "Accessories",
+      "STYLE": "Style tips"
+    },
     "READ_MORE": "Read more",
     "BACK": "Back to news"
+  },
+  "FOOTER": {
+    "BRAND_TEXT": "Your space for authentic style, quality music, and exclusive products. Making history together.",
+    "NAVIGATION": "Navigation",
+    "FOLLOW_US": "Follow us"
+  },
+  "CART": {
+    "TITLE": "Your Cart",
+    "CHECKOUT": "Checkout",
+    "SUBTOTAL": "Subtotal",
+    "SHIPPING": "Shipping",
+    "FREE": "Free",
+    "TOTAL_TO_PAY": "Total to pay",
+    "FORM": {
+      "NAME": "Your Name",
+      "PHONE": "Phone Number",
+      "EMAIL": "Email (optional)",
+      "ADDRESS": "Country, city, delivery address",
+      "CONFIRM_METHOD": "Confirmation method:",
+      "SUBMIT_BTN": "Confirm Order"
+    },
+    "EMPTY": {
+      "TITLE": "Your cart is empty",
+      "SUBTITLE": "Looks like you haven't added anything yet.",
+      "GO_SHOP": "Go to Shop"
+    }
+  },
+  "MEDIA": {
+    "TITLE": "Music and video room",
+    "SUBTITLE": "Enjoy the latest visual stories and a curated listening library from Virni.",
+    "HEADER_TAG": "Media",
+    "VIDEO_PANEL": "Latest video",
+    "WATCH_ON_YOUTUBE": "Watch on YouTube",
+    "PLAYER_TITLE": "Audio library",
+    "SORT_BY": "Sort by",
+    "SORT_TITLE_ASC": "Title: A to Z",
+    "SORT_TITLE_DESC": "Title: Z to A",
+    "SORT_POPULAR": "Most opened on this device",
+    "SORT_RANDOM": "Random order",
+    "PAGINATION_LABEL": "Audio library pages",
+    "PAGE_OF": "Page {{current}} of {{total}}",
+    "PREVIOUS": "Previous",
+    "NEXT": "Next",
+    "PLAY_IN_DRIVE": "Play in Drive",
+    "DOWNLOAD": "Download",
+    "LOADING_TRACKS": "Loading tracks...",
+    "NO_VIDEOS": "No videos available right now."
   }
 }

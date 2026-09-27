@@ -2,14 +2,21 @@
   @if (cartService.items().length > 0) {
     <div class="cart-grid">
       
+      <!-- СЕКЦІЯ СПИСКУ ТОВАРІВ -->
       <section class="items-list">
         <h2>{{ 'CART.TITLE' | translate }}</h2>
         
         <div class="cart-items-wrapper">
           @for (item of cartService.items(); track item.id) {
             <div class="cart-item">
-              <div class="item-image">
-                <img [src]="item.image" alt="{{ item.title }}">
+              
+              <!-- ЗОБРАЖЕННЯ ТОВАРУ ОПТИМІЗОВАНЕ ЧЕРЕЗ NgOptimizedImage -->
+              <div class="item-image" style="position: relative; width: 90px; height: 120px;">
+                <img [ngSrc]="item.image" 
+                     alt="{{ item.title }}" 
+                     fill 
+                     priority
+                     style="object-fit: cover;">
               </div>
               
               <div class="item-details">
@@ -21,9 +28,7 @@
                 <div class="item-actions">
                   <div class="quantity-controls">
                     <button (click)="cartService.updateQuantity(item.id, item.quantity - 1)" [disabled]="item.quantity <= 1">−</button>
-                    
                     <span class="quantity-num">{{ item.quantity }}</span>
-                    
                     <button (click)="cartService.updateQuantity(item.id, item.quantity + 1)">+</button>
                   </div>
                   
@@ -41,36 +46,40 @@
         </div>
       </section>
 
+      <!-- БЛОК ОФОРМЛЕННЯ ЗАМОВЛЕННЯ -->
       <aside class="checkout-box">
         <h3>{{ 'CART.CHECKOUT' | translate }}</h3>
         
-        <div class="form">
-          <div class="input-group">
-            <input [(ngModel)]="order.name" type="text" id="name" required placeholder=" ">
-            <label for="name">Ваше ім'я</label>
+        <!-- Форма зв'язана через [formGroup] -->
+        <form [formGroup]="orderForm" class="form" (ngSubmit)="submitOrder()">
+          
+          <div class="input-group" [class.has-error]="orderForm.get('name')?.touched && orderForm.get('name')?.invalid">
+            <input formControlName="name" type="text" id="name" placeholder=" ">
+            <label for="name">{{ 'CART.FORM.NAME' | translate }} *</label>
           </div>
 
-          <div class="input-group">
-            <input [(ngModel)]="order.phone" type="tel" id="phone" required placeholder=" ">
-            <label for="phone">Номер телефону</label>
+          <div class="input-group" [class.has-error]="orderForm.get('phone')?.touched && orderForm.get('phone')?.invalid">
+            <input formControlName="phone" type="tel" id="phone" placeholder=" ">
+            <label for="phone">{{ 'CART.FORM.PHONE' | translate }} *</label>
           </div>
 
-          <div class="input-group">
-            <input [(ngModel)]="order.email" type="email" id="email" placeholder=" ">
-            <label for="email">Email (опціонально)</label>
+          <div class="input-group" [class.has-error]="orderForm.get('email')?.touched && orderForm.get('email')?.invalid">
+            <input formControlName="email" type="email" id="email" placeholder=" ">
+            <label for="email">{{ 'CART.FORM.EMAIL' | translate }}</label>
           </div>
 
-          <div class="input-group">
-            <textarea [(ngModel)]="order.address" id="address" required placeholder=" " rows="2"></textarea>
-            <label for="address">Країна, місто, адреса доставки</label>
+          <div class="input-group" [class.has-error]="orderForm.get('address')?.touched && orderForm.get('address')?.invalid">
+            <textarea formControlName="address" id="address" placeholder=" " rows="2"></textarea>
+            <label for="address">{{ 'CART.FORM.ADDRESS' | translate }} *</label>
           </div>
-        </div>
+        </form>
 
+        <!-- Вибір способу підтвердження замовлення -->
         <div class="method-selector">
-          <p class="selector-title">Спосіб підтвердження:</p>
+          <p class="selector-title">{{ 'CART.FORM.CONFIRM_METHOD' | translate }}</p>
           <div class="method-chips">
             <label class="chip">
-              <input type="radio" name="orderMethod" value="telegram" [(ngModel)]="submitMethod" checked>
+              <input type="radio" name="orderMethod" value="telegram" [(ngModel)]="submitMethod">
               <span>Telegram</span>
             </label>
             <label class="chip">
@@ -84,26 +93,55 @@
           </div>
         </div>
 
-        <div class="totals">
-          <span class="total-label">До сплати:</span>
-          <span class="total-sum">{{ finalTotal() | convertPrice }}</span>
+        <!-- Фінансовий підсумок -->
+        <div class="cart-summary-breakdown" style="margin: 20px 0; border-top: 1px solid rgba(0,0,0,0.08); padding-top: 15px;">
+          <div class="summary-row" style="display: flex; justify-content: space-between; margin-bottom: 8px; opacity: 0.8; font-size: 0.95rem;">
+            <span>{{ 'CART.SUBTOTAL' | translate }}</span>
+            <span>{{ cartService.totalSum() | convertPrice }}</span> 
+          </div>
+
+          <div class="summary-row" style="display: flex; justify-content: space-between; margin-bottom: 12px; opacity: 0.8; font-size: 0.95rem;">
+            <span>{{ 'CART.SHIPPING' | translate }}</span>
+            <span>
+              @if (shippingPrice() === 0) {
+                <b style="color: #2f855a;">{{ 'CART.FREE' | translate }}</b>
+              } @else {
+                {{ shippingPrice() | convertPrice }}
+              }
+            </span>
+          </div>
+
+          <div class="totals" style="display: flex; justify-content: space-between; align-items: center; font-weight: bold; font-size: 1.25rem; border-top: 1px dashed rgba(128,128,128,0.2); padding-top: 12px;">
+            <span class="total-label">{{ 'CART.TOTAL_TO_PAY' | translate }}</span>
+            <span class="total-sum" style="color: var(--accent, #000); font-weight: 800;">{{ finalTotal() | convertPrice }}</span>
+          </div>
         </div>
 
-        <button class="main-submit-btn" (click)="submitOrder()">
-          <span>Підтвердити замовлення</span>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        <!-- Головна кнопка відправки з блокуванням під час обробки або помилки -->
+        <button class="main-submit-btn" (click)="submitOrder()" [disabled]="orderForm.invalid || isLoading()">
+          <span>
+            @if (isLoading()) {
+              Обробка...
+            } @else {
+              {{ 'CART.FORM.SUBMIT_BTN' | translate }}
+            }
+          </span>
+          @if (!isLoading()) {
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          }
         </button>
       </aside>
 
     </div>
   } @else {
+    <!-- ПОРОЖНІЙ КОШИК -->
     <div class="cart-empty-state">
       <div class="empty-icon">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5-2 4-2 4 2 4 2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
       </div>
-      <h2>Ваш кошик порожній</h2>
-      <p>Схоже, ви ще нічого не додали. Зазирніть до нашої колекції суконь та етно-одягу.</p>
-      <button routerLink="/shop" class="continue-shopping-btn">Перейти до магазину</button>
+      <h2>{{ 'CART.EMPTY.TITLE' | translate }}</h2>
+      <p>{{ 'CART.EMPTY.SUBTITLE' | translate }}</p>
+      <button routerLink="/shop" class="continue-shopping-btn">{{ 'CART.EMPTY.GO_SHOP' | translate }}</button>
     </div>
   }
 </div>

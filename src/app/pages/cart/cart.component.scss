@@ -347,3 +347,23 @@
   .method-selector .chip input:checked + span { background: #fff; color: #1a1a1a; }
   .totals .total-sum { color: #fff; }
 }
+.input-group {
+  position: relative;
+  
+  &.has-error {
+    input, textarea {
+      border-color: #e53e3e; /* Червоний колір для помилки */
+      background-color: #fff5f5;
+    }
+    label {
+      color: #e53e3e;
+    }
+  }
+}
+
+/* Робимо неактивну кнопку візуально заблокованою */
+.main-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  filter: grayscale(30%);
+}

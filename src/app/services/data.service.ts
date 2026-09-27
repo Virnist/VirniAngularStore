@@ -1,6 +1,6 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map, tap, catchError, of } from 'rxjs';
+import { Observable, map, tap, catchError, shareReplay } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { NewsItem } from '../models/news.model';
 
@@ -9,6 +9,7 @@ import { NewsItem } from '../models/news.model';
 })
 export class DataService {
   private http = inject(HttpClient);
+  private videosCache?: Observable<any[]>;
 
   // --- НОВИНИ ---
   getNews(): Observable<NewsItem[]> {
@@ -21,27 +22,38 @@ export class DataService {
     );
   }
 
-  // --- ВІДЕО (YouTube) з автоматичним перемиканням на JSON у разі помилки ---
+  // --- ВІДЕО (останні завантаження каналу) ---
   getVideos(): Observable<any[]> {
-    const url = `https://www.googleapis.com/youtube/v3/search?key=${environment.youtubeApiKey}&channelId=${environment.youtubeChannelId}&part=snippet,id&order=date&maxResults=6&type=video`;
-    
-    return this.http.get<any>(url).pipe(
-      // Якщо запит до YouTube API успішний, мапимо дані як зазвичай
-      map((response: any) => response.items.map((item: any) => ({
-        id: item.id.videoId,
-        title: item.snippet.title,
-        description: item.snippet.description,
-        thumbnail: item.snippet.thumbnails.high.url
-      }))),
-      
-      // Ловимо 403 або будь-яку іншу помилку від Google
-      catchError(error => {
-        console.warn('YouTube API недоступне (403/квоти). Перемикаюсь на резервний локальний файл videos.json.', error);
-        
-        // Повертаємо новий потік — запит до нашого локального файлу
-        return this.http.get<any[]>('./assets/data/videos.json');
-      })
-    );
+    if (!this.videosCache) {
+      const channelId = environment.youtubeChannelId || 'UCNilfw7uSJVDhUcLLYcD_Cw';
+      const uploadsPlaylistId = channelId.startsWith('UC') ? `UU${channelId.slice(2)}` : channelId;
+      const fallback = () => this.http.get<any[]>('./assets/data/videos.json');
+
+      if (!environment.youtubeApiKey) {
+        console.warn('YouTube API key is missing. Using the local videos.json fallback.');
+        this.videosCache = fallback().pipe(shareReplay(1));
+      } else {
+        const url = `https://www.googleapis.com/youtube/v3/playlistItems?key=${environment.youtubeApiKey}&playlistId=${uploadsPlaylistId}&part=snippet,contentDetails&maxResults=6`;
+        this.videosCache = this.http.get<any>(url).pipe(
+          map(response => (response.items || []).map((item: any) => {
+            const snippet = item.snippet;
+            return {
+              id: item.contentDetails?.videoId || snippet.resourceId?.videoId,
+              title: snippet.title,
+              description: snippet.description,
+              thumbnail: snippet.thumbnails.maxres?.url || snippet.thumbnails.high?.url || snippet.thumbnails.default?.url
+            };
+          }).filter((video: any) => video.id)),
+          catchError(error => {
+            console.warn('YouTube uploads playlist is unavailable. Using the local videos.json fallback.', error);
+            return fallback();
+          }),
+          shareReplay(1)
+        );
+      }
+    }
+
+    return this.videosCache;
   }
 
   // --- ВАЛЮТИ ---
