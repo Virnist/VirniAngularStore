@@ -44,25 +44,90 @@ function writePage(route, { title, description, image, schema, content, type }) 
   <style>
     :root { color-scheme: light; font-family: Arial, sans-serif; color: #1f2937; background: #f8fafc; }
     * { box-sizing: border-box; }
-    body { margin: 0; line-height: 1.65; }
-    header, main, footer { width: min(100% - 32px, 860px); margin-inline: auto; }
-    header { padding-block: 22px; border-bottom: 1px solid #cbd5e1; }
-    header a, .action { color: #1f2937; font-weight: 700; }
-    main { padding-block: 38px 56px; }
-    .eyebrow, time { color: #526071; font-size: .9rem; }
-    h1 { max-width: 760px; margin: 8px 0 20px; font-size: clamp(2rem, 6vw, 3.4rem); line-height: 1.12; }
-    .hero { display: block; width: 100%; height: auto; max-height: 560px; object-fit: cover; border-radius: 12px; }
-    .description { margin-block: 24px; white-space: pre-line; }
-    .price { margin-block: 22px; font-size: 1.7rem; font-weight: 800; }
-    .action { display: inline-block; padding: 12px 18px; border-radius: 8px; background: #f2c75c; text-decoration: none; }
-    footer { padding-block: 18px 28px; border-top: 1px solid #cbd5e1; color: #526071; }
+    body { min-height: 100vh; margin: 0; display: flex; flex-direction: column; line-height: 1.6; }
+    a { color: inherit; }
     a:focus-visible { outline: 3px solid #765400; outline-offset: 3px; }
+    .site-header { width: 100%; background: #fff; border-bottom: 1px solid #cbd5e1; }
+    .site-header-inner { width: min(calc(100% - 48px), 1400px); min-height: 82px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+    .brand { flex: 0 0 auto; color: #1f2937; font-size: 1.5rem; font-weight: 800; letter-spacing: .04em; text-decoration: none; text-transform: uppercase; }
+    .site-nav { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 8px 28px; }
+    .site-nav a { padding: 10px 0; color: #526071; font-size: .95rem; font-weight: 700; text-decoration: none; }
+    .site-nav a:hover { color: #765400; }
+    .detail-main { flex: 1 0 auto; width: min(calc(100% - 48px), 860px); margin: 0 auto; padding-block: 36px 48px; }
+    .eyebrow, time { color: #526071; font-size: .9rem; }
+    h1 { max-width: 760px; margin: 8px 0 20px; font-size: 2.5rem; line-height: 1.12; overflow-wrap: anywhere; }
+    .hero { display: block; width: 100%; height: auto; max-height: 560px; object-fit: cover; border-radius: 12px; }
+    .description { margin-block: 24px; white-space: pre-line; overflow-wrap: anywhere; }
+    .price { margin-block: 22px; font-size: 1.7rem; font-weight: 800; }
+    .action { display: inline-block; padding: 12px 18px; border-radius: 8px; background: #f2c75c; color: #18212f; font-weight: 700; text-decoration: none; }
+    .site-footer { width: 100%; background: #f1f5f9; border-top: 1px solid #cbd5e1; }
+    .site-footer-inner { width: min(calc(100% - 48px), 1400px); margin: 0 auto; padding: 32px 0; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; }
+    .footer-heading { margin: 0 0 10px; color: #1f2937; font-size: .9rem; font-weight: 800; text-transform: uppercase; }
+    .footer-copy, .footer-links { margin: 0; color: #526071; font-size: .9rem; }
+    .footer-links { display: flex; flex-direction: column; align-items: flex-start; gap: 7px; }
+    .footer-links a { text-decoration: none; }
+    .footer-links a:hover { color: #765400; }
+    .footer-bottom { width: min(calc(100% - 48px), 1400px); margin: 0 auto; padding: 14px 0 20px; border-top: 1px solid #cbd5e1; color: #526071; font-size: .82rem; }
+    .footer-bottom p { margin: 0; }
+    @media (max-width: 700px) {
+      .site-header-inner { width: calc(100% - 32px); min-height: 0; padding: 16px 0; align-items: flex-start; flex-direction: column; gap: 10px; }
+      .site-nav { width: 100%; justify-content: flex-start; gap: 4px 18px; }
+      .site-nav a { padding: 7px 0; font-size: .88rem; }
+      .detail-main { width: calc(100% - 32px); padding-block: 24px 36px; }
+      h1 { font-size: 1.8rem; }
+      .site-footer-inner { width: calc(100% - 32px); grid-template-columns: 1fr 1fr; gap: 24px; }
+      .footer-brand { grid-column: 1 / -1; }
+      .footer-bottom { width: calc(100% - 32px); }
+    }
+    @media (min-width: 769px) and (max-height: 800px) and (orientation: landscape) {
+      .site-header-inner { min-height: 72px; }
+      .detail-main { padding-block: 24px 32px; }
+      .hero { max-height: 42vh; }
+      h1 { font-size: 2rem; }
+      .description { margin-block: 16px; }
+      .site-footer-inner { padding-block: 22px; }
+    }
   </style>
 </head>
 <body>
-  <header><a href="${siteUrl}">Virni</a></header>
-  <main>${content}</main>
-  <footer>© 2026 Virni</footer>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a class="brand" href="${siteUrl}">Virni</a>
+      <nav class="site-nav" aria-label="Головна навігація">
+        <a href="${siteUrl}">Головна</a>
+        <a href="${siteUrl}news/">Новини</a>
+        <a href="${siteUrl}shop/">Магазин</a>
+        <a href="${siteUrl}media/">Медіа</a>
+        <a href="${siteUrl}videos/">Відео</a>
+      </nav>
+    </div>
+  </header>
+  <main class="detail-main">${content}</main>
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <section class="footer-brand">
+        <a class="brand" href="${siteUrl}">Virni</a>
+        <p class="footer-copy">Автентичний стиль, музика та вибрані товари.</p>
+      </section>
+      <section>
+        <h2 class="footer-heading">Навігація</h2>
+        <nav class="footer-links" aria-label="Навігація внизу сторінки">
+          <a href="${siteUrl}news/">Новини</a>
+          <a href="${siteUrl}shop/">Магазин</a>
+          <a href="${siteUrl}media/">Медіа</a>
+        </nav>
+      </section>
+      <section>
+        <h2 class="footer-heading">Стежте за нами</h2>
+        <nav class="footer-links" aria-label="Соціальні мережі">
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">YouTube</a>
+          <a href="https://telegram.org" target="_blank" rel="noopener noreferrer">Telegram</a>
+        </nav>
+      </section>
+    </div>
+    <div class="footer-bottom"><p>© 2026 Virni. Усі права захищені.</p></div>
+  </footer>
 </body>
 </html>
 `;
