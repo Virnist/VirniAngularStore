@@ -29,23 +29,26 @@ jobs:
         node-version: '20'
         cache: 'npm'
 
-    # 3. МАГІЯ: Звертаємося до Infisical за ключами
+    # 3. Звертаємося до Infisical за ключами
     - name: Fetch secrets from Infisical
       uses: Infisical/secrets-action@v1.0.7
       with:
         client-id: ${{ secrets.INFISICAL_CLIENT_ID }}
         client-secret: ${{ secrets.INFISICAL_CLIENT_SECRET }}
-        project-slug: "virni-store-log4" # ЗАМІНИ НА СВІЙ SLUG З КРОКУ 2 (наприклад, "virnistore")
-        env-slug: "dev" # Оскільки ми закинули ключі в секцію Development
+        project-slug: "virni-store-log4"
+        env-slug: "dev"
 
-    # 4. Встановлюємо залежності проєкту (включаючи dotenv, який ми ставили раніше)
+    # 4. Встановлюємо залежності проєкту
     - name: Install dependencies
       run: npm ci
 
-    # npm run build generates environment.ts before building the app.
+    # 5. Будуємо Angular + генеруємо SEO сторінки через node scripts/generate-seo-pages.js
     - name: Build Angular Application
+      env:
+        SITE_URL: "https://virnist.github.io/VirniAngularStore/"
       run: npm run build:pages
 
+    # 6. Завантажуємо артефакт зібраного сайту
     - name: Upload GitHub Pages artifact
       uses: actions/upload-pages-artifact@v3
       with:
