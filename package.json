@@ -9,8 +9,8 @@
     "build:custom-domain": "node set-env.js && ng build --configuration production --base-href / && node scripts/generate-seo-pages.js",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "deploy": "ng build --configuration production --base-href /VirniAngularStore/ && npx angular-cli-ghpages --dir=dist/VirniAngularStore/browser"
-  },
+    "deploy": "npm run build:pages && npx angular-cli-ghpages --dir=dist/VirniAngularStore/browser"
+},
   "private": true,
   "dependencies": {
     "@angular/common": "^19.2.0",
