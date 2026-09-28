@@ -1,0 +1,108 @@
+{
+  "APP_TITLE": "Virni Store",
+  "WELCOME": "欢迎光临我们的商店！",
+  "PWA": {
+    "INSTALL_TITLE": "将 Virni 添加至主屏幕",
+    "INSTALL_DESCRIPTION": "快速访问商店与最新动态。",
+    "INSTALL_BUTTON": "安装",
+    "INSTALL_HELP_BUTTON": "如何添加快捷方式",
+    "INSTALL_DISMISS_BUTTON": "暂不添加",
+    "INSTALL_IOS_STEPS": "在 Safari 中点击“分享”，然后选择“添加到主屏幕”。",
+    "INSTALL_ANDROID_STEPS": "打开浏览器菜单 ⋮ 并选择“安装应用”或“添加到主屏幕”。"
+  },
+  "MENU": {
+    "HOME": "首页",
+    "NEWS": "资讯",
+    "SHOP": "商店",
+    "MEDIA": "媒体",
+    "VIDEOS": "YouTube"
+  },
+  "HOME": {
+    "FEED": {
+      "NEWS": "资讯",
+      "PRODUCT": "商品",
+      "VIDEO": "YouTube"
+    }
+  },
+  "SHOP": {
+    "ADD_TO_CART": "加入购物车",
+    "PRE_ORDER_BTN": "预订",
+    "CATEGORIES": {
+      "ALL": "所有商品",
+      "WEDDING": "婚纱礼服",
+      "TRADITIONAL": "刺绣衫 (Vyshyvanka)",
+      "PERFUME": "香水香氛",
+      "ELECTRONICS": "数码电子"
+    }
+  },
+  "PRODUCT": {
+    "IN_STOCK": "现货",
+    "PRE_ORDER": "预订。制作周期",
+    "DAYS": "天"
+  },
+  "VIDEOS": {
+    "SUBTITLE": "来自 @VirniFashion 的最新评测",
+    "WATCH_LINK": "在 YouTube 上观看",
+    "LOADING": "视频加载中..."
+  },
+  "NEWS": {
+    "CATEGORIES": {
+      "ALL": "所有资讯",
+      "COLLECTIONS": "系列发布",
+      "ACCESSORIES": "时尚配饰",
+      "STYLE": "穿搭指南"
+    },
+    "READ_MORE": "阅读更多",
+    "BACK": "返回资讯列表"
+  },
+  "FOOTER": {
+    "BRAND_TEXT": "汇聚真实风格、优质音乐与独家产品的专属空间。与我们一同创造历史。",
+    "NAVIGATION": "网站导航",
+    "FOLLOW_US": "关注我们"
+  },
+  "CART": {
+    "TITLE": "您的购物车",
+    "CHECKOUT": "结算",
+    "SUBTOTAL": "小计",
+    "SHIPPING": "运费",
+    "FREE": "免费",
+    "TOTAL_TO_PAY": "应付总额",
+    "FORM": {
+      "NAME": "您的姓名",
+      "PHONE": "电话号码",
+      "EMAIL": "电子邮箱 (选填)",
+      "ADDRESS": "国家、城市、详细收货地址",
+      "CONFIRM_METHOD": "确认方式：",
+      "SUBMIT_BTN": "确认订单"
+    },
+    "EMPTY": {
+      "TITLE": "您的购物车是空的",
+      "SUBTITLE": "您似乎还没有添加任何商品。",
+      "GO_SHOP": "前往商店"
+    }
+  },
+  "MEDIA": {
+    "TITLE": "下载 Virni Music MP3",
+    "SUBTITLE": "尽情享受来自 Virni 的最新视觉故事与精选音乐库。",
+    "HEADER_TAG": "媒体",
+    "VIDEO_PANEL": "最新视频",
+    "WATCH_ON_YOUTUBE": "在 YouTube 上观看",
+    "PLAYER_TITLE": "音频音乐库",
+    "SORT_BY": "排序方式",
+    "SORT_TITLE_ASC": "标题：A 到 Z",
+    "SORT_TITLE_DESC": "标题：Z 到 A",
+    "SORT_POPULAR": "在此设备上播放最多",
+    "SORT_RANDOM": "随机顺序",
+    "PAGINATION_LABEL": "音频库页码",
+    "PAGE_OF": "第 {{current}} 页，共 {{total}} 页",
+    "PREVIOUS": "上一页",
+    "NEXT": "下一页",
+    "PLAY_IN_DRIVE": "在 Google 云端硬盘中播放",
+    "DOWNLOAD": "下载",
+    "LOADING_TRACKS": "曲目加载中...",
+    "NO_VIDEOS": "暂无可用视频。"
+  },
+  "PAGE_NOT_FOUND": {
+    "TITLE": "页面未找到"
+  }
+}

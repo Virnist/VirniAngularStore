@@ -1,0 +1,108 @@
+{
+  "APP_TITLE": "Virni",
+  "WELCOME": "Benvenuti nel nostro negozio!",
+  "PWA": {
+    "INSTALL_TITLE": "Aggiungi Virni alla Schermata Home",
+    "INSTALL_DESCRIPTION": "Accesso rapido allo shop e alle ultime novità.",
+    "INSTALL_BUTTON": "Installa",
+    "INSTALL_HELP_BUTTON": "Come aggiungere la scorciatoia",
+    "INSTALL_DISMISS_BUTTON": "Non ora",
+    "INSTALL_IOS_STEPS": "Tocca Condividi su Safari, poi scegli Aggiungi alla schermata Home.",
+    "INSTALL_ANDROID_STEPS": "Apri il menu del browser ⋮ e scegli Installa app o Aggiungi a schermata Home."
+  },
+  "MENU": {
+    "HOME": "Home",
+    "NEWS": "Notizie",
+    "SHOP": "Shop",
+    "MEDIA": "Media",
+    "VIDEOS": "YouTube"
+  },
+  "HOME": {
+    "FEED": {
+      "NEWS": "Notizie",
+      "PRODUCT": "Prodotto",
+      "VIDEO": "YouTube"
+    }
+  },
+  "SHOP": {
+    "ADD_TO_CART": "Aggiungi al carrello",
+    "PRE_ORDER_BTN": "Preordina",
+    "CATEGORIES": {
+      "ALL": "Tutti i prodotti",
+      "WEDDING": "Abiti da sposa",
+      "TRADITIONAL": "Vyshyvanky",
+      "PERFUME": "Profumi",
+      "ELECTRONICS": "Elettronica"
+    }
+  },
+  "PRODUCT": {
+    "IN_STOCK": "Disponibile",
+    "PRE_ORDER": "Preordine. Tempo di realizzazione",
+    "DAYS": "giorni"
+  },
+  "VIDEOS": {
+    "SUBTITLE": "Ultime recensioni da @VirniFashion",
+    "WATCH_LINK": "Guarda su YouTube",
+    "LOADING": "Caricamento video in corso..."
+  },
+  "NEWS": {
+    "CATEGORIES": {
+      "ALL": "Tutte le notizie",
+      "COLLECTIONS": "Collezioni",
+      "ACCESSORIES": "Accessori",
+      "STYLE": "Consigli di stile"
+    },
+    "READ_MORE": "Leggi di più",
+    "BACK": "Torna alle notizie"
+  },
+  "FOOTER": {
+    "BRAND_TEXT": "Il tuo spazio per lo stile autentico, la musica di qualità e prodotti esclusivi. Facciamo la storia insieme.",
+    "NAVIGATION": "Navigazione",
+    "FOLLOW_US": "Seguici"
+  },
+  "CART": {
+    "TITLE": "Il tuo Carrello",
+    "CHECKOUT": "Procedi all'acquisto",
+    "SUBTOTAL": "Subtotale",
+    "SHIPPING": "Spedizione",
+    "FREE": "Gratuita",
+    "TOTAL_TO_PAY": "Totale da pagare",
+    "FORM": {
+      "NAME": "Il tuo Nome",
+      "PHONE": "Numero di Telefono",
+      "EMAIL": "Email (opzionale)",
+      "ADDRESS": "Paese, città, indirizzo di spedizione",
+      "CONFIRM_METHOD": "Metodo di conferma:",
+      "SUBMIT_BTN": "Conferma Ordine"
+    },
+    "EMPTY": {
+      "TITLE": "Il tuo carrello è vuoto",
+      "SUBTITLE": "Sembra che tu non abbia ancora aggiunto nulla.",
+      "GO_SHOP": "Vai allo Shop"
+    }
+  },
+  "MEDIA": {
+    "TITLE": "Scarica la Musica MP3 di Virni",
+    "SUBTITLE": "Goditi le ultime storie visive e una libreria d'ascolto curata da Virni.",
+    "HEADER_TAG": "Media",
+    "VIDEO_PANEL": "Ultimo video",
+    "WATCH_ON_YOUTUBE": "Guarda su YouTube",
+    "PLAYER_TITLE": "Libreria audio",
+    "SORT_BY": "Ordina per",
+    "SORT_TITLE_ASC": "Titolo: A - Z",
+    "SORT_TITLE_DESC": "Titolo: Z - A",
+    "SORT_POPULAR": "Più aperti su questo dispositivo",
+    "SORT_RANDOM": "Ordine casuale",
+    "PAGINATION_LABEL": "Pagine della libreria audio",
+    "PAGE_OF": "Pagina {{current}} di {{total}}",
+    "PREVIOUS": "Precedente",
+    "NEXT": "Successiva",
+    "PLAY_IN_DRIVE": "Riproduci in Drive",
+    "DOWNLOAD": "Scarica",
+    "LOADING_TRACKS": "Caricamento brani...",
+    "NO_VIDEOS": "Nessun video disponibile al momento."
+  },
+  "PAGE_NOT_FOUND": {
+    "TITLE": "Pagina Non Trovata"
+  }
+}

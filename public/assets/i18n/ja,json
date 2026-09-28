@@ -1,0 +1,108 @@
+{
+  "APP_TITLE": "Virni",
+  "WELCOME": "当店へようこそ！",
+  "PWA": {
+    "INSTALL_TITLE": "Virniをホーム画面に追加",
+    "INSTALL_DESCRIPTION": "ショップや最新情報へすばやくアクセスできます。",
+    "INSTALL_BUTTON": "インストール",
+    "INSTALL_HELP_BUTTON": "ショートカットの追加方法",
+    "INSTALL_DISMISS_BUTTON": "今はしない",
+    "INSTALL_IOS_STEPS": "Safariで「共有」をタップし、「ホーム画面に追加」を選択します。",
+    "INSTALL_ANDROID_STEPS": "ブラウザのメニュー ⋮ を開き、「アプリをインストール」または「ホーム画面に追加」を選択します。"
+  },
+  "MENU": {
+    "HOME": "ホーム",
+    "NEWS": "ニュース",
+    "SHOP": "ショップ",
+    "MEDIA": "メディア",
+    "VIDEOS": "YouTube"
+  },
+  "HOME": {
+    "FEED": {
+      "NEWS": "ニュース",
+      "PRODUCT": "商品",
+      "VIDEO": "YouTube"
+    }
+  },
+  "SHOP": {
+    "ADD_TO_CART": "カートに追加",
+    "PRE_ORDER_BTN": "予約注文",
+    "CATEGORIES": {
+      "ALL": "すべての商品",
+      "WEDDING": "ウェディングドレス",
+      "TRADITIONAL": "ヴィシヴァンカ (刺繍シャツ)",
+      "PERFUME": "香水・フレグランス",
+      "ELECTRONICS": "電化製品"
+    }
+  },
+  "PRODUCT": {
+    "IN_STOCK": "在庫あり",
+    "PRE_ORDER": "予約注文（発送までの期間）",
+    "DAYS": "日"
+  },
+  "VIDEOS": {
+    "SUBTITLE": "@VirniFashion からの最新レビュー",
+    "WATCH_LINK": "YouTubeで視聴",
+    "LOADING": "動画を読み込み中..."
+  },
+  "NEWS": {
+    "CATEGORIES": {
+      "ALL": "すべてのニュース",
+      "COLLECTIONS": "コレクション",
+      "ACCESSORIES": "アクセサリー",
+      "STYLE": "スタイリングのアドバイス"
+    },
+    "READ_MORE": "続きを読む",
+    "BACK": "ニュース一覧に戻る"
+  },
+  "FOOTER": {
+    "BRAND_TEXT": "本物のスタイル、上質な音楽、限定商品が集まる場所。共に歴史を刻みましょう。",
+    "NAVIGATION": "ナビゲーション",
+    "FOLLOW_US": "公式SNS"
+  },
+  "CART": {
+    "TITLE": "ショッピングカート",
+    "CHECKOUT": "ご購入手続きへ",
+    "SUBTOTAL": "小計",
+    "SHIPPING": "送料",
+    "FREE": "無料",
+    "TOTAL_TO_PAY": "お支払い合計",
+    "FORM": {
+      "NAME": "お名前",
+      "PHONE": "電話番号",
+      "EMAIL": "メールアドレス (任意)",
+      "ADDRESS": "国、都市、配送先住所",
+      "CONFIRM_METHOD": "確認方法:",
+      "SUBMIT_BTN": "注文を確定する"
+    },
+    "EMPTY": {
+      "TITLE": "カートは空です",
+      "SUBTITLE": "まだ商品が追加されていないようです。",
+      "GO_SHOP": "ショップへ行く"
+    }
+  },
+  "MEDIA": {
+    "TITLE": "Virni Music MP3 をダウンロード",
+    "SUBTITLE": "Virniが厳選した最新のビジュアルストーリーと音楽ライブラリをお楽しみください。",
+    "HEADER_TAG": "メディア",
+    "VIDEO_PANEL": "最新動画",
+    "WATCH_ON_YOUTUBE": "YouTubeで視聴",
+    "PLAYER_TITLE": "オーディオライブラリ",
+    "SORT_BY": "並び替え",
+    "SORT_TITLE_ASC": "タイトル: 昇順 (A-Z)",
+    "SORT_TITLE_DESC": "タイトル: 降順 (Z-A)",
+    "SORT_POPULAR": "この端末で最も再生された曲",
+    "SORT_RANDOM": "ランダム順",
+    "PAGINATION_LABEL": "オーディオライブラリのページ",
+    "PAGE_OF": "ページ {{current}} / {{total}}",
+    "PREVIOUS": "前へ",
+    "NEXT": "次へ",
+    "PLAY_IN_DRIVE": "ドライブで再生",
+    "DOWNLOAD": "ダウンロード",
+    "LOADING_TRACKS": "トラックを読み込み中...",
+    "NO_VIDEOS": "現在利用可能な動画はありません。"
+  },
+  "PAGE_NOT_FOUND": {
+    "TITLE": "ページが見つかりません"
+  }
+}
