@@ -5,8 +5,19 @@ const repositoryRoot = path.resolve(__dirname, '..');
 const outputRoot = path.join(repositoryRoot, 'dist', 'VirniAngularStore', 'browser');
 const configuredSiteUrl = process.env.SITE_URL || 'https://virnist.github.io/VirniAngularStore/';
 const siteUrl = new URL(configuredSiteUrl.endsWith('/') ? configuredSiteUrl : `${configuredSiteUrl}/`).href;
+
 const products = JSON.parse(fs.readFileSync(path.join(repositoryRoot, 'public/assets/data/products.json'), 'utf8'));
 const news = JSON.parse(fs.readFileSync(path.join(repositoryRoot, 'public/assets/data/news.json'), 'utf8'));
+
+// Автоматично шукаємо скомпільовані стилі Angular (styles.css)
+let angularStyleLink = '';
+if (fs.existsSync(outputRoot)) {
+  const distFiles = fs.readdirSync(outputRoot);
+  const cssFile = distFiles.find(file => file.startsWith('styles') && file.endsWith('.css'));
+  if (cssFile) {
+    angularStyleLink = `<link rel="stylesheet" href="${siteUrl}${cssFile}">`;
+  }
+}
 
 function escapeHtml(value = '') {
   return String(value)
@@ -42,18 +53,16 @@ function writePage(route, { title, description, image, schema, content, type }) 
   <meta property="og:url" content="${canonicalUrl}">
   <meta property="og:image" content="${image}">
   <script type="application/ld+json">${jsonLd}</script>
+  
+  <!-- Підключаємо глобальні стилі Angular -->
+  ${angularStyleLink}
+
   <style>
-    :root {
-      color-scheme: light;
-      font-family: Arial, sans-serif;
-      color: #1f2937;
-      background: #f8fafc;
-    }
+    :root { color-scheme: light; font-family: inherit; color: #1f2937; background: #f8fafc; }
     * { box-sizing: border-box; }
     body { min-height: 100vh; margin: 0; display: flex; flex-direction: column; line-height: 1.6; }
     a { color: inherit; text-decoration: none; }
     
-    /* Site Header */
     .site-header { width: 100%; background: #fff; border-bottom: 1px solid #cbd5e1; }
     .site-header-inner { width: min(calc(100% - 48px), 1400px); min-height: 82px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
     .brand { flex: 0 0 auto; color: #1f2937; font-size: 1.5rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
@@ -61,12 +70,10 @@ function writePage(route, { title, description, image, schema, content, type }) 
     .site-nav a { padding: 10px 0; color: #526071; font-size: .95rem; font-weight: 700; }
     .site-nav a:hover { color: #765400; }
     
-    /* Main Layout Containers */
     main { flex: 1 0 auto; }
     .container { width: min(calc(100% - 48px), 860px); margin: 0 auto; padding-block: 36px 48px; }
     .product-container { width: min(calc(100% - 48px), 1200px); margin: 0 auto; padding-block: 36px 60px; }
 
-    /* Product Page Layout (копія вашого Angular-компонента) */
     .product-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 60px; width: 100%; }
     .product-image { width: 100%; aspect-ratio: 3 / 4; max-height: 72vh; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 24px; background: #f1f5f9; }
     .product-image img { width: 100%; height: 100%; object-fit: contain; }
@@ -79,7 +86,6 @@ function writePage(route, { title, description, image, schema, content, type }) 
     .stock-status .pre-order { color: #b45309; }
     .buy-btn, .btn-back { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 24px; border-radius: 8px; background: #f2c75c; color: #18212f; font-weight: 700; border: none; cursor: pointer; text-decoration: none; }
     
-    /* Article Page Layout (копія вашого Angular-компонента) */
     .article-header { margin-bottom: 32px; }
     .article-header .image-hero { width: 100%; max-height: 500px; object-fit: cover; border-radius: 16px; margin-bottom: 24px; }
     .article-header .header-content .date { color: #6b7280; font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 8px; }
@@ -87,7 +93,6 @@ function writePage(route, { title, description, image, schema, content, type }) 
     .article-body .lead-text { font-size: 1.15rem; line-height: 1.75; color: #374151; white-space: pre-line; }
     .actions-footer { margin-top: 40px; padding-top: 24px; border-top: 1px solid #e5e7eb; }
 
-    /* Footer */
     .site-footer { width: 100%; background: #f1f5f9; border-top: 1px solid #cbd5e1; }
     .site-footer-inner { width: min(calc(100% - 48px), 1400px); margin: 0 auto; padding: 32px 0; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; }
     .footer-heading { margin: 0 0 10px; color: #1f2937; font-size: .9rem; font-weight: 800; text-transform: uppercase; }
@@ -180,7 +185,6 @@ for (const product of products) {
     }
   };
 
-  // Точна HTML-копія вашого product.component.html
   const content = `
   <div class="product-container">
     <div class="product-layout">
@@ -195,7 +199,7 @@ for (const product of products) {
         <div class="stock-status">
           ${
             product.stock > 0
-              ? `<span class="in-stock">✅ В наявності: ${Number(product.stock)}</span>`
+              ? `<span class="in-stock">✅ В наявності: ${Number(product.stock)} шт.</span>`
               : `<span class="pre-order">⏳ Під замовлення: ${Number(product.productionTime)} днів</span>`
           }
         </div>
@@ -228,7 +232,6 @@ for (const article of news) {
     mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl }
   };
 
-  // Точна HTML-копія вашого article.component.html
   const content = `
   <div class="article-wrapper">
     <div class="container">
