@@ -1,0 +1,22 @@
+<div class="not-found-container">
+  <div class="not-found-card">
+    <div class="error-code">404</div>
+    
+    <h1>{{ 'PAGE_NOT_FOUND.TITLE' | translate }}</h1>
+
+    <!-- Блок із відео з вашого каналу -->
+    @if (videos$ | async; as videos) {
+      @if (videos.length && currentEmbedUrl()) {
+        <div class="video-embed-wrap">
+          <iframe
+            [src]="currentEmbedUrl()"
+            title="Latest Virni video"
+            allow="autoplay; encrypted-media; picture-in-picture"
+            allowfullscreen
+            loading="lazy"
+          ></iframe>
+        </div>
+      }
+    }
+  </div>
+</div>

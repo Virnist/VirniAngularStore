@@ -101,5 +101,8 @@
     "DOWNLOAD": "Pobierz",
     "LOADING_TRACKS": "Ładowanie utworów...",
     "NO_VIDEOS": "Brak dostępnych filmów."
+  },
+  "PAGE_NOT_FOUND": {
+    "TITLE": "Nie znaleziono strony"
   }
 }

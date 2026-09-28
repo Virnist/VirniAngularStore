@@ -101,5 +101,8 @@
     "DOWNLOAD": "Herunterladen",
     "LOADING_TRACKS": "Titel werden geladen...",
     "NO_VIDEOS": "Derzeit sind keine Videos verfügbar."
+  },  
+  "PAGE_NOT_FOUND": {
+    "TITLE": "Seite nicht gefunden"
   }
 }

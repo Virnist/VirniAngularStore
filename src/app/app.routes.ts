@@ -7,6 +7,7 @@ import { NewsDetailComponent } from './pages/news-detail/news-detail.component';
 import { MediaComponent } from './pages/media/media.component';
 import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
 import { CartComponent } from './pages/cart/cart.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -16,5 +17,6 @@ export const routes: Routes = [
   { path: 'news/:id', component: NewsDetailComponent },
   { path: 'product/:id', component: ProductDetailComponent },
   { path: 'videos', component: VideosComponent },
-  { path: 'cart', component: CartComponent }
+  { path: 'cart', component: CartComponent },
+  { path: '**', component: NotFoundComponent }
 ];

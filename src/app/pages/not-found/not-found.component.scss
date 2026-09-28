@@ -1,0 +1,154 @@
+.not-found-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  min-height: calc(100vh - 200px);
+  background-color: var(--bg-main, #f8fafc);
+}
+
+.not-found-card {
+  text-align: center;
+  max-width: 680px;
+  width: 100%;
+  background: var(--bg-card, #ffffff);
+  padding: 48px 32px;
+  border-radius: 20px;
+  border: 1px solid var(--border-color, #e2e8f0);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+
+  .error-code {
+    font-size: 4.5rem;
+    font-weight: 900;
+    line-height: 1;
+    color: var(--accent, #765400);
+    margin-bottom: 8px;
+    letter-spacing: -0.05em;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--text-main, #1f2937);
+    margin: 0 0 12px 0;
+  }
+
+  .description {
+    font-size: 1.05rem;
+    color: var(--text-muted, #526071);
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  /* Текстовий блок із відображенням URL */
+  .requested-url {
+    color: var(--text-muted, #526071);
+    font-size: 0.95rem;
+    margin-bottom: 24px;
+
+    code {
+      background: var(--surface-muted, #f1f5f9);
+      padding: 4px 8px;
+      border-radius: 6px;
+      color: var(--danger, #b42318);
+      font-weight: 600;
+      word-break: break-all;
+    }
+  }
+
+  /* Адаптивний контейнер для YouTube iframe (16:9) */
+  .video-embed-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 28px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    background: #000;
+
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  }
+
+  /* Блок кнопок навігації */
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+
+    .btn,
+    .btn-home {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: var(--transition, all 0.2s ease);
+
+      &.btn-primary,
+      &.btn-home {
+        background: var(--accent-fill, #f2c75c);
+        color: var(--on-accent, #18212f);
+
+        &:hover {
+          filter: brightness(0.95);
+        }
+      }
+
+      &.btn-secondary {
+        background: var(--primary, #1f2937);
+        color: #ffffff;
+
+        &:hover {
+          background: #374151;
+        }
+      }
+
+      &.btn-outline {
+        background: transparent;
+        border: 1px solid var(--border-color, #cbd5e1);
+        color: var(--text-main, #1f2937);
+
+        &:hover {
+          background: var(--surface-muted, #f1f5f9);
+        }
+      }
+    }
+  }
+}
+
+/* Мобільні стилі */
+@media (max-width: 480px) {
+  .not-found-card {
+    padding: 28px 16px;
+
+    .error-code {
+      font-size: 3.5rem;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+    }
+
+    .actions {
+      flex-direction: column;
+
+      .btn,
+      .btn-home {
+        width: 100%;
+      }
+    }
+  }
+}

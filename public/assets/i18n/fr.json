@@ -101,5 +101,8 @@
     "DOWNLOAD": "Télécharger",
     "LOADING_TRACKS": "Chargement des titres...",
     "NO_VIDEOS": "Aucune vidéo n'est disponible pour le moment."
+  },
+  "PAGE_NOT_FOUND": {
+    "TITLE": "Page introuvable"
   }
 }
