@@ -16,11 +16,13 @@ export class DataService {
     return this.http.get<NewsItem[]>('./assets/data/news.json');
   }
 
-  getNewsById(id: number): Observable<NewsItem | undefined> {
-    return this.getNews().pipe(
-      map(news => news.find(item => item.id === id))
-    );
-  }
+  getNewsById(id: string | number): Observable<NewsItem | undefined> {
+  return this.getNews().pipe(
+    map(news => news.find(item => 
+      item.id === String(id) || item.numeric_id === Number(id)
+    ))
+  );
+}
 
   // --- ВІДЕО (останні завантаження каналу) ---
   getVideos(): Observable<any[]> {
