@@ -9,7 +9,16 @@
             [alt]="getContent('image_alt') || getContent('title')" 
             fetchpriority="high"
           >
-          <span class="category-badge">{{ article.category }}</span>
+          <!-- Перетворюємо бейдж категорії на посилання з query-параметром -->
+          @if (article.category) {
+            <a 
+              [routerLink]="['/news']" 
+              [queryParams]="{ category: article.category }" 
+              class="category-badge clickable"
+            >
+              {{ article.category }}
+            </a>
+          }
         </div>
 
         <div class="header-content">
@@ -31,13 +40,19 @@
         <p class="lead-text">{{ getContent('text') }}</p>
       </section>
 
-      <!-- Блок тегів -->
+      <!-- Блок тегів (теж робимо клікабельними) -->
       @if (article.tags && article.tags.length > 0) {
         <div class="tags-container">
           <span class="tags-title">Tags:</span>
           <div class="tags-list">
             @for (tag of article.tags; track tag) {
-              <span class="tag-item">#{{ tag }}</span>
+              <a 
+                [routerLink]="['/news']" 
+                [queryParams]="{ tag: tag }" 
+                class="tag-item clickable"
+              >
+                #{{ tag }}
+              </a>
             }
           </div>
         </div>

@@ -146,6 +146,19 @@
   }
 }
 
+.category-badge.clickable,
+.tag-item.clickable {
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  display: inline-block;
+
+  &:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+  }
+}
+
 /* Адаптивність */
 @media (max-width: 768px) {
   .article-wrapper {
