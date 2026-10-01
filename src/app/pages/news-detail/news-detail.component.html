@@ -9,26 +9,30 @@
             [alt]="getContent('image_alt') || getContent('title')" 
             fetchpriority="high"
           >
-          <!-- Перетворюємо бейдж категорії на посилання з query-параметром -->
-          @if (article.category) {
-            <a 
-              [routerLink]="['/news']" 
-              [queryParams]="{ category: article.category }" 
-              class="category-badge clickable"
+          
+          <!-- Перевіряємо та виводимо бейдж категорії -->
+          @if (article['category']) {
+            <button
+              type="button"
+              class="type-badge"
+              [ngClass]="article['category'].toLowerCase()"
+              [attr.aria-label]="('NEWS.CATEGORIES.' + article['category'].toUpperCase() | translate)"
+              [attr.title]="'NEWS.CATEGORIES.' + article['category'].toUpperCase() | translate"
+              (click)="onCategoryClick(article['category'])"
             >
-              {{ article.category }}
-            </a>
+              {{ 'NEWS.CATEGORIES.' + article['category'].toUpperCase() | translate }}
+            </button>
           }
         </div>
 
         <div class="header-content">
           <div class="meta-info">
-            <span class="author">✍️ {{ article.author }}</span>
+            <span class="author">✍️ {{ article['author'] }}</span>
             <span class="dot">•</span>
             <span class="date">📅 {{ article.date | date:'mediumDate' }}</span>
-            @if (article.read_time_min) {
+            @if (article['read_time_min']) {
               <span class="dot">•</span>
-              <span class="read-time">⏱️ {{ article.read_time_min }} min</span>
+              <span class="read-time">⏱️️ {{ article['read_time_min'] }} min</span>
             }
           </div>
 
@@ -40,12 +44,12 @@
         <p class="lead-text">{{ getContent('text') }}</p>
       </section>
 
-      <!-- Блок тегів (теж робимо клікабельними) -->
-      @if (article.tags && article.tags.length > 0) {
+      <!-- Блок тегів -->
+      @if (article['tags'] && article['tags'].length > 0) {
         <div class="tags-container">
           <span class="tags-title">Tags:</span>
           <div class="tags-list">
-            @for (tag of article.tags; track tag) {
+            @for (tag of article['tags']; track tag) {
               <a 
                 [routerLink]="['/news']" 
                 [queryParams]="{ tag: tag }" 

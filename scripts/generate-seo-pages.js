@@ -11,11 +11,11 @@ if (!fs.existsSync(outputRoot)) {
 
 const configuredSiteUrl = process.env.SITE_URL || 'https://virnist.github.io/VirniAngularStore/';
 const siteUrl = new URL(configuredSiteUrl.endsWith('/') ? configuredSiteUrl : `${configuredSiteUrl}/`).href;
-const gscVerificationToken = process.env.GSC_VERIFICATION || ''; // Наприклад: 'abc123xyz...'
+const gscVerificationToken = process.env.GSC_VERIFICATION || '';
 
 const baseIndexPath = path.join(outputRoot, 'index.html');
 if (!fs.existsSync(baseIndexPath)) {
-  console.error(`[SEO Generator Error]: File not found at ${baseIndexPath}.`);
+  console.error(`[SEO Generator Error]: File not found at ${baseIndexPath}. Make sure "ng build" runs before this script.`);
   process.exit(1);
 }
 const baseIndexHtml = fs.readFileSync(baseIndexPath, 'utf8');
@@ -46,7 +46,13 @@ function sanitizeSlug(val) {
   return String(val).replace(/[^a-zA-Z0-9_-]/g, '');
 }
 
-// Генерація OG PNG прямо під час збірки
+function safeIsoDate(dateString) {
+  if (!dateString) return new Date().toISOString();
+  const parsed = new Date(dateString);
+  return isNaN(parsed.getTime()) ? new Date().toISOString() : parsed.toISOString();
+}
+
+// Генерація OG PNG під час збірки
 async function generateOgImage({ title, category, outputPath }) {
   const width = 1200;
   const height = 630;
@@ -72,7 +78,7 @@ async function generateOgImage({ title, category, outputPath }) {
 
   ctx.fillStyle = '#ffffff';
   ctx.font = 'bold 50px sans-serif';
-  
+
   const words = title.split(' ');
   let line = '';
   let y = 240;
@@ -143,16 +149,64 @@ function writePage(route, { title, description, image, ogImage, schema, content,
 (async () => {
   const sitemapItems = [{ url: siteUrl, lastmod: new Date().toISOString() }];
 
-  // 1. Обробка новин
+  // 1. Генерація сторінок товарів
+  for (const product of products) {
+    const productId = sanitizeSlug(product.id);
+    const name = product.title_uk || product.title_en || `Товар Virni ${productId}`;
+    const description = product.description_uk || product.description_en || name;
+    const image = absoluteAsset(product.image);
+    const route = `product/${productId}/`;
+    const canonicalUrl = new URL(route, siteUrl).href;
+    const availability = product.stock > 0 ? 'InStock' : 'PreOrder';
+
+    const schema = {
+      '@context': 'https://schema.org',
+      '@type': 'Product',
+      name,
+      image: [image],
+      description,
+      sku: `VIRNI-${productId}`,
+      category: product.category,
+      brand: { '@type': 'Brand', name: 'Virni' },
+      offers: {
+        '@type': 'Offer',
+        url: canonicalUrl,
+        priceCurrency: 'USD',
+        price: Number(product.price).toFixed(2),
+        availability: `https://schema.org/${availability}`,
+        itemCondition: 'https://schema.org/NewCondition'
+      }
+    };
+
+    const content = `
+    <div class="product-container">
+      <div class="product-layout">
+        <div class="product-image"><img src="${image}" alt="${escapeHtml(name)}"></div>
+        <div class="product-info">
+          <h1>${escapeHtml(name)}</h1>
+          <p class="category">${escapeHtml(product.category)}</p>
+          <div class="price-tag">$${Number(product.price).toFixed(2)} USD</div>
+          <div class="description">${escapeHtml(description)}</div>
+        </div>
+      </div>
+    </div>`;
+
+    sitemapItems.push({
+      url: writePage(route, { title: name, description, image, schema, content, type: 'product' }),
+      lastmod: new Date().toISOString()
+    });
+  }
+
+  // 2. Генерація сторінок новин
   for (const article of news) {
     const articleId = sanitizeSlug(article.id);
     const headline = article.title_uk || article.title_en || `Новини Virni ${articleId}`;
     const description = article.text_uk || article.text_en || headline;
     const category = article.category || 'Fashion';
+    const tags = Array.isArray(article.tags) ? article.tags : [];
     const route = `news/${articleId}/`;
     const canonicalUrl = new URL(route, siteUrl).href;
 
-    // Шлях до згенерованого OG зображення
     const ogFileName = `og-${articleId}.png`;
     const ogFilePath = path.join(outputRoot, 'assets', 'og', ogFileName);
     const ogImageUrl = absoluteAsset(`/assets/og/${ogFileName}`);
@@ -163,7 +217,6 @@ function writePage(route, { title, description, image, ogImage, schema, content,
       outputPath: ogFilePath
     });
 
-    // Хлібні крихти (Breadcrumbs) для Google Search Console
     const breadcrumbSchema = {
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
@@ -180,8 +233,8 @@ function writePage(route, { title, description, image, ogImage, schema, content,
       headline,
       description,
       image: [ogImageUrl, absoluteAsset(article.image)],
-      datePublished: new Date(article.date).toISOString(),
-      dateModified: new Date(article.updated_at || article.date).toISOString(),
+      datePublished: safeIsoDate(article.date),
+      dateModified: safeIsoDate(article.updated_at || article.date),
       author: { '@type': 'Person', name: article.author || 'Virni Editorial' },
       publisher: { '@type': 'Organization', name: 'Virni', logo: { '@type': 'ImageObject', url: absoluteAsset('/assets/icons/favicon.ico') } }
     };
@@ -196,13 +249,14 @@ function writePage(route, { title, description, image, ogImage, schema, content,
         ogImage: ogImageUrl,
         schema: [articleSchema, breadcrumbSchema],
         content,
-        type: 'article'
+        type: 'article',
+        keywords: tags.join(', ')
       }),
-      lastmod: new Date(article.updated_at || article.date).toISOString()
+      lastmod: safeIsoDate(article.updated_at || article.date)
     });
   }
 
-  // 2. Генерація sitemap.xml з додатковими атрибутами
+  // 3. Генерація sitemap.xml та robots.txt
   const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${sitemapItems.map(item => `  <url>
@@ -215,5 +269,15 @@ ${sitemapItems.map(item => `  <url>
   fs.writeFileSync(path.join(outputRoot, 'sitemap.xml'), sitemapXml);
   fs.writeFileSync(path.join(outputRoot, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${siteUrl}sitemap.xml\n`);
 
-  console.log(`✅ SEO Сторінки, OG-зображення та Sitemap успішно згенеровано!`);
+  // 4. Створення App Shells та фолбеку 404
+  const appRoutes = ['shop', 'news', 'media', 'videos', 'cart'];
+  for (const route of appRoutes) {
+    const routeDirectory = path.join(outputRoot, route);
+    fs.mkdirSync(routeDirectory, { recursive: true });
+    fs.copyFileSync(baseIndexPath, path.join(routeDirectory, 'index.html'));
+  }
+
+  fs.copyFileSync(baseIndexPath, path.join(outputRoot, '404.html'));
+
+  console.log(`✅ Успішно згенеровано ${products.length} товарів, ${news.length} новин, OG-зображення, Sitemap та 404.html!`);
 })();

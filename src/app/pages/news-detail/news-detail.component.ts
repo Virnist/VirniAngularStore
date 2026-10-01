@@ -44,4 +44,12 @@ export class NewsDetailComponent implements OnInit {
     const lang = this.translate.currentLang || 'uk';
     return (this.article as any)[`${field}_${lang}`] || (this.article as any)[`${field}_uk`] || (this.article as any)[`${field}_en`] || '';
   }
+
+  // Метод для кліку по категорії на сторінці детальної новини
+  onCategoryClick(category: string): void {
+  if (!category) return;
+  this.router.navigate(['/news'], { 
+    queryParams: { category: category.toUpperCase() } 
+  });
+}
 }
