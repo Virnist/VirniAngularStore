@@ -21,7 +21,6 @@ export class NewsDetailComponent implements OnInit {
   article?: NewsItem;
 
   ngOnInit(): void {
-    // 1. Зчитуємо параметр як рядок без конвертації в Number
     const routeId = this.route.snapshot.paramMap.get('id');
 
     if (!routeId) {
@@ -29,22 +28,20 @@ export class NewsDetailComponent implements OnInit {
       return;
     }
 
-    // 2. Шукаємо новину у списку
     this.dataService.getNews().subscribe(news => {
       this.article = news.find(item => 
         item.id === routeId || item.numeric_id === Number(routeId)
       );
 
-      // 3. Якщо новину не знайдено — редіректимо на 404
       if (!this.article) {
         this.router.navigate(['/404'], { skipLocationChange: true });
       }
     });
   }
 
-  getContent(field: 'title' | 'text'): string {
+  getContent(field: 'title' | 'text' | 'image_alt'): string {
     if (!this.article) return '';
     const lang = this.translate.currentLang || 'uk';
-    return this.article[`${field}_${lang}`] || this.article[`${field}_uk`];
+    return (this.article as any)[`${field}_${lang}`] || (this.article as any)[`${field}_uk`] || (this.article as any)[`${field}_en`] || '';
   }
 }

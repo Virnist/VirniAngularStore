@@ -142,7 +142,7 @@
   {
     "id": 21,
     "title": "13_We shine in the city lights",
-    "poster": "./assets/images/Mp3Title/Virni Music - Title.webp",
+    "poster": "./assets/images/Mp3Title/Virni Music - 13_We shine in the city lights.webp",
     "audioUrl": "https://drive.google.com/uc?export=download&id=16X1LoYM71FP7trGz2LJL0Y51GPZZbubt",
     "downloadUrl": "https://drive.google.com/uc?export=download&id=16X1LoYM71FP7trGz2LJL0Y51GPZZbubt"
   },
@@ -541,7 +541,7 @@
   {
     "id": 78,
     "title": "01_Beautiful life We shine tonight",
-    "poster": "./assets/images/Mp3Title/Virni Music - Title.webp",
+    "poster": "./assets/images/Mp3Title/Virni Music - 01_Beautiful life We shine tonight.webp",
     "audioUrl": "https://drive.google.com/uc?export=download&id=1dfEpyeXOTaYub9TDtDQX5Vf-43W3iQ3H",
     "downloadUrl": "https://drive.google.com/uc?export=download&id=1dfEpyeXOTaYub9TDtDQX5Vf-43W3iQ3H"
   },
@@ -667,7 +667,7 @@
   {
     "id": 96,
     "title": "07_Dance with me Beautiful life",
-    "poster": "./assets/images/Mp3Title/Virni Music - Title.webp",
+    "poster": "./assets/images/Mp3Title/Virni Music - 07_Dance with me Beautiful life.webp",
     "audioUrl": "https://drive.google.com/uc?export=download&id=1r8vYYvEvoTe7My7xS-SHuF8LHlj_g5v7",
     "downloadUrl": "https://drive.google.com/uc?export=download&id=1r8vYYvEvoTe7My7xS-SHuF8LHlj_g5v7"
   },
@@ -737,7 +737,7 @@
   {
     "id": 106,
     "title": "02_Beautiful life",
-    "poster": "./assets/images/Mp3Title/Virni Music - Title.webp",
+    "poster": "./assets/images/Mp3Title/Virni Music - 02_Beautiful life.webp",
     "audioUrl": "https://drive.google.com/uc?export=download&id=1yqzI7diBVYt1p4KfvqQyTW9SXEXkPA8J",
     "downloadUrl": "https://drive.google.com/uc?export=download&id=1yqzI7diBVYt1p4KfvqQyTW9SXEXkPA8J"
   },
@@ -758,7 +758,7 @@
   {
     "id": 109,
     "title": "05_We shine tonight",
-    "poster": "./assets/images/Mp3Title/Virni Music - Title.webp",
+    "poster": "./assets/images/Mp3Title/Virni Music - 05_We shine tonight.webp",
     "audioUrl": "https://drive.google.com/uc?export=download&id=1zY0IDL-TEf-3KwIZ8jKEyQ0wxZl1QzjD",
     "downloadUrl": "https://drive.google.com/uc?export=download&id=1zY0IDL-TEf-3KwIZ8jKEyQ0wxZl1QzjD"
   },
@@ -768,5 +768,19 @@
     "poster": "./assets/images/Mp3Title/Virni Music - Title.webp",
     "audioUrl": "https://drive.google.com/uc?export=download&id=1zrGDjBIm_y0StHy1MkI6gcY9669K347O",
     "downloadUrl": "https://drive.google.com/uc?export=download&id=1zrGDjBIm_y0StHy1MkI6gcY9669K347O"
+  },
+  {
+    "id": 111,
+    "title": "111_Midnight Versace.mp3",
+    "poster": "./assets/images/Mp3Title/Virni Music - 111_Midnight Versace.webp",
+    "audioUrl": "https://drive.google.com/uc?export=download&id=1U_6Z-A9o4rkY8u6qWBKEBUQZxja1yGxd",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1U_6Z-A9o4rkY8u6qWBKEBUQZxja1yGxd"
+  },
+  {
+    "id": 112,
+    "title": "112_Versace Midnight.mp3",
+    "poster": "./assets/images/Mp3Title/Virni Music - 112_Versace Midnight.webp",
+    "audioUrl": "https://drive.google.com/uc?export=download&id=185lTRjsmQoYZgA3DAlQPAUmFmp1mbzdU",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=185lTRjsmQoYZgA3DAlQPAUmFmp1mbzdU"
   }
 ]

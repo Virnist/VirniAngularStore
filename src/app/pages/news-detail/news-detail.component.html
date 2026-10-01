@@ -2,16 +2,46 @@
   <div class="article-wrapper">
     <div class="container">
       <header class="article-header">
-          <img class="image-hero" [src]="article.image" [alt]="getContent('title')" fetchpriority="high">
+        <div class="image-wrapper">
+          <img 
+            class="image-hero" 
+            [src]="article.image" 
+            [alt]="getContent('image_alt') || getContent('title')" 
+            fetchpriority="high"
+          >
+          <span class="category-badge">{{ article.category }}</span>
+        </div>
+
         <div class="header-content">
-          <span class="date">{{ article.date | date:'longDate' }}</span>
+          <div class="meta-info">
+            <span class="author">✍️ {{ article.author }}</span>
+            <span class="dot">•</span>
+            <span class="date">📅 {{ article.date | date:'mediumDate' }}</span>
+            @if (article.read_time_min) {
+              <span class="dot">•</span>
+              <span class="read-time">⏱️ {{ article.read_time_min }} min</span>
+            }
+          </div>
+
           <h1>{{ getContent('title') }}</h1>
         </div>
       </header>
 
       <section class="article-body">
         <p class="lead-text">{{ getContent('text') }}</p>
-        </section>
+      </section>
+
+      <!-- Блок тегів -->
+      @if (article.tags && article.tags.length > 0) {
+        <div class="tags-container">
+          <span class="tags-title">Tags:</span>
+          <div class="tags-list">
+            @for (tag of article.tags; track tag) {
+              <span class="tag-item">#{{ tag }}</span>
+            }
+          </div>
+        </div>
+      }
 
       <div class="actions-footer">
         <button routerLink="/news" class="btn-back">
