@@ -4,7 +4,7 @@ const path = require('node:path');
 // 1. Визначаємо кореневі шляхи
 const repositoryRoot = path.resolve(__dirname, '..');
 
-// Шукаємо правильну папку збірки Angular
+// Шукаємо правильную папку збірки Angular
 let outputRoot = path.join(repositoryRoot, 'dist', 'VirniAngularStore', 'browser');
 if (!fs.existsSync(outputRoot)) {
   outputRoot = path.join(repositoryRoot, 'dist', 'virni-angular-store', 'browser');
@@ -42,7 +42,7 @@ function absoluteAsset(source) {
 }
 
 // 4. Функція генерації статичної сторінки
-function writePage(route, { title, description, image, schema, content, type }) {
+function writePage(route, { title, description, image, schema, content, type, keywords = '' }) {
   const canonicalUrl = new URL(route, siteUrl).href;
   const outputDirectory = path.join(outputRoot, route);
   const jsonLd = JSON.stringify(schema).replaceAll('<', '\\u003c');
@@ -55,6 +55,7 @@ function writePage(route, { title, description, image, schema, content, type }) 
   // Формуємо мета-теги для SEO та Open Graph
   const seoMetaData = `
     <meta name="description" content="${escapeHtml(description)}">
+    ${keywords ? `<meta name="keywords" content="${escapeHtml(keywords)}">` : ''}
     <meta name="robots" content="index,follow,max-image-preview:large">
     <link rel="canonical" href="${canonicalUrl}">
     <meta property="og:type" content="${type === 'article' ? 'article' : 'website'}">
@@ -142,10 +143,15 @@ for (const product of products) {
   sitemapUrls.push(writePage(route, { title: name, description, image, schema, content, type: 'product' }));
 }
 
-// 6. Генерація сторінок для кожної новини
+// 6. Генерація сторінок для кожної новини (З урахуванням author, tags, image_alt_uk, read_time_min, category)
 for (const article of news) {
   const headline = article.title_uk || article.title_en || `Новини Virni ${article.id}`;
   const description = article.text_uk || article.text_en || headline;
+  const imageAlt = article.image_alt_uk || article.image_alt_en || headline;
+  const author = article.author || 'Virni Editorial';
+  const category = article.category || 'Fashion & Trends';
+  const tags = Array.isArray(article.tags) ? article.tags : [];
+  const readTime = article.read_time_min || null;
   const image = absoluteAsset(article.image);
   const route = `news/${article.id}/`;
   const canonicalUrl = new URL(route, siteUrl).href;
@@ -157,24 +163,56 @@ for (const article of news) {
     description,
     image: [image],
     datePublished: article.date,
-    author: { '@type': 'Organization', name: 'Virni' },
-    publisher: { '@type': 'Organization', name: 'Virni' },
+    dateModified: article.updated_at || article.date,
+    articleSection: category,
+    keywords: tags.join(', '),
+    author: {
+      '@type': 'Person',
+      name: author
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Virni',
+      logo: {
+        '@type': 'ImageObject',
+        url: absoluteAsset('/assets/icons/favicon.ico')
+      }
+    },
     mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl }
   };
+
+  // Формуємо HTML-теги для відображення
+  const tagsHtml = tags.length > 0
+    ? `<div class="tags-container">
+        <span class="tags-title">Tags:</span>
+        <div class="tags-list">
+          ${tags.map(tag => `<span class="tag-item">#${escapeHtml(tag)}</span>`).join(' ')}
+        </div>
+       </div>`
+    : '';
 
   const content = `
   <div class="article-wrapper">
     <div class="container">
       <header class="article-header">
-        <img class="image-hero" src="${image}" alt="${escapeHtml(headline)}" fetchpriority="high">
+        <div class="image-wrapper">
+          <img class="image-hero" src="${image}" alt="${escapeHtml(imageAlt)}" fetchpriority="high">
+          ${category ? `<span class="category-badge">${escapeHtml(category)}</span>` : ''}
+        </div>
         <div class="header-content">
-          <span class="date">${escapeHtml(article.date)}</span>
+          <div class="meta-info">
+            <span class="author">✍️ ${escapeHtml(author)}</span>
+            <span class="dot">•</span>
+            <span class="date">📅 ${escapeHtml(article.date)}</span>
+            ${readTime ? `<span class="dot">•</span><span class="read-time">⏱️ ${readTime} min read</span>` : ''}
+          </div>
           <h1>${escapeHtml(headline)}</h1>
         </div>
       </header>
       <section class="article-body">
         <p class="lead-text">${escapeHtml(description)}</p>
       </section>
+      ${tagsHtml}
       <div class="actions-footer">
         <a href="${siteUrl}news/" class="btn-back">
           <span class="icon">←</span>
@@ -184,7 +222,15 @@ for (const article of news) {
     </div>
   </div>`;
 
-  sitemapUrls.push(writePage(route, { title: headline, description, image, schema, content, type: 'article' }));
+  sitemapUrls.push(writePage(route, {
+    title: headline,
+    description,
+    image,
+    schema,
+    content,
+    type: 'article',
+    keywords: tags.join(', ')
+  }));
 }
 
 // 7. Створення sitemap.xml та robots.txt
