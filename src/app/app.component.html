@@ -37,15 +37,15 @@
         </button>
 
         <div class="lang-dropdown">
-          <button class="dropbtn">
-            {{ currentLang | uppercase }}
+          <button class="dropbtn" type="button">
+            {{ currentLangSignal() | uppercase }}
             <span class="arrow">▼</span>
           </button>
 
           <div class="dropdown-content">
             @for (lang of supportedLangs; track lang) {
-              @if (lang !== currentLang) {
-                <button (click)="changeLang(lang)">
+              @if (lang !== currentLangSignal()) {
+                <button type="button" (click)="changeLang(lang)">
                   {{ lang | uppercase }}
                 </button>
               }
@@ -144,7 +144,7 @@
       <div class="footer-section footer-links">
         <h3>{{ 'FOOTER.NAVIGATION' | translate }}</h3>
         <ul>
-          <li><a routerLink="/">Головна</a></li>
+          <li><a routerLink="/">{{ 'MENU.HOME' | translate }}</a></li>
           <li><a routerLink="/news">{{ 'MENU.NEWS' | translate }}</a></li>
           <li><a routerLink="/shop">{{ 'MENU.SHOP' | translate }}</a></li>
           <li><a routerLink="/media">{{ 'MENU.MEDIA' | translate }}</a></li>

@@ -24,15 +24,16 @@ interface InstallPromptEvent extends Event {
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
-  // Інжектуємо сервіси за стандартом сучасної розробки
   public cartService = inject(CartService);
   private translate = inject(TranslateService);
 
-  // Стан теми та мов
   public isDarkMode = false;
-  public supportedLangs = ['uk', 'en', 'de', 'fr', 'pl'];
+  // Масив усіх підтримуваних мов сайту
+  public supportedLangs = ['uk', 'en', 'de', 'fr', 'pl', 'it', 'ja', 'zh'];
 
-  // Нові сигнали для контролю розумної шапки
+  // Перетворюємо початкову мову в Signal для миттєвого реактивного оновлення UI
+  public currentLangSignal = signal<string>('en');
+
   public isHeaderHidden = signal<boolean>(false);
   public isScrolled = signal<boolean>(false);
   public showInstallPrompt = signal(false);
@@ -42,9 +43,8 @@ export class AppComponent implements OnInit {
   private readonly installDismissedKey = 'virniInstallPromptDismissedUntil';
   
   private lastScrollTop = 0;
-  private scrollThreshold = 10; // Мінімальна дельта скролу в пікселях, щоб уникнути сіпання екрану
+  private scrollThreshold = 10;
 
-  // Обчислювальний сигнал для кошика
   public cartCount = computed(() => {
     return this.cartService.items().reduce((total, item) => total + item.quantity, 0);
   });
@@ -55,16 +55,25 @@ export class AppComponent implements OnInit {
     this.translate.setDefaultLang('en');
 
     const savedLang = localStorage.getItem('language');
+    let langToUse = 'en';
+
     if (savedLang && this.supportedLangs.includes(savedLang)) {
-      this.translate.use(savedLang);
+      langToUse = savedLang;
     } else {
       const browserLang = this.translate.getBrowserLang() || 'en';
-      const langToUse = this.supportedLangs.includes(browserLang) ? browserLang : 'en';
-      this.translate.use(langToUse);
-      localStorage.setItem('language', langToUse);
+      langToUse = this.supportedLangs.includes(browserLang) ? browserLang : 'en';
     }
 
-    // 2. Ініціалізація теми оформлення (Темна / Світла)
+    this.translate.use(langToUse);
+    this.currentLangSignal.set(langToUse);
+    localStorage.setItem('language', langToUse);
+
+    // Слухаємо зміни мови від TranslateService
+    this.translate.onLangChange.subscribe(event => {
+      this.currentLangSignal.set(event.lang);
+    });
+
+    // 2. Ініціалізація теми
     const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
@@ -77,10 +86,23 @@ export class AppComponent implements OnInit {
     this.scheduleInstallPrompt();
   }
 
+  // Зміна мови
+  changeLang(lang: string) {
+    if (this.supportedLangs.includes(lang)) {
+      this.translate.use(lang);
+      this.currentLangSignal.set(lang);
+      localStorage.setItem('language', lang);
+    }
+  }
+
+  get currentLang(): string {
+    return this.currentLangSignal();
+  }
+
+  // Решта методів залишаються без змін...
   @HostListener('window:beforeinstallprompt', ['$event'])
   onBeforeInstallPrompt(event: Event) {
     if (!this.isMobileDevice() || this.isInstalledAsPwa()) return;
-
     event.preventDefault();
     this.deferredInstallPrompt = event as InstallPromptEvent;
     if (!this.isInstallPromptDismissed()) {
@@ -100,7 +122,6 @@ export class AppComponent implements OnInit {
       this.showInstallInstructions.set(true);
       return;
     }
-
     const installPrompt = this.deferredInstallPrompt;
     await installPrompt.prompt();
     const choice = await installPrompt.userChoice;
@@ -128,47 +149,24 @@ export class AppComponent implements OnInit {
     this.showInstallPrompt.set(false);
   }
 
-  // Декоратор HostListener для відстеження розумного скролу шапки
   @HostListener('window:scroll', [])
   onWindowScroll() {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-
-    // Перевіряємо, чи сторінка прокручена вниз від самого верху для ефекту розмиття скла
     this.isScrolled.set(scrollTop > 50);
 
-    // Ігноруємо відскоки екрану на iOS (скрол в мінус або за межі висоти документу)
     if (scrollTop < 0) return;
-
-    // Рахуємо різницю між поточним скролом і попереднім
     const scrollDelta = Math.abs(scrollTop - this.lastScrollTop);
 
     if (scrollDelta > this.scrollThreshold) {
       if (scrollTop > this.lastScrollTop && scrollTop > 150) {
-        // Скролимо вниз — ховаємо меню
         this.isHeaderHidden.set(true);
       } else {
-        // Скролимо вгору — плавно повертаємо меню на екран
         this.isHeaderHidden.set(false);
       }
     }
-
     this.lastScrollTop = scrollTop;
   }
 
-  // Зміна мови додатку
-  changeLang(lang: string) {
-    if (this.supportedLangs.includes(lang)) {
-      this.translate.use(lang);
-      localStorage.setItem('language', lang);
-    }
-  }
-
-  // Геттер для поточної мови
-  get currentLang(): string {
-    return this.translate.currentLang || 'en';
-  }
-
-  // Перемикач теми
   toggleTheme() {
     this.isDarkMode ? this.disableDarkMode() : this.enableDarkMode();
   }
@@ -194,7 +192,6 @@ export class AppComponent implements OnInit {
 
   private scheduleInstallPrompt() {
     if (!this.isMobileDevice() || this.isInstalledAsPwa() || this.isInstallPromptDismissed()) return;
-
     window.setTimeout(() => {
       if (!this.isInstalledAsPwa() && !this.isInstallPromptDismissed()) {
         this.showInstallPrompt.set(true);

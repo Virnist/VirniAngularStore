@@ -16,12 +16,12 @@
 
 // ВІДСТУП ДЛЯ КОНТЕНТУ: щоб сторінки не залізали ПІД фіксовану шапку
 main {
-  padding-top: 160px; 
+  padding-top: calc(150px + env(safe-area-inset-top, 0px)); 
   min-height: 100vh;
   width: 100%;
   
   @media (max-width: 768px) {
-    padding-top: 160px;
+    padding-top: calc(140px + env(safe-area-inset-top, 0px));
   }
 }
 
@@ -37,7 +37,7 @@ main {
   background: transparent;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   
-  // Апаратне прискорення для ультра-плавної анімації
+  // Апаратне прискорення для плавної анімації
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
               background-color 0.3s ease, 
               box-shadow 0.3s ease,
@@ -49,9 +49,9 @@ main {
     transform: translateY(-100%);
   }
 
-  // Стан 2: Ефект преміального матового скла при скролі (Світла тема)
+  // Стан 2: Матове скло при скролі
   &.header-scrolled {
-    background: var(--header-bg);
+    background: var(--header-bg, rgba(255, 255, 255, 0.85));
     backdrop-filter: blur(20px);        
     -webkit-backdrop-filter: blur(20px);
     border-bottom-color: rgba(0, 0, 0, 0.03);
@@ -59,7 +59,7 @@ main {
                 inset 0 1px 0 rgba(255, 255, 255, 0.6);
     
     .main-nav {
-      padding: 12px 0; // Навігація стає компактнішою
+      padding: 10px 0; // Навігація стає компактнішою
     }
   }
 }
@@ -71,9 +71,9 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 20px;
+  padding-top: max(16px, env(safe-area-inset-top));
   padding-right: max(clamp(16px, 4vw, 48px), env(safe-area-inset-right));
-  padding-bottom: 20px;
+  padding-bottom: 16px;
   padding-left: max(clamp(16px, 4vw, 48px), env(safe-area-inset-left));
   width: 100%;
   max-width: 1400px;
@@ -95,10 +95,10 @@ header {
 .header-controls {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
 
   @media (max-width: 480px) {
-    gap: 12px;
+    gap: 10px;
   }
 }
 
@@ -128,8 +128,8 @@ header {
     position: absolute;
     top: -2px;
     right: -2px;
-    background: var(--accent-fill);
-    color: var(--on-accent);
+    background: var(--accent-fill, #111);
+    color: var(--on-accent, #fff);
     font-size: 0.65rem;
     font-weight: 700;
     min-width: 16px;
@@ -161,26 +161,26 @@ header {
   }
 }
 
-// Список мов
+// Список мов (Об'єднаний та виправлений)
 .lang-dropdown {
   position: relative;
   display: inline-block;
 
+  // Невидимий місток, щоб ховер не зникав при переміщенні курсора
   &::after {
     content: "";
     position: absolute;
     top: 100%;
     left: 0;
     right: 0;
-    height: 12px;
+    height: 10px;
     background: transparent;
-    display: none;
-    z-index: 10;
   }
 
   .dropbtn {
-    background: none;
-    border: 1px solid var(--border-color);
+    background: transparent;
+    color: var(--text-main);
+    border: 1px solid var(--border-color, #e2e8f0);
     padding: 6px 14px;
     font-size: 0.85rem;
     font-weight: 600;
@@ -189,18 +189,17 @@ header {
     display: flex;
     align-items: center;
     gap: 6px;
-    color: var(--text-main);
     transition: all 0.3s ease;
 
     .arrow {
-      font-size: 0.6rem;
-      opacity: 0.6;
+      font-size: 0.65rem;
+      opacity: 0.7;
       transition: transform 0.3s ease;
     }
 
     &:hover {
-      border-color: var(--accent);
-      color: var(--accent);
+      border-color: var(--accent, #111);
+      color: var(--accent, #111);
     }
   }
 
@@ -208,20 +207,30 @@ header {
     display: none;
     position: absolute;
     right: 0;
-    top: calc(100% + 8px);
-    background: var(--surface-raised);
-    min-width: 90px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    top: calc(100% + 6px);
+    background: var(--surface-raised, #ffffff);
+    min-width: 96px;
+    max-height: 250px; /* Забезпечує красивий скрол для 8 мов */
+    overflow-y: auto;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
     border-radius: 12px;
-    overflow: hidden;
     z-index: 1000;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--border-color, #e2e8f0);
+
+    /* Компактний скролбар для списку мов */
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: var(--border-color, #cbd5e1);
+      border-radius: 4px;
+    }
 
     button {
       background: none;
       border: none;
       color: var(--text-main);
-      padding: 12px 16px;
+      padding: 10px 16px;
       width: 100%;
       text-align: center;
       font-size: 0.85rem;
@@ -230,23 +239,21 @@ header {
       transition: all 0.2s ease;
 
       &:hover {
-        background: var(--surface-muted);
-        color: var(--accent);
+        background: var(--surface-muted, #f1f5f9);
+        color: var(--accent, #111);
       }
     }
   }
 
   &:hover {
-    &::after { display: block; }
-    
     .dropdown-content {
       display: block;
       animation: fadeIn 0.2s ease-out;
     }
 
     .dropbtn {
-      border-color: var(--accent);
-      color: var(--accent);
+      border-color: var(--accent, #111);
+      color: var(--accent, #111);
       .arrow { transform: rotate(180deg); }
     }
   }
@@ -260,9 +267,9 @@ header {
   align-items: center;
   justify-content: center;
   gap: 40px;
-  padding: 16px 0;
+  padding: 14px 0;
   transition: padding 0.3s ease;
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid var(--border-color, rgba(0, 0, 0, 0.05));
   overflow-x: auto;
   white-space: nowrap;
   
@@ -272,8 +279,8 @@ header {
 
   @media (max-width: 768px) {
     justify-content: flex-start;
-    padding: 12px 10px;
-    gap: 25px;
+    padding: 10px;
+    gap: 20px;
   }
 
   @media (max-width: 480px) {
@@ -289,8 +296,8 @@ header {
     justify-content: center;
     gap: 8px;
     text-decoration: none;
-    color: var(--text-muted);
-    font-size: 0.95rem;
+    color: var(--text-muted, #64748b);
+    font-size: 0.9rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -313,12 +320,12 @@ header {
       left: 0;
       width: 0;
       height: 2px;
-      background: var(--accent-fill);
+      background: var(--accent-fill, #111);
       transition: width 0.3s ease;
     }
 
     &:hover, &.active-link {
-      color: var(--text-main);
+      color: var(--text-main, #111);
       &::after { width: 100%; }
     }
   }
@@ -353,30 +360,31 @@ header {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-5px); }
+  from { opacity: 0; transform: translateY(-4px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
 // ==========================================
-// 7. СУЧАСНИЙ МІНІМАЛІСТИЧНИЙ ФУТЕР
+// 6. СУЧАСНИЙ МІНІМАЛІСТИЧНИЙ ФУТЕР
 // ==========================================
 .site-footer {
   width: 100%;
-  background: var(--surface-muted);
-  border-top: 1px solid var(--border-color);
+  background: var(--surface-muted, #f8fafc);
+  border-top: 1px solid var(--border-color, #e2e8f0);
   padding: 60px 0 20px 0;
-  margin-top: 80px; // Відступ від контенту сторінки
+  margin-top: 80px;
   transition: background-color 0.3s ease, border-color 0.3s ease;
 
   .footer-content {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr; // Асиметрична сітка (Бренд ширший)
+    grid-template-columns: 2fr 1fr 1fr;
     gap: 40px;
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 40px;
 
     @media (max-width: 768px) {
-      grid-template-columns: 1fr; // На мобільних все стає в один стовпчик
+      grid-template-columns: 1fr;
       gap: 30px;
       padding: 0 20px;
     }
@@ -394,11 +402,9 @@ header {
       letter-spacing: 1.5px;
       color: var(--text-main);
       margin: 0;
-      transition: color 0.3s ease;
     }
   }
 
-  // Секція бренду
   .brand-info {
     .footer-logo {
       font-size: 1.6rem;
@@ -407,7 +413,6 @@ header {
       letter-spacing: 1px;
       margin: 0;
       color: var(--text-main);
-      transition: color 0.3s ease;
     }
 
     .brand-description {
@@ -416,11 +421,9 @@ header {
       line-height: 1.6;
       max-width: 320px;
       margin: 0;
-      transition: color 0.3s ease;
     }
   }
 
-  // Навігаційні посилання
   .footer-links {
     ul {
       list-style: none;
@@ -436,7 +439,6 @@ header {
         font-size: 0.9rem;
         font-weight: 500;
         transition: color 0.2s ease;
-        display: inline-block;
 
         &:hover {
           color: var(--accent);
@@ -445,7 +447,6 @@ header {
     }
   }
 
-  // Соціальні мережі
   .footer-socials {
     .social-icons {
       display: flex;
@@ -458,7 +459,6 @@ header {
         font-size: 0.9rem;
         font-weight: 500;
         transition: color 0.2s ease;
-        position: relative;
         align-self: flex-start;
 
         &:hover {
@@ -468,14 +468,12 @@ header {
     }
   }
 
-  // Нижня лінія з копірайтом
   .footer-bottom {
     max-width: 1400px;
     margin: 40px auto 0 auto;
     padding: 20px 40px 0 40px;
     border-top: 1px solid var(--border-color);
     text-align: center;
-    transition: border-color 0.3s ease;
 
     p {
       font-size: 0.8rem;
@@ -489,6 +487,9 @@ header {
   }
 }
 
+// ==========================================
+// 7. PWA ПРАМПТ ВСТАНОВЛЕННЯ
+// ==========================================
 .install-prompt {
   position: fixed;
   right: max(16px, env(safe-area-inset-right));
@@ -500,7 +501,7 @@ header {
   padding: 18px;
   border: 1px solid var(--border-color);
   border-radius: 16px;
-  background: var(--bg-card);
+  background: var(--bg-card, #ffffff);
   color: var(--text-main);
   box-shadow: 0 18px 48px rgba(15, 23, 42, 0.24);
 }
@@ -560,10 +561,9 @@ header {
   margin-top: 16px;
   border: 0;
   border-radius: 10px;
-  background: var(--accent-fill);
-  color: var(--on-accent);
+  background: var(--accent-fill, #111);
+  color: var(--on-accent, #fff);
   font: inherit;
   font-weight: 700;
   cursor: pointer;
 }
-
