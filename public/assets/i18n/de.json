@@ -3,23 +3,23 @@
   "WELCOME": "Willkommen in unserem Shop!",
   "PWA": {
     "INSTALL_TITLE": "Virni zum Startbildschirm hinzufügen",
-    "INSTALL_DESCRIPTION": "Schneller Zugriff auf Shop und Neuigkeiten.",
+    "INSTALL_DESCRIPTION": "Schneller Zugriff auf den Shop und die neuesten Nachrichten.",
     "INSTALL_BUTTON": "Installieren",
-    "INSTALL_HELP_BUTTON": "Verknüpfung hinzufügen",
+    "INSTALL_HELP_BUTTON": "So fügen Sie eine Verknüpfung hinzu",
     "INSTALL_DISMISS_BUTTON": "Nicht jetzt",
-    "INSTALL_IOS_STEPS": "Tippen Sie in Safari auf Teilen und dann auf Zum Home-Bildschirm.",
-    "INSTALL_ANDROID_STEPS": "Öffnen Sie das Browsermenü ⋮ und wählen Sie App installieren oder Zum Startbildschirm hinzufügen."
+    "INSTALL_IOS_STEPS": "Tippen Sie in Safari auf Teilen und wählen Sie Zum Home-Bildschirm.",
+    "INSTALL_ANDROID_STEPS": "Öffnen Sie das Browser-Menü ⋮ und wählen Sie App installieren oder Zum Startbildschirm hinzufügen."
   },
   "MENU": {
     "HOME": "Startseite",
     "NEWS": "News",
     "SHOP": "Shop",
-    "MEDIA": "Media",
+    "MEDIA": "Medien",
     "VIDEOS": "YouTube"
   },
   "HOME": {
     "FEED": {
-      "NEWS": "News",
+      "NEWS": "Nachricht",
       "PRODUCT": "Produkt",
       "VIDEO": "YouTube"
     }
@@ -28,42 +28,44 @@
     "TITLE": "Virni Kollektion",
     "SUBTITLE": "Handgefertigte Premium-Kleidung und Hochzeitskleider",
     "ADD_TO_CART": "In den Warenkorb",
+    "ADDED": "Hinzugefügt!",
     "ORDER_NOW": "Jetzt bestellen",
     "IN_STOCK": "Auf Lager",
-    "PRE_ORDER": "Auf Bestellung",
+    "PRE_ORDER": "Vorbestellen",
     "PRE_ORDER_BTN": "Vorbestellen",
     "OUT_OF_STOCK": "Nicht auf Lager",
     "NOTIFY_AVAILABILITY": "Verfügbarkeit anfragen",
     "NOTIFY_MODAL_TITLE": "Interesse an diesem Artikel?",
-    "NOTIFY_MODAL_DESC": "Hinterlassen Sie Ihre Kontaktdaten. Wir informieren Sie, sobald der Artikel verfügbar ist, oder bieten ein ähnliches Modell an.",
+    "NOTIFY_MODAL_DESC": "Hinterlassen Sie Ihre Kontaktdaten. Wir informieren Sie, sobald der Artikel verfügbar ist, oder bieten Ihnen ein ähnliches Modell an.",
     "SOLD_OUT": "Ausverkauft / Archiv",
     "ARCHIVE_ITEM": "Archivmodell",
     "DAYS": "Tage",
     "MATERIALS": "Materialien",
     "LOADING": "Produkte werden geladen...",
-    "VARIANT": "Ausführung",
+    "VARIANT": "Option",
     "SIZE": "Größe",
     "SELECT_SIZE_REQUIRED": "Bitte wählen Sie eine Größe",
+    "SELECT_VARIANT_REQUIRED": "Bitte wählen Sie eine Option",
     "BADGE_NEW": "Neu",
     "BADGE_BESTSELLER": "Bestseller",
     "CATEGORIES": {
       "ALL": "Alle",
       "WEDDING": "Brautkleider",
       "TRADITIONAL": "Wyschywankas",
-      "PERFUME": "Parfüms",
+      "PERFUME": "Parfums",
       "ELECTRONICS": "Accessoires",
       "OTHER": "Sonstiges"
     }
   },
   "VIDEOS": {
-    "SUBTITLE": "Aktuelle Rezensionen von @VirniFashion",
+    "SUBTITLE": "Neueste Bewertungen von @VirniFashion",
     "WATCH_LINK": "Auf YouTube ansehen",
     "LOADING": "Videos werden geladen..."
   },
   "NEWS": {
     "TITLE": "News & Trends",
     "READ_MORE": "Weiterlesen",
-    "BACK": "Zurück zur Übersicht",
+    "BACK": "Zurück zu News",
     "CATEGORIES": {
       "COLLECTIONS": "Kollektionen",
       "ACCESSORIES": "Accessoires",
@@ -73,13 +75,13 @@
     }
   },
   "FOOTER": {
-    "BRAND_TEXT": "Ihr Raum für authentischen Stil, Qualitätsmusik und exklusive Produkte. Lassen Sie uns gemeinsam Geschichte schreiben.",
+    "BRAND_TEXT": "Ihr Raum für authentischen Stil, hochwertige Musik und exklusive Produkte. Wir schreiben gemeinsam Geschichte.",
     "NAVIGATION": "Navigation",
     "FOLLOW_US": "Folgen Sie uns"
   },
   "CART": {
     "TITLE": "Ihr Warenkorb",
-    "CHECKOUT": "Bestellung aufgeben",
+    "CHECKOUT": "Kasse",
     "SUBTOTAL": "Zwischensumme",
     "SHIPPING": "Versand",
     "FREE": "Kostenlos",
@@ -94,23 +96,23 @@
     },
     "EMPTY": {
       "TITLE": "Ihr Warenkorb ist leer",
-      "SUBTITLE": "Es sieht so aus, als hätten Sie noch nichts hinzugefügt.",
+      "SUBTITLE": "Sie haben noch keine Artikel hinzugefügt.",
       "GO_SHOP": "Zum Shop"
     }
   },
   "MEDIA": {
     "TITLE": "Virni Music MP3 herunterladen",
     "SUBTITLE": "Genießen Sie die neuesten visuellen Geschichten und eine kuratierte Musikbibliothek von Virni.",
-    "HEADER_TAG": "Media",
-    "VIDEO_PANEL": "Neueste Videos",
+    "HEADER_TAG": "Medien",
+    "VIDEO_PANEL": "Neuestes Video",
     "WATCH_ON_YOUTUBE": "Auf YouTube ansehen",
     "PLAYER_TITLE": "Audio-Bibliothek",
     "SORT_BY": "Sortieren nach",
     "SORT_TITLE_ASC": "Titel: A bis Z",
     "SORT_TITLE_DESC": "Titel: Z bis A",
-    "SORT_POPULAR": "Auf diesem Gerät am häufigsten geöffnet",
+    "SORT_POPULAR": "Am häufigsten auf diesem Gerät geöffnet",
     "SORT_RANDOM": "Zufällige Reihenfolge",
-    "PAGINATION_LABEL": "Seiten der Audiothek",
+    "PAGINATION_LABEL": "Seiten der Audio-Bibliothek",
     "PAGE_OF": "Seite {{current}} von {{total}}",
     "PREVIOUS": "Zurück",
     "NEXT": "Weiter",
@@ -118,7 +120,7 @@
     "DOWNLOAD": "Herunterladen",
     "LOADING_TRACKS": "Titel werden geladen...",
     "NO_VIDEOS": "Derzeit sind keine Videos verfügbar."
-  },  
+  },
   "PAGE_NOT_FOUND": {
     "TITLE": "Seite nicht gefunden"
   }

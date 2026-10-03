@@ -3,12 +3,12 @@
   "WELCOME": "当店へようこそ！",
   "PWA": {
     "INSTALL_TITLE": "Virniをホーム画面に追加",
-    "INSTALL_DESCRIPTION": "ショップや最新情報へすばやくアクセスできます。",
+    "INSTALL_DESCRIPTION": "ショップや最新ニュースへすばやくアクセス。",
     "INSTALL_BUTTON": "インストール",
     "INSTALL_HELP_BUTTON": "ショートカットの追加方法",
-    "INSTALL_DISMISS_BUTTON": "今はしない",
-    "INSTALL_IOS_STEPS": "Safariで「共有」をタップし、「ホーム画面に追加」を選択します。",
-    "INSTALL_ANDROID_STEPS": "ブラウザのメニュー ⋮ を開き、「アプリをインストール」または「ホーム画面に追加」を選択します。"
+    "INSTALL_DISMISS_BUTTON": "後で",
+    "INSTALL_IOS_STEPS": "Safariで共有アイコンをタップし、「ホーム画面に追加」を選択します。",
+    "INSTALL_ANDROID_STEPS": "ブラウザの menu ⋮ を開き、「アプリをインストール」または「ホーム画面に追加」を選択します。"
   },
   "MENU": {
     "HOME": "ホーム",
@@ -26,30 +26,32 @@
   },
   "SHOP": {
     "TITLE": "Virni コレクション",
-    "SUBTITLE": "ハンドメイドのプレミアムウェアとウェディングドレス",
+    "SUBTITLE": "ハンドメイドの高級衣類とウェディングドレス",
     "ADD_TO_CART": "カートに追加",
+    "ADDED": "追加しました！",
     "ORDER_NOW": "今すぐ注文",
     "IN_STOCK": "在庫あり",
-    "PRE_ORDER": "受注生産",
-    "PRE_ORDER_BTN": "予約注文する",
+    "PRE_ORDER": "予約注文",
+    "PRE_ORDER_BTN": "予約する",
     "OUT_OF_STOCK": "在庫切れ",
-    "NOTIFY_AVAILABILITY": "入荷状況を問い合わせる",
-    "NOTIFY_MODAL_TITLE": "この商品にご興味がありますか？",
-    "NOTIFY_MODAL_DESC": "連絡先をご登録いただければ、入荷時にお知らせするか、類似の商品をご案内いたします。",
+    "NOTIFY_AVAILABILITY": "在庫状況を問い合わせる",
+    "NOTIFY_MODAL_TITLE": "この商品にご興味をお持ちですか？",
+    "NOTIFY_MODAL_DESC": "連絡先をご登録いただければ、入荷時にお知らせするか、類似モデルをご提案いたします。",
     "SOLD_OUT": "完売 / アーカイブ",
     "ARCHIVE_ITEM": "アーカイブモデル",
     "DAYS": "日",
     "MATERIALS": "素材",
     "LOADING": "商品を読み込み中...",
-    "VARIANT": "バリエーション",
+    "VARIANT": "オプション",
     "SIZE": "サイズ",
     "SELECT_SIZE_REQUIRED": "サイズを選択してください",
+    "SELECT_VARIANT_REQUIRED": "オプションを選択してください",
     "BADGE_NEW": "新作",
     "BADGE_BESTSELLER": "ベストセラー",
     "CATEGORIES": {
       "ALL": "すべて",
       "WEDDING": "ウェディングドレス",
-      "TRADITIONAL": "ヴィシヴァнка（刺繍シャツ）",
+      "TRADITIONAL": "ソロチカ（刺繍シャツ）",
       "PERFUME": "香水",
       "ELECTRONICS": "アクセサリー",
       "OTHER": "その他"
@@ -63,7 +65,7 @@
   "NEWS": {
     "TITLE": "ニュース＆トレンド",
     "READ_MORE": "続きを読む",
-    "BACK": "一 覧に戻る",
+    "BACK": "ニュース一覧に戻る",
     "CATEGORIES": {
       "COLLECTIONS": "コレクション",
       "ACCESSORIES": "アクセサリー",
@@ -73,13 +75,13 @@
     }
   },
   "FOOTER": {
-    "BRAND_TEXT": "本物のスタイル、上質な音楽、限定商品が集まる場所。共に歴史を刻みましょう。",
+    "BRAND_TEXT": "本物のスタイル、上質な音楽、独占商品が集う場所。共に歴史を刻みましょう。",
     "NAVIGATION": "ナビゲーション",
     "FOLLOW_US": "公式SNS"
   },
   "CART": {
     "TITLE": "ショッピングカート",
-    "CHECKOUT": "ご購入手続きへ",
+    "CHECKOUT": "ご購入手続き",
     "SUBTOTAL": "小計",
     "SHIPPING": "送料",
     "FREE": "無料",
@@ -87,9 +89,9 @@
     "FORM": {
       "NAME": "お名前",
       "PHONE": "電話番号",
-      "EMAIL": "メールアドレス (任意)",
-      "ADDRESS": "国、都市、配送先住所",
-      "CONFIRM_METHOD": "確認方法:",
+      "EMAIL": "メールアドレス（任意）",
+      "ADDRESS": "国、都市、お届け先住所",
+      "CONFIRM_METHOD": "確認方法：",
       "SUBMIT_BTN": "注文を確定する"
     },
     "EMPTY": {
@@ -99,24 +101,24 @@
     }
   },
   "MEDIA": {
-    "TITLE": "Virni Music MP3 をダウンロード",
-    "SUBTITLE": "Virniが厳選した最新のビジュアルストーリーと音楽ライブラリをお楽しみください。",
+    "TITLE": "Virni Music MP3をダウンロード",
+    "SUBTITLE": "Virniが厳選したビジュアルストーリーと音楽ライブラリをお楽しみください。",
     "HEADER_TAG": "メディア",
-    "VIDEO_PANEL": "最新動画",
+    "VIDEO_PANEL": "最新の動画",
     "WATCH_ON_YOUTUBE": "YouTubeで視聴",
     "PLAYER_TITLE": "オーディオライブラリ",
     "SORT_BY": "並び替え",
-    "SORT_TITLE_ASC": "タイトル: 昇順 (A-Z)",
-    "SORT_TITLE_DESC": "タイトル: 降順 (Z-A)",
+    "SORT_TITLE_ASC": "タイトル：昇順 (A-Z)",
+    "SORT_TITLE_DESC": "タイトル：降順 (Z-A)",
     "SORT_POPULAR": "この端末で最も再生された曲",
     "SORT_RANDOM": "ランダム順",
     "PAGINATION_LABEL": "オーディオライブラリのページ",
     "PAGE_OF": "ページ {{current}} / {{total}}",
     "PREVIOUS": "前へ",
     "NEXT": "次へ",
-    "PLAY_IN_DRIVE": "ドライブで再生",
+    "PLAY_IN_DRIVE": "Google Driveで再生",
     "DOWNLOAD": "ダウンロード",
-    "LOADING_TRACKS": "トラックを読み込み中...",
+    "LOADING_TRACKS": "楽曲を読み込み中...",
     "NO_VIDEOS": "現在利用可能な動画はありません。"
   },
   "PAGE_NOT_FOUND": {

@@ -2,11 +2,11 @@
   "APP_TITLE": "Virni.TOP",
   "WELCOME": "欢迎光临我们的商店！",
   "PWA": {
-    "INSTALL_TITLE": "将 Virni 添加至主屏幕",
-    "INSTALL_DESCRIPTION": "快速访问商店与最新动态。",
+    "INSTALL_TITLE": "将 Virni 添加到主屏幕",
+    "INSTALL_DESCRIPTION": "快速访问商店和最新动态。",
     "INSTALL_BUTTON": "安装",
     "INSTALL_HELP_BUTTON": "如何添加快捷方式",
-    "INSTALL_DISMISS_BUTTON": "暂不添加",
+    "INSTALL_DISMISS_BUTTON": "暂不",
     "INSTALL_IOS_STEPS": "在 Safari 中点击“分享”，然后选择“添加到主屏幕”。",
     "INSTALL_ANDROID_STEPS": "打开浏览器菜单 ⋮ 并选择“安装应用”或“添加到主屏幕”。"
   },
@@ -19,69 +19,69 @@
   },
   "HOME": {
     "FEED": {
-      "NEWS": "资讯",
+      "NEWS": "动态",
       "PRODUCT": "商品",
       "VIDEO": "YouTube"
     }
   },
   "SHOP": {
     "TITLE": "Virni 系列",
-    "SUBTITLE": "手工制作的高级服装与婚纱",
+    "SUBTITLE": "手工高端服装与婚纱",
     "ADD_TO_CART": "加入购物车",
+    "ADDED": "已加入！",
     "ORDER_NOW": "立即订购",
-    "IN_STOCK": "有现货",
-    "PRE_ORDER": "预订商品",
+    "IN_STOCK": "现货",
+    "PRE_ORDER": "预订",
     "PRE_ORDER_BTN": "立即预订",
     "OUT_OF_STOCK": "缺货",
     "NOTIFY_AVAILABILITY": "咨询到货情况",
     "NOTIFY_MODAL_TITLE": "对这款商品感兴趣？",
-    "NOTIFY_MODAL_DESC": "请留下您的联系方式，当商品补货或有相似款式时，我们将及时通知您。",
+    "NOTIFY_MODAL_DESC": "请留下您的联系方式，到货时我们将通知您，或为您推荐类似款式。",
     "SOLD_OUT": "已售罄 / 归档",
     "ARCHIVE_ITEM": "归档款式",
     "DAYS": "天",
     "MATERIALS": "材质",
     "LOADING": "正在加载商品...",
-    "SHOP": {
-    "VARIANT": "款式 / 颜色",
-    "SIZE": "尺寸",
-    "SELECT_SIZE_REQUIRED": "请选择尺寸",
+    "VARIANT": "选项",
+    "SIZE": "尺码",
+    "SELECT_SIZE_REQUIRED": "请选择尺码",
+    "SELECT_VARIANT_REQUIRED": "请选择选项",
     "BADGE_NEW": "新品",
-    "BADGE_BESTSELLER": "热销"
-  },
+    "BADGE_BESTSELLER": "畅销",
     "CATEGORIES": {
       "ALL": "全部",
       "WEDDING": "婚纱",
-      "TRADITIONAL": "刺绣衫 (Vyshyvanka)",
+      "TRADITIONAL": "刺绣衫",
       "PERFUME": "香水",
-      "ELECTRONICS": "配饰",
+      "ELECTRONICS": "饰品配件",
       "OTHER": "其他"
     }
   },
   "VIDEOS": {
-    "SUBTITLE": "来自 @VirniFashion 的最新评测",
+    "SUBTITLE": "@VirniFashion 最新测评",
     "WATCH_LINK": "在 YouTube 上观看",
-    "LOADING": "视频加载中..."
+    "LOADING": "正在加载视频..."
   },
-"NEWS": {
-  "TITLE": "新闻与趋势",
-  "READ_MORE": "阅读更多",
-  "BACK": "返回资讯列表",
-  "CATEGORIES": {
-    "COLLECTIONS": "系列",
-    "ACCESSORIES": "配饰",
-    "STYLE": "风格",
-    "FASHION": "时尚",
-    "ALL": "全部"
-  }
-},
+  "NEWS": {
+    "TITLE": "资讯与潮流",
+    "READ_MORE": "阅读更多",
+    "BACK": "返回资讯列表",
+    "CATEGORIES": {
+      "COLLECTIONS": "系列",
+      "ACCESSORIES": "配件",
+      "STYLE": "风格",
+      "FASHION": "时尚",
+      "ALL": "全部"
+    }
+  },
   "FOOTER": {
-    "BRAND_TEXT": "汇聚真实风格、优质音乐与独家产品的专属空间。与我们一同创造历史。",
-    "NAVIGATION": "网站导航",
+    "BRAND_TEXT": "汇聚地道风格、优质音乐与独家产品的专属空间。与您共同缔造传奇。",
+    "NAVIGATION": "导航",
     "FOLLOW_US": "关注我们"
   },
   "CART": {
     "TITLE": "您的购物车",
-    "CHECKOUT": "结算",
+    "CHECKOUT": "结账",
     "SUBTOTAL": "小计",
     "SHIPPING": "运费",
     "FREE": "免费",
@@ -89,8 +89,8 @@
     "FORM": {
       "NAME": "您的姓名",
       "PHONE": "电话号码",
-      "EMAIL": "电子邮箱 (选填)",
-      "ADDRESS": "国家、城市、详细收货地址",
+      "EMAIL": "电子邮箱（选填）",
+      "ADDRESS": "国家、城市、配送地址",
       "CONFIRM_METHOD": "确认方式：",
       "SUBMIT_BTN": "确认订单"
     },
@@ -102,23 +102,23 @@
   },
   "MEDIA": {
     "TITLE": "下载 Virni Music MP3",
-    "SUBTITLE": "尽情享受来自 Virni 的最新视觉故事与精选音乐库。",
+    "SUBTITLE": "尽情享受 Virni 提供的最新视觉故事与精选音乐库。",
     "HEADER_TAG": "媒体",
     "VIDEO_PANEL": "最新视频",
     "WATCH_ON_YOUTUBE": "在 YouTube 上观看",
-    "PLAYER_TITLE": "音频音乐库",
+    "PLAYER_TITLE": "音乐库",
     "SORT_BY": "排序方式",
     "SORT_TITLE_ASC": "标题：A 到 Z",
     "SORT_TITLE_DESC": "标题：Z 到 A",
-    "SORT_POPULAR": "在此设备上播放最多",
+    "SORT_POPULAR": "此设备上播放最多",
     "SORT_RANDOM": "随机顺序",
-    "PAGINATION_LABEL": "音频库页码",
+    "PAGINATION_LABEL": "音乐库页码",
     "PAGE_OF": "第 {{current}} 页，共 {{total}} 页",
     "PREVIOUS": "上一页",
     "NEXT": "下一页",
-    "PLAY_IN_DRIVE": "在 Google 云端硬盘中播放",
+    "PLAY_IN_DRIVE": "在 云端硬盘 中播放",
     "DOWNLOAD": "下载",
-    "LOADING_TRACKS": "曲目加载中...",
+    "LOADING_TRACKS": "正在加载曲目...",
     "NO_VIDEOS": "暂无可用视频。"
   },
   "PAGE_NOT_FOUND": {

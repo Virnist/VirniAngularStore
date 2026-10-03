@@ -3,23 +3,23 @@
   "WELCOME": "Witamy w naszym sklepie!",
   "PWA": {
     "INSTALL_TITLE": "Dodaj Virni do ekranu głównego",
-    "INSTALL_DESCRIPTION": "Szybki dostęp do sklepu i aktualności.",
+    "INSTALL_DESCRIPTION": "Szybki dostęp do sklepu i najnowszych wiadomości.",
     "INSTALL_BUTTON": "Zainstaluj",
     "INSTALL_HELP_BUTTON": "Jak dodać skrót",
     "INSTALL_DISMISS_BUTTON": "Nie teraz",
-    "INSTALL_IOS_STEPS": "W Safari stuknij Udostępnij, a następnie Do ekranu początkowego.",
+    "INSTALL_IOS_STEPS": "Stuknij Udostępnij w Safari, a następnie wybierz Do ekranu początkowego.",
     "INSTALL_ANDROID_STEPS": "Otwórz menu przeglądarki ⋮ i wybierz Zainstaluj aplikację lub Dodaj do ekranu głównego."
   },
   "MENU": {
     "HOME": "Strona główna",
-    "NEWS": "Aktualności",
+    "NEWS": "Wiadomości",
     "SHOP": "Sklep",
     "MEDIA": "Media",
     "VIDEOS": "YouTube"
   },
   "HOME": {
     "FEED": {
-      "NEWS": "Aktualność",
+      "NEWS": "Wiadomość",
       "PRODUCT": "Produkt",
       "VIDEO": "YouTube"
     }
@@ -27,23 +27,25 @@
   "SHOP": {
     "TITLE": "Kolekcja Virni",
     "SUBTITLE": "Ręcznie szyta odzież premium i suknie ślubne",
-    "ADD_TO_CART": "Do koszyka",
+    "ADD_TO_CART": "Dodaj do koszyka",
+    "ADDED": "Dodano!",
     "ORDER_NOW": "Zamów teraz",
-    "IN_STOCK": "W magazynie",
-    "PRE_ORDER": "Na zamówienie",
+    "IN_STOCK": "Dostępne",
+    "PRE_ORDER": "Przedsprzedaż",
     "PRE_ORDER_BTN": "Zamów",
     "OUT_OF_STOCK": "Brak w magazynie",
     "NOTIFY_AVAILABILITY": "Zapytaj o dostępność",
-    "NOTIFY_MODAL_TITLE": "Interesuje Cię ten produkt?",
-    "NOTIFY_MODAL_DESC": "Zostaw swoje dane kontaktowe, a powiadomimy Cię, gdy towar pojawi się ponownie, lub zaproponujemy podobny model.",
-    "SOLD_OUT": "Sprzedane / Archiwum",
+    "NOTIFY_MODAL_TITLE": "Jesteś zainteresowany tym produktem?",
+    "NOTIFY_MODAL_DESC": "Zostaw swoje dane kontaktowe, a powiadomimy Cię, gdy produkt będzie dostępny, lub zaproponujemy podobny model.",
+    "SOLD_OUT": "Wyprzedane / Archiwum",
     "ARCHIVE_ITEM": "Model archiwalny",
     "DAYS": "dni",
     "MATERIALS": "Materiały",
     "LOADING": "Ładowanie produktów...",
-    "VARIANT": "Wariant",
+    "VARIANT": "Opcja",
     "SIZE": "Rozmiar",
     "SELECT_SIZE_REQUIRED": "Wybierz rozmiar",
+    "SELECT_VARIANT_REQUIRED": "Wybierz opcję",
     "BADGE_NEW": "Nowość",
     "BADGE_BESTSELLER": "Bestseller",
     "CATEGORIES": {
@@ -61,9 +63,9 @@
     "LOADING": "Ładowanie filmów..."
   },
   "NEWS": {
-    "TITLE": "Aktualności i trendy",
+    "TITLE": "Wiadomości i Trendy",
     "READ_MORE": "Czytaj więcej",
-    "BACK": "Powrót do aktualności",
+    "BACK": "Powrót do wiadomości",
     "CATEGORIES": {
       "COLLECTIONS": "Kolekcje",
       "ACCESSORIES": "Akcesoria",
@@ -73,16 +75,16 @@
     }
   },
   "FOOTER": {
-    "BRAND_TEXT": "Twoja przestrzeń dla autentycznego stylu, wysokiej jakości muzyki i ekskluzywnych produktów. Twórzmy historię razem.",
+    "BRAND_TEXT": "Twoja przestrzeń dla autentycznego stylu, wysokiej jakości muzyki i ekskluzywnych produktów. Tworzymy historię razem.",
     "NAVIGATION": "Nawigacja",
     "FOLLOW_US": "Obserwuj nas"
   },
   "CART": {
     "TITLE": "Twój koszyk",
-    "CHECKOUT": "Realizacja zamówienia",
+    "CHECKOUT": "Kasa",
     "SUBTOTAL": "Suma częściowa",
     "SHIPPING": "Wysyłka",
-    "FREE": "Darmowa",
+    "FREE": "Gratis",
     "TOTAL_TO_PAY": "Razem do zapłaty",
     "FORM": {
       "NAME": "Twoje imię",
@@ -99,27 +101,27 @@
     }
   },
   "MEDIA": {
-    "TITLE": "Pobierz Virni Music Mp3",
-    "SUBTITLE": "Ciesz się najnowszymi opowieściami wizualnymi i zbiorem utworów Virni.",
+    "TITLE": "Pobierz Virni Music MP3",
+    "SUBTITLE": "Ciesz się najnowszymi historiami wizualnymi i wyselekcjonowaną biblioteką muzyczną od Virni.",
     "HEADER_TAG": "Media",
-    "VIDEO_PANEL": "Najnowsze wideo",
-    "WATCH_ON_YOUTUBE": "Obejrzyj na YouTube",
+    "VIDEO_PANEL": "Najnowszy film",
+    "WATCH_ON_YOUTUBE": "Oglądaj na YouTube",
     "PLAYER_TITLE": "Biblioteka audio",
     "SORT_BY": "Sortuj według",
-    "SORT_TITLE_ASC": "Tytuł: A–Z",
-    "SORT_TITLE_DESC": "Tytuł: Z–A",
+    "SORT_TITLE_ASC": "Tytuł: Od A do Z",
+    "SORT_TITLE_DESC": "Tytuł: Od Z do A",
     "SORT_POPULAR": "Najczęściej otwierane na tym urządzeniu",
-    "SORT_RANDOM": "Losowa kolejność",
+    "SORT_RANDOM": "Kolejność losowa",
     "PAGINATION_LABEL": "Strony biblioteki audio",
     "PAGE_OF": "Strona {{current}} z {{total}}",
-    "PREVIOUS": "Wstecz",
-    "NEXT": "Dalej",
-    "PLAY_IN_DRIVE": "Odtwórz na Dysku Google",
+    "PREVIOUS": "Poprzednia",
+    "NEXT": "Następna",
+    "PLAY_IN_DRIVE": "Słuchaj na Drive",
     "DOWNLOAD": "Pobierz",
     "LOADING_TRACKS": "Ładowanie utworów...",
-    "NO_VIDEOS": "Brak dostępnych filmów."
+    "NO_VIDEOS": "Brak dostępnych filmów w tej chwili."
   },
   "PAGE_NOT_FOUND": {
-    "TITLE": "Nie znaleziono strony"
+    "TITLE": "Strona nie znaleziona"
   }
 }

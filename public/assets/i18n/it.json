@@ -2,50 +2,52 @@
   "APP_TITLE": "Virni.TOP",
   "WELCOME": "Benvenuti nel nostro negozio!",
   "PWA": {
-    "INSTALL_TITLE": "Aggiungi Virni alla Schermata Home",
-    "INSTALL_DESCRIPTION": "Accesso rapido allo shop e alle ultime novità.",
+    "INSTALL_TITLE": "Aggiungi Virni alla schermata Home",
+    "INSTALL_DESCRIPTION": "Accesso rapido al negozio e alle ultime novità.",
     "INSTALL_BUTTON": "Installa",
-    "INSTALL_HELP_BUTTON": "Come aggiungere la scorciatoia",
+    "INSTALL_HELP_BUTTON": "Come aggiungere una scorciatoia",
     "INSTALL_DISMISS_BUTTON": "Non ora",
-    "INSTALL_IOS_STEPS": "Tocca Condividi su Safari, poi scegli Aggiungi alla schermata Home.",
+    "INSTALL_IOS_STEPS": "Tocca Condividi in Safari, quindi scegli Aggiungi alla schermata Home.",
     "INSTALL_ANDROID_STEPS": "Apri il menu del browser ⋮ e scegli Installa app o Aggiungi a schermata Home."
   },
   "MENU": {
     "HOME": "Home",
-    "NEWS": "Notizie",
-    "SHOP": "Shop",
+    "NEWS": "Novità",
+    "SHOP": "Negozio",
     "MEDIA": "Media",
     "VIDEOS": "YouTube"
   },
   "HOME": {
     "FEED": {
-      "NEWS": "Notizie",
+      "NEWS": "Notizia",
       "PRODUCT": "Prodotto",
       "VIDEO": "YouTube"
     }
   },
   "SHOP": {
     "TITLE": "Collezione Virni",
-    "SUBTITLE": "Abbigliamento premium e abiti da sposa fatti a mano",
+    "SUBTITLE": "Abbigliamento sartoriale di alta qualità e abiti da sposa",
     "ADD_TO_CART": "Aggiungi al carrello",
+    "ADDED": "Aggiunto!",
     "ORDER_NOW": "Ordina ora",
     "IN_STOCK": "Disponibile",
-    "PRE_ORDER": "Su ordinazione",
+    "PRE_ORDER": "Preordina",
     "PRE_ORDER_BTN": "Preordina",
     "OUT_OF_STOCK": "Esaurito",
-    "NOTIFY_AVAILABILITY": "Verifica disponibilità",
+    "NOTIFY_AVAILABILITY": "Richiedi disponibilità",
     "NOTIFY_MODAL_TITLE": "Ti interessa questo articolo?",
-    "NOTIFY_MODAL_DESC": "Lascia i tuoi recapiti e ti avviseremo non appena sarà disponibile o ti proporremo un modello simile.",
+    "NOTIFY_MODAL_DESC": "Lascia i tuoi dati di contatto e ti avviseremo quando sarà disponibile o ti proporremo un modello simile.",
     "SOLD_OUT": "Esaurito / Archivio",
     "ARCHIVE_ITEM": "Modello d'archivio",
     "DAYS": "giorni",
     "MATERIALS": "Materiali",
     "LOADING": "Caricamento prodotti...",
-    "VARIANT": "Variante",
+    "VARIANT": "Opzione",
     "SIZE": "Taglia",
     "SELECT_SIZE_REQUIRED": "Seleziona una taglia",
+    "SELECT_VARIANT_REQUIRED": "Seleziona un'opzione",
     "BADGE_NEW": "Novità",
-    "BADGE_BESTSELLER": "Bestseller",
+    "BADGE_BESTSELLER": "I più venduti",
     "CATEGORIES": {
       "ALL": "Tutti",
       "WEDDING": "Abiti da sposa",
@@ -58,12 +60,12 @@
   "VIDEOS": {
     "SUBTITLE": "Ultime recensioni da @VirniFashion",
     "WATCH_LINK": "Guarda su YouTube",
-    "LOADING": "Caricamento video in corso..."
+    "LOADING": "Caricamento video..."
   },
   "NEWS": {
-    "TITLE": "Notizie e Tendenze",
+    "TITLE": "Novità & Tendenze",
     "READ_MORE": "Leggi di più",
-    "BACK": "Torna alle notizie",
+    "BACK": "Torna alle novità",
     "CATEGORIES": {
       "COLLECTIONS": "Collezioni",
       "ACCESSORIES": "Accessori",
@@ -73,53 +75,53 @@
     }
   },
   "FOOTER": {
-    "BRAND_TEXT": "Il tuo spazio per lo stile autentico, la musica di qualità e prodotti esclusivi. Facciamo la storia insieme.",
+    "BRAND_TEXT": "Il tuo spazio per uno stile autentico, musica di qualità e prodotti esclusivi. Scriviamo la storia insieme.",
     "NAVIGATION": "Navigazione",
     "FOLLOW_US": "Seguici"
   },
   "CART": {
-    "TITLE": "Il tuo Carrello",
-    "CHECKOUT": "Procedi all'acquisto",
+    "TITLE": "Il tuo carrello",
+    "CHECKOUT": "Cassa",
     "SUBTOTAL": "Subtotale",
     "SHIPPING": "Spedizione",
-    "FREE": "Gratuita",
+    "FREE": "Gratis",
     "TOTAL_TO_PAY": "Totale da pagare",
     "FORM": {
-      "NAME": "Il tuo Nome",
-      "PHONE": "Numero di Telefono",
+      "NAME": "Il tuo nome",
+      "PHONE": "Numero di telefono",
       "EMAIL": "Email (opzionale)",
       "ADDRESS": "Paese, città, indirizzo di spedizione",
       "CONFIRM_METHOD": "Metodo di conferma:",
-      "SUBMIT_BTN": "Conferma Ordine"
+      "SUBMIT_BTN": "Conferma ordine"
     },
     "EMPTY": {
       "TITLE": "Il tuo carrello è vuoto",
       "SUBTITLE": "Sembra che tu non abbia ancora aggiunto nulla.",
-      "GO_SHOP": "Vai allo Shop"
+      "GO_SHOP": "Vai al negozio"
     }
   },
   "MEDIA": {
-    "TITLE": "Scarica la Musica MP3 di Virni",
-    "SUBTITLE": "Goditi le ultime storie visive e una libreria d'ascolto curata da Virni.",
+    "TITLE": "Scarica Virni Music MP3",
+    "SUBTITLE": "Goditi le ultime storie visive e una libreria musicale curata da Virni.",
     "HEADER_TAG": "Media",
     "VIDEO_PANEL": "Ultimo video",
     "WATCH_ON_YOUTUBE": "Guarda su YouTube",
     "PLAYER_TITLE": "Libreria audio",
     "SORT_BY": "Ordina per",
-    "SORT_TITLE_ASC": "Titolo: A - Z",
-    "SORT_TITLE_DESC": "Titolo: Z - A",
-    "SORT_POPULAR": "Più aperti su questo dispositivo",
+    "SORT_TITLE_ASC": "Titolo: Da A a Z",
+    "SORT_TITLE_DESC": "Titolo: Da Z ad A",
+    "SORT_POPULAR": "I più aperti su questo dispositivo",
     "SORT_RANDOM": "Ordine casuale",
     "PAGINATION_LABEL": "Pagine della libreria audio",
     "PAGE_OF": "Pagina {{current}} di {{total}}",
     "PREVIOUS": "Precedente",
-    "NEXT": "Successiva",
-    "PLAY_IN_DRIVE": "Riproduci in Drive",
+    "NEXT": "Successivo",
+    "PLAY_IN_DRIVE": "Ascolta su Drive",
     "DOWNLOAD": "Scarica",
     "LOADING_TRACKS": "Caricamento brani...",
     "NO_VIDEOS": "Nessun video disponibile al momento."
   },
   "PAGE_NOT_FOUND": {
-    "TITLE": "Pagina Non Trovata"
+    "TITLE": "Pagina non trovata"
   }
 }

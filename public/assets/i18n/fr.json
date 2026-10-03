@@ -2,13 +2,13 @@
   "APP_TITLE": "Virni.TOP",
   "WELCOME": "Bienvenue dans notre boutique !",
   "PWA": {
-    "INSTALL_TITLE": "Ajouter Virni à l’écran d’accueil",
-    "INSTALL_DESCRIPTION": "Accédez rapidement à la boutique et aux actualités.",
+    "INSTALL_TITLE": "Ajouter Virni à l'écran d'accueil",
+    "INSTALL_DESCRIPTION": "Accès rapide à la boutique et aux dernières actualités.",
     "INSTALL_BUTTON": "Installer",
     "INSTALL_HELP_BUTTON": "Comment ajouter un raccourci",
-    "INSTALL_DISMISS_BUTTON": "Plus tard",
-    "INSTALL_IOS_STEPS": "Dans Safari, touchez Partager puis Sur l’écran d’accueil.",
-    "INSTALL_ANDROID_STEPS": "Ouvrez le menu du navigateur ⋮ puis choisissez Installer l’application ou Ajouter à l’écran d’accueil."
+    "INSTALL_DISMISS_BUTTON": "Pas maintenant",
+    "INSTALL_IOS_STEPS": "Appuyez sur Partager dans Safari, puis choisissez Sur l'écran d'accueil.",
+    "INSTALL_ANDROID_STEPS": "Ouvrez le menu du navigateur ⋮ et choisissez Installer l'application ou Ajouter à l'écran d'accueil."
   },
   "MENU": {
     "HOME": "Accueil",
@@ -26,16 +26,17 @@
   },
   "SHOP": {
     "TITLE": "Collection Virni",
-    "SUBTITLE": "Vêtements haut de gamme et robes de mariée faits main",
+    "SUBTITLE": "Vêtements haut de gamme faits main et robes de mariée",
     "ADD_TO_CART": "Ajouter au panier",
-    "ORDER_NOW": "Commander",
+    "ADDED": "Ajouté !",
+    "ORDER_NOW": "Commander maintenant",
     "IN_STOCK": "En stock",
-    "PRE_ORDER": "Sur commande",
+    "PRE_ORDER": "Précommander",
     "PRE_ORDER_BTN": "Précommander",
     "OUT_OF_STOCK": "Rupture de stock",
     "NOTIFY_AVAILABILITY": "Demander la disponibilité",
     "NOTIFY_MODAL_TITLE": "Cet article vous intéresse ?",
-    "NOTIFY_MODAL_DESC": "Laissez vos coordonnées et nous vous informerons dès sa disponibilité ou vous proposerons un modèle similaire.",
+    "NOTIFY_MODAL_DESC": "Laissez vos coordonnées et nous vous informerons dès qu'il sera disponible ou vous proposerons un modèle similaire.",
     "SOLD_OUT": "Épuisé / Archives",
     "ARCHIVE_ITEM": "Modèle d'archive",
     "DAYS": "jours",
@@ -44,7 +45,8 @@
     "VARIANT": "Option",
     "SIZE": "Taille",
     "SELECT_SIZE_REQUIRED": "Veuillez sélectionner une taille",
-    "BADGE_NEW": "Nouveauté",
+    "SELECT_VARIANT_REQUIRED": "Veuillez sélectionner une option",
+    "BADGE_NEW": "Nouveau",
     "BADGE_BESTSELLER": "Meilleure vente",
     "CATEGORIES": {
       "ALL": "Tous",
@@ -56,13 +58,13 @@
     }
   },
   "VIDEOS": {
-    "SUBTITLE": "Dernières critiques de @VirniFashion",
+    "SUBTITLE": "Dernières vidéos de @VirniFashion",
     "WATCH_LINK": "Regarder sur YouTube",
     "LOADING": "Chargement des vidéos..."
   },
   "NEWS": {
     "TITLE": "Actualités & Tendances",
-    "READ_MORE": "Lire la suite",
+    "READ_MORE": "En savoir plus",
     "BACK": "Retour aux actualités",
     "CATEGORIES": {
       "COLLECTIONS": "Collections",
@@ -73,53 +75,53 @@
     }
   },
   "FOOTER": {
-    "BRAND_TEXT": "Votre espace pour un style authentique, une musique de qualité et des produits exclusifs. Écrivons l'histoire ensemble.",
+    "BRAND_TEXT": "Votre espace pour un style authentique, de la musique de qualité et des produits exclusifs. Écrivons l'histoire ensemble.",
     "NAVIGATION": "Navigation",
     "FOLLOW_US": "Suivez-nous"
   },
   "CART": {
     "TITLE": "Votre panier",
-    "CHECKOUT": "Passer la commande",
+    "CHECKOUT": "Commande",
     "SUBTOTAL": "Sous-total",
     "SHIPPING": "Livraison",
-    "FREE": "Gratuite",
+    "FREE": "Gratuit",
     "TOTAL_TO_PAY": "Total à payer",
     "FORM": {
       "NAME": "Votre nom",
       "PHONE": "Numéro de téléphone",
-      "EMAIL": "E-mail (optionnel)",
+      "EMAIL": "E-mail (facultatif)",
       "ADDRESS": "Pays, ville, adresse de livraison",
-      "CONFIRM_METHOD": "Méthode de confirmation :",
+      "CONFIRM_METHOD": "Moyen de confirmation :",
       "SUBMIT_BTN": "Confirmer la commande"
     },
     "EMPTY": {
       "TITLE": "Votre panier est vide",
-      "SUBTITLE": "Il semble que vous n'avez encore rien ajouté.",
+      "SUBTITLE": "Il semble que vous n'ayez encore rien ajouté.",
       "GO_SHOP": "Aller à la boutique"
     }
   },
   "MEDIA": {
-    "TITLE": "Télécharger Virni Music Mp3",
-    "SUBTITLE": "Profitez des dernières histoires visuelles et d'une sélection musicale organisée par Virni.",
+    "TITLE": "Télécharger Virni Music MP3",
+    "SUBTITLE": "Profitez des dernières histoires visuelles et d'une bibliothèque musicale organisée par Virni.",
     "HEADER_TAG": "Média",
     "VIDEO_PANEL": "Dernière vidéo",
     "WATCH_ON_YOUTUBE": "Regarder sur YouTube",
     "PLAYER_TITLE": "Bibliothèque audio",
     "SORT_BY": "Trier par",
-    "SORT_TITLE_ASC": "Titre : A à Z",
-    "SORT_TITLE_DESC": "Titre : Z à A",
-    "SORT_POPULAR": "Les plus ouverts sur cet appareil",
+    "SORT_TITLE_ASC": "Titre : De A à Z",
+    "SORT_TITLE_DESC": "Titre : De Z à A",
+    "SORT_POPULAR": "Les plus écoutés sur cet appareil",
     "SORT_RANDOM": "Ordre aléatoire",
     "PAGINATION_LABEL": "Pages de la bibliothèque audio",
     "PAGE_OF": "Page {{current}} sur {{total}}",
     "PREVIOUS": "Précédent",
     "NEXT": "Suivant",
-    "PLAY_IN_DRIVE": "Lire dans Drive",
+    "PLAY_IN_DRIVE": "Écouter sur Drive",
     "DOWNLOAD": "Télécharger",
-    "LOADING_TRACKS": "Chargement des titres...",
-    "NO_VIDEOS": "Aucune vidéo n'est disponible pour le moment."
+    "LOADING_TRACKS": "Chargement des pistes...",
+    "NO_VIDEOS": "Aucune vidéo disponible pour le moment."
   },
   "PAGE_NOT_FOUND": {
-    "TITLE": "Page introuvable"
+    "TITLE": "Page non trouvée"
   }
 }
