@@ -10,6 +10,7 @@ if (!fs.existsSync(outputRoot)) {
 }
 
 const configuredSiteUrl = process.env.SITE_URL || 'https://virnist.github.io/VirniAngularStore/';
+// Переконуємося, що siteUrl завжди закінчується на /
 const siteUrl = configuredSiteUrl.endsWith('/') ? configuredSiteUrl : `${configuredSiteUrl}/`;
 const gscVerificationToken = process.env.GSC_VERIFICATION || '';
 
@@ -38,6 +39,7 @@ function escapeHtml(value = '') {
 function absoluteAsset(source) {
   if (!source) return siteUrl;
   if (source.startsWith('http://') || source.startsWith('https://')) return source;
+  // Видаляємо крапки та слеші на початку, щоб коректно поєднувати з Subpath GitHub Pages
   const relativePath = String(source).replace(/^[./]+/, '');
   return new URL(relativePath, siteUrl).href;
 }
@@ -52,50 +54,36 @@ function safeIsoDate(dateString) {
   return isNaN(parsed.getTime()) ? new Date().toISOString() : parsed.toISOString();
 }
 
-/**
- * Сучасний генератор OG-зображень 1200x630 (2026 Style)
- */
-async function generateOgImage({ title, category, price, outputPath, tag = 'VIRNI' }) {
+// Генерація OG PNG під час збірки
+async function generateOgImage({ title, category, outputPath }) {
   const width = 1200;
   const height = 630;
   const canvas = createCanvas(width, height);
   const ctx = canvas.getContext('2d');
 
-  // 1. Тло з глибоким стильним градієнтом (Dark Tech / Modern Fashion)
   const gradient = ctx.createLinearGradient(0, 0, width, height);
-  gradient.addColorStop(0, '#090d16');
-  gradient.addColorStop(0.5, '#0f172a');
-  gradient.addColorStop(1, '#1e112a');
+  gradient.addColorStop(0, '#0f172a');
+  gradient.addColorStop(1, '#1e1b4b');
   ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, width, height);
 
-  // 2. Декоративні світлові акценти (Glow effect)
-  const glow1 = ctx.createRadialGradient(1000, 150, 50, 1000, 150, 400);
-  glow1.addColorStop(0, 'rgba(255, 215, 0, 0.18)');
-  glow1.addColorStop(1, 'rgba(0, 0, 0, 0)');
-  ctx.fillStyle = glow1;
-  ctx.fillRect(0, 0, width, height);
+  ctx.fillStyle = 'rgba(255, 215, 0, 0.08)';
+  ctx.beginPath();
+  ctx.arc(1100, 100, 300, 0, Math.PI * 2);
+  ctx.fill();
 
-  const glow2 = ctx.createRadialGradient(200, 500, 30, 200, 500, 350);
-  glow2.addColorStop(0, 'rgba(168, 85, 247, 0.15)');
-  glow2.addColorStop(1, 'rgba(0, 0, 0, 0)');
-  ctx.fillStyle = glow2;
-  ctx.fillRect(0, 0, width, height);
-
-  // 3. Категорія / Лейбл
   if (category) {
     ctx.fillStyle = '#ffd700';
-    ctx.font = 'bold 22px sans-serif';
-    ctx.fillText(category.toUpperCase(), 80, 130);
+    ctx.font = 'bold 24px sans-serif';
+    ctx.fillText(category.toUpperCase(), 80, 140);
   }
 
-  // 4. Заголовок (Зі згортанням рядків)
   ctx.fillStyle = '#ffffff';
-  ctx.font = 'bold 48px sans-serif';
+  ctx.font = 'bold 50px sans-serif';
 
   const words = String(title).split(' ');
   let line = '';
-  let y = price ? 210 : 240;
+  let y = 240;
   const maxWidth = 1040;
 
   for (let i = 0; i < words.length; i++) {
@@ -104,30 +92,23 @@ async function generateOgImage({ title, category, price, outputPath, tag = 'VIRN
     if (metrics.width > maxWidth && i > 0) {
       ctx.fillText(line.trim(), 80, y);
       line = words[i] + ' ';
-      y += 62;
-      if (y > 440) {
-        line = '...';
+      y += 64;
+      if (y > 480) {
+        line = ''; // Припиняємо вивід, якщо переповнили розмір
         break;
       }
     } else {
       line = testLine;
     }
   }
-  if (line.trim() && y <= 440) {
+
+  if (line.trim() && y <= 480) {
     ctx.fillText(line.trim(), 80, y);
   }
 
-  // 5. Блок ціни (якщо це товар)
-  if (price) {
-    ctx.fillStyle = '#10b981'; // Сучасний смарагдово-зелений активний колір
-    ctx.font = 'bold 42px sans-serif';
-    ctx.fillText(`$${price} USD`, 80, y + 75);
-  }
-
-  // 6. Брендинг футер
   ctx.fillStyle = '#94a3b8';
-  ctx.font = '600 26px sans-serif';
-  ctx.fillText(`${tag} • virni.pro`, 80, 560);
+  ctx.font = '500 28px sans-serif';
+  ctx.fillText('VIRNI • virni.pro', 80, 550);
 
   fs.mkdirSync(path.dirname(outputPath), { recursive: true });
   fs.writeFileSync(outputPath, canvas.toBuffer('image/png'));
@@ -137,15 +118,13 @@ function writePage(route, { title, description, image, ogImage, schema, content,
   const canonicalUrl = new URL(route, siteUrl).href;
   const outputDirectory = path.join(outputRoot, route);
   const jsonLd = JSON.stringify(schema).replaceAll('<', '\\u003c');
-  const finalOgImage = ogImage || image;
 
   let pageHtml = baseIndexHtml;
 
-  // Видалення дефолтних тегів для запобігання дублюванню
+  // Видаляємо стандартний title та наявні OG/Description мета-теги, щоб уникнути дублювання
   pageHtml = pageHtml.replace(/<title>.*?<\/title>/i, '');
-  pageHtml = pageHtml.replace(/<meta\s+name="(description|keywords|robots|google-site-verification|theme-color)"[^>]*>/gi, '');
-  pageHtml = pageHtml.replace(/<meta\s+property="(og|twitter):[^"]+"[^>]*>/gi, '');
-  pageHtml = pageHtml.replace(/<meta\s+name="twitter:[^"]+"[^>]*>/gi, '');
+  pageHtml = pageHtml.replace(/<meta\s+name="(description|keywords|robots|google-site-verification)"[^>]*>/gi, '');
+  pageHtml = pageHtml.replace(/<meta\s+property="og:[^"]+"[^>]*>/gi, '');
   pageHtml = pageHtml.replace(/<link\s+rel="canonical"[^>]*>/gi, '');
 
   const seoMetaData = `
@@ -153,27 +132,17 @@ function writePage(route, { title, description, image, ogImage, schema, content,
     <meta name="description" content="${escapeHtml(description)}">
     ${keywords ? `<meta name="keywords" content="${escapeHtml(keywords)}">` : ''}
     ${gscVerificationToken ? `<meta name="google-site-verification" content="${gscVerificationToken}" />` : ''}
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-    <meta name="theme-color" content="#0f172a">
+    <meta name="robots" content="index,follow,max-image-preview:large">
     <link rel="canonical" href="${canonicalUrl}">
-    
-    <!-- Open Graph / Facebook / Messaging -->
     <meta property="og:type" content="${type === 'article' ? 'article' : 'website'}">
     <meta property="og:site_name" content="Virni">
     <meta property="og:title" content="${escapeHtml(title)}">
     <meta property="og:description" content="${escapeHtml(description)}">
     <meta property="og:url" content="${canonicalUrl}">
-    <meta property="og:image" content="${finalOgImage}">
+    <meta property="og:image" content="${ogImage || image}">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    
-    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="${escapeHtml(title)}">
-    <meta name="twitter:description" content="${escapeHtml(description)}">
-    <meta name="twitter:image" content="${finalOgImage}">
-
-    <!-- Structured Data JSON-LD -->
     <script type="application/ld+json">${jsonLd}</script>
   `;
 
@@ -214,39 +183,13 @@ function writePage(route, { title, description, image, ogImage, schema, content,
     const currentPrice = Number(product.discountPrice || product.price || 0).toFixed(2);
     const originalPrice = product.discountPrice ? Number(product.price).toFixed(2) : null;
 
-    // Генерація OG PNG для кожної картки товару
-    const ogFileName = `og-product-${productId}.png`;
-    const ogFilePath = path.join(outputRoot, 'assets', 'og', ogFileName);
-    const ogImageUrl = absoluteAsset(`assets/og/${ogFileName}`);
-
-    await generateOgImage({
-      title: name,
-      category: product.category || 'Fashion & Goods',
-      price: currentPrice,
-      outputPath: ogFilePath,
-      tag: 'VIRNI STORE'
-    });
-
-    // Хлібні крихти Schema.org
-    const breadcrumbSchema = {
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Головна', item: siteUrl },
-        { '@type': 'ListItem', position: 2, name: 'Магазин', item: new URL('shop/', siteUrl).href },
-        { '@type': 'ListItem', position: 3, name: name, item: canonicalUrl }
-      ]
-    };
-
-    // Розширена Schema.org 2026 для товарів (Merchant, Ratings, Returns)
-    const productSchema = {
+    const schema = {
       '@context': 'https://schema.org',
       '@type': 'Product',
       name,
       image: allImages,
       description,
-      sku: product.sku || `VIRNI-${productId}`,
-      gtin: product.gtin || product.barcode || undefined,
+      sku: `VIRNI-${productId}`,
       category: product.category,
       brand: { '@type': 'Brand', name: 'Virni' },
       offers: {
@@ -254,39 +197,10 @@ function writePage(route, { title, description, image, ogImage, schema, content,
         url: canonicalUrl,
         priceCurrency: 'USD',
         price: currentPrice,
-        priceValidUntil: new Date(Date.now() + 180 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], // +180 днів
         availability: `https://schema.org/${availability}`,
-        itemCondition: 'https://schema.org/NewCondition',
-        hasMerchantReturnPolicy: {
-          '@type': 'MerchantReturnPolicy',
-          applicableCountry: 'UA',
-          returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
-          merchantReturnDays: 14,
-          returnMethod: 'https://schema.org/ReturnByMail'
-        },
-        shippingDetails: {
-          '@type': 'OfferShippingDetails',
-          shippingRate: {
-            '@type': 'MonetaryAmount',
-            value: '0',
-            currency: 'USD'
-          },
-          shippingDestination: {
-            '@type': 'DefinedRegion',
-            addressCountry: 'UA'
-          }
-        }
+        itemCondition: 'https://schema.org/NewCondition'
       }
     };
-
-    // Якщо у товару є відгуки та рейтинг
-    if (product.rating && product.reviewCount) {
-      productSchema.aggregateRating = {
-        '@type': 'AggregateRating',
-        ratingValue: Number(product.rating).toFixed(1),
-        reviewCount: product.reviewCount
-      };
-    }
 
     const variantsHtml = Array.isArray(product.variants) && product.variants.length > 0
       ? `<div class="product-variants">
@@ -348,11 +262,10 @@ function writePage(route, { title, description, image, ogImage, schema, content,
         title: name, 
         description, 
         image: primaryImage, 
-        ogImage: ogImageUrl,
-        schema: [productSchema, breadcrumbSchema], 
+        schema, 
         content, 
         type: 'product',
-        keywords: [product.category, ...(product.sizes || []), 'fashion', 'virni'].filter(Boolean).join(', ')
+        keywords: [product.category, ...(product.sizes || [])].filter(Boolean).join(', ')
       }),
       lastmod: new Date().toISOString()
     });
@@ -368,15 +281,14 @@ function writePage(route, { title, description, image, ogImage, schema, content,
     const route = `news/${articleId}/`;
     const canonicalUrl = new URL(route, siteUrl).href;
 
-    const ogFileName = `og-news-${articleId}.png`;
+    const ogFileName = `og-${articleId}.png`;
     const ogFilePath = path.join(outputRoot, 'assets', 'og', ogFileName);
     const ogImageUrl = absoluteAsset(`assets/og/${ogFileName}`);
 
     await generateOgImage({
       title: headline,
       category,
-      outputPath: ogFilePath,
-      tag: 'VIRNI EDITORIAL'
+      outputPath: ogFilePath
     });
 
     const breadcrumbSchema = {
@@ -429,7 +341,6 @@ ${sitemapItems.map(item => `  <url>
     <loc>${escapeHtml(item.url)}</loc>
     <lastmod>${item.lastmod}</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>${item.url === siteUrl ? '1.0' : '0.8'}</priority>
   </url>`).join('\n')}
 </urlset>`;
 
@@ -446,5 +357,5 @@ ${sitemapItems.map(item => `  <url>
 
   fs.copyFileSync(baseIndexPath, path.join(outputRoot, '404.html'));
 
-  console.log(`✅ Успішно згенеровано ${products.length} товарів, ${news.length} новин, автоматичні OG-зображення 2026 року, Sitemap та 404.html!`);
+  console.log(`✅ Успішно згенеровано ${products.length} товарів, ${news.length} новин, OG-зображення, Sitemap та 404.html!`);
 })();
