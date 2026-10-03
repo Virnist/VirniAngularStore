@@ -1,50 +1,166 @@
-<div class="news-container">
+<div class="shop-container">
+  <!-- Блок фільтрації категорій -->
   @if (categories$ | async; as cats) {
-    <div class="filter-buttons">
+    <nav class="filter-buttons" aria-label="Категорії товарів">
       @for (cat of cats; track cat) {
         <button 
+          type="button"
           class="filter-btn" 
           [class.active]="selectedCategory() === cat.toUpperCase()"
           (click)="setCategory(cat.toUpperCase())">
-          
           {{ cat === 'all' ? ('SHOP.CATEGORIES.ALL' | translate) : ('SHOP.CATEGORIES.' + cat.toUpperCase() | translate) }}
-          
         </button>
       }
-    </div>
+    </nav>
   }
 
+  <!-- Сітка товарів -->
   @if (products$ | async; as allProducts) {
-    <div class="news-grid">
+    <div class="shop-grid">
       @for (item of allProducts; track item.id) {
-        <article class="news-card" (click)="onCardAction(item, $event)">
-          <div class="card-image" [style.backgroundImage]="'url(' + item.image + ')'">
-            <button type="button" class="type-badge"
-                  [ngClass]="item.category.toLowerCase()" 
+        <article class="product-card" (click)="onCardAction(item, $event)">
+          
+          <!-- Зображення (Квадратне 1:1) та бейджі -->
+          <div class="card-media">
+            <img 
+              [src]="getProductImage(item)" 
+              [alt]="getLangContent(item, 'image_alt') || getLangContent(item, 'title')"
+              loading="lazy"
+              fetchpriority="low"
+              class="card-img"
+            >
+            
+            <button 
+              type="button" 
+              class="type-badge"
+              [ngClass]="item.category.toLowerCase()" 
               [attr.aria-label]="('SHOP.CATEGORIES.' + item.category.toUpperCase() | translate)"
               [attr.title]="'SHOP.CATEGORIES.' + item.category.toUpperCase() | translate"
-                  (click)="onBadgeClick(item.category, $event)">
+              (click)="onBadgeClick(item.category, $event)"
+            >
               {{ 'SHOP.CATEGORIES.' + item.category.toUpperCase() | translate }}
             </button>
+
+            <!-- Бейдж статусу на зображенні -->
+            <span class="stock-badge" 
+                  [class.in-stock]="(item.stock ?? 1) > 0" 
+                  [class.pre-order]="item.stock === 0 && item.productionTime > 0"
+                  [class.sold-out]="item.stock === 0 && item.productionTime === 0">
+              @if ((item.stock ?? 1) > 0) {
+                ✅ {{ 'SHOP.IN_STOCK' | translate }}
+              } @else if (item.productionTime > 0) {
+                ⏳ {{ 'SHOP.PRE_ORDER' | translate }}
+              } @else {
+                🔒 {{ 'SHOP.SOLD_OUT' | translate }}
+              }
+            </span>
           </div>
           
+          <!-- Вміст картки -->
           <div class="card-content">
-            <div class="price-container">
-              <span class="date">{{ item.price | convertPrice }}</span>
+            <div class="card-meta">
+              <!-- Ціна з урахуванням обраного варіанта -->
+              <div class="price-tag">
+                <span class="price">{{ calculatePrice(item) | convertPrice }}</span>
+              </div>
+
+              <!-- Зірочки рейтингу -->
+              @if (item.rating) {
+                <div class="rating-badge" [attr.title]="item.rating + ' / 5'">
+                  <span class="star">★</span>
+                  <span class="score">{{ item.rating.toFixed(1) }}</span>
+                  @if (item.reviewCount) {
+                    <span class="reviews">({{ item.reviewCount }})</span>
+                  }
+                </div>
+              }
             </div>
-            <h3><a [href]="getSeoPageUrl(item.id)">{{ getLangContent(item, 'title') }}</a></h3>
-            <p>{{ getLangContent(item, 'description') | slice:0:120 }}...</p>
-            <button class="read-more">
-              🛒 {{ 'SHOP.ADD_TO_CART' | translate }}
-            </button>
+
+            <!-- Назва -->
+            <h2 class="product-title">
+              <a [routerLink]="['/product', item.id]">{{ getLangContent(item, 'title') }}</a>
+            </h2>
+
+            <!-- Опис -->
+            <p class="product-description">{{ getLangContent(item, 'description') | slice:0:90 }}...</p>
+
+            <!-- Вибір Варіантів (Кольори/Матеріали) -->
+            @if (item.variants && item.variants.length > 0) {
+              <div class="selection-group">
+                <span class="group-label">{{ 'SHOP.VARIANT' | translate }}:</span>
+                <div class="options-list">
+                  @for (v of item.variants; track v.id) {
+                    <button 
+                      type="button" 
+                      class="variant-chip"
+                      [class.active]="getSelectedVariant(item)?.id === v.id"
+                      (click)="selectVariant(item, v, $event)"
+                      [attr.title]="getVariantName(v)"
+                    >
+                      <span class="color-dot" *ngIf="v.colorHex" [style.background-color]="v.colorHex"></span>
+                      <span>{{ getVariantName(v) }}</span>
+                    </button>
+                  }
+                </div>
+              </div>
+            }
+
+            <!-- Вибір Розмірів -->
+            @if (item.sizes && item.sizes.length > 0) {
+              <div class="selection-group">
+                <span class="group-label">{{ 'SHOP.SIZE' | translate }}:</span>
+                <div class="options-list">
+                  @for (size of item.sizes; track size) {
+                    <button 
+                      type="button" 
+                      class="size-chip"
+                      [class.active]="getSelectedSize(item) === size"
+                      (click)="selectSize(item, size, $event)"
+                    >
+                      {{ size }}
+                    </button>
+                  }
+                </div>
+              </div>
+            }
+
+            <!-- Нижній блок: Кнопка дії -->
+            <div class="card-actions">
+              <button 
+                type="button" 
+                class="add-to-cart-btn"
+                [disabled]="item.stock === 0 && item.productionTime === 0"
+                [class.disabled-btn]="item.stock === 0 && item.productionTime === 0"
+                [class.is-preorder]="item.stock === 0 && item.productionTime > 0"
+                [class.is-added]="addedProductIds.has(item.id)"
+                (click)="onAddToCartClick(item, $event)"
+              >
+                @if (addedProductIds.has(item.id)) {
+                  <span class="btn-content added">
+                    <svg class="check-icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="3" fill="none">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    {{ 'SHOP.ADDED' | translate }}
+                  </span>
+                } @else if ((item.stock ?? 1) > 0) {
+                  <span class="btn-content">🛒 {{ 'SHOP.ADD_TO_CART' | translate }}</span>
+                } @else if (item.productionTime > 0) {
+                  <span class="btn-content">🧵 {{ 'SHOP.ORDER_NOW' | translate }} ({{ item.productionTime }} {{ 'SHOP.DAYS' | translate }})</span>
+                } @else {
+                  <span class="btn-content">✨ {{ 'SHOP.ARCHIVE_ITEM' | translate }}</span>
+                }
+              </button>
+            </div>
           </div>
         </article>
       }
     </div>
 
+    <!-- Пагінація -->
     @if (pageNumbers.length > 1) {
-      <div class="pagination-container">
+      <nav class="pagination-container" aria-label="Пагінація товарів">
         <button 
+          type="button"
           class="pagination-btn arrow" 
           [disabled]="currentPage() === 1"
           (click)="setPage(currentPage() - 1)">
@@ -53,6 +169,7 @@
 
         @for (page of pageNumbers; track page) {
           <button 
+            type="button"
             class="pagination-btn"
             [class.active]="currentPage() === page"
             (click)="setPage(page)">
@@ -61,15 +178,16 @@
         }
 
         <button 
+          type="button"
           class="pagination-btn arrow" 
           [disabled]="currentPage() === pageNumbers.length"
           (click)="setPage(currentPage() + 1)">
           &raquo;
         </button>
-      </div>
+      </nav>
     }
 
   } @else {
-    <div class="loader">Завантаження товарів...</div>
+    <div class="loader">{{ 'SHOP.LOADING' | translate }}</div>
   }
 </div>

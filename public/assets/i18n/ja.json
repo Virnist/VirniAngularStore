@@ -1,5 +1,5 @@
 {
-  "APP_TITLE": "Virni",
+  "APP_TITLE": "Virni.TOP",
   "WELCOME": "当店へようこそ！",
   "PWA": {
     "INSTALL_TITLE": "Virniをホーム画面に追加",
@@ -25,20 +25,35 @@
     }
   },
   "SHOP": {
+    "TITLE": "Virni コレクション",
+    "SUBTITLE": "ハンドメイドのプレミアムウェアとウェディングドレス",
     "ADD_TO_CART": "カートに追加",
-    "PRE_ORDER_BTN": "予約注文",
-    "CATEGORIES": {
-      "ALL": "すべての商品",
-      "WEDDING": "ウェディングドレス",
-      "TRADITIONAL": "ヴィシヴァンカ (刺繍シャツ)",
-      "PERFUME": "香水・フレグランス",
-      "ELECTRONICS": "電化製品"
-    }
-  },
-  "PRODUCT": {
+    "ORDER_NOW": "今すぐ注文",
     "IN_STOCK": "在庫あり",
-    "PRE_ORDER": "予約注文（発送までの期間）",
-    "DAYS": "日"
+    "PRE_ORDER": "受注生産",
+    "PRE_ORDER_BTN": "予約注文する",
+    "OUT_OF_STOCK": "在庫切れ",
+    "NOTIFY_AVAILABILITY": "入荷状況を問い合わせる",
+    "NOTIFY_MODAL_TITLE": "この商品にご興味がありますか？",
+    "NOTIFY_MODAL_DESC": "連絡先をご登録いただければ、入荷時にお知らせするか、類似の商品をご案内いたします。",
+    "SOLD_OUT": "完売 / アーカイブ",
+    "ARCHIVE_ITEM": "アーカイブモデル",
+    "DAYS": "日",
+    "MATERIALS": "素材",
+    "LOADING": "商品を読み込み中...",
+    "VARIANT": "バリエーション",
+    "SIZE": "サイズ",
+    "SELECT_SIZE_REQUIRED": "サイズを選択してください",
+    "BADGE_NEW": "新作",
+    "BADGE_BESTSELLER": "ベストセラー",
+    "CATEGORIES": {
+      "ALL": "すべて",
+      "WEDDING": "ウェディングドレス",
+      "TRADITIONAL": "ヴィシヴァнка（刺繍シャツ）",
+      "PERFUME": "香水",
+      "ELECTRONICS": "アクセサリー",
+      "OTHER": "その他"
+    }
   },
   "VIDEOS": {
     "SUBTITLE": "@VirniFashion からの最新レビュー",
@@ -46,14 +61,16 @@
     "LOADING": "動画を読み込み中..."
   },
   "NEWS": {
+    "TITLE": "ニュース＆トレンド",
+    "READ_MORE": "続きを読む",
+    "BACK": "一 覧に戻る",
     "CATEGORIES": {
-      "ALL": "すべてのニュース",
       "COLLECTIONS": "コレクション",
       "ACCESSORIES": "アクセサリー",
-      "STYLE": "スタイリングのアドバイス"
-    },
-    "READ_MORE": "続きを読む",
-    "BACK": "ニュース一覧に戻る"
+      "STYLE": "スタイル",
+      "FASHION": "ファッション",
+      "ALL": "すべて"
+    }
   },
   "FOOTER": {
     "BRAND_TEXT": "本物のスタイル、上質な音楽、限定商品が集まる場所。共に歴史を刻みましょう。",

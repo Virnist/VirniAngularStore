@@ -1,5 +1,5 @@
 {
-  "APP_TITLE": "Virni Store",
+  "APP_TITLE": "Virni.TOP",
   "WELCOME": "欢迎光临我们的商店！",
   "PWA": {
     "INSTALL_TITLE": "将 Virni 添加至主屏幕",
@@ -25,36 +25,55 @@
     }
   },
   "SHOP": {
+    "TITLE": "Virni 系列",
+    "SUBTITLE": "手工制作的高级服装与婚纱",
     "ADD_TO_CART": "加入购物车",
-    "PRE_ORDER_BTN": "预订",
-    "CATEGORIES": {
-      "ALL": "所有商品",
-      "WEDDING": "婚纱礼服",
-      "TRADITIONAL": "刺绣衫 (Vyshyvanka)",
-      "PERFUME": "香水香氛",
-      "ELECTRONICS": "数码电子"
-    }
+    "ORDER_NOW": "立即订购",
+    "IN_STOCK": "有现货",
+    "PRE_ORDER": "预订商品",
+    "PRE_ORDER_BTN": "立即预订",
+    "OUT_OF_STOCK": "缺货",
+    "NOTIFY_AVAILABILITY": "咨询到货情况",
+    "NOTIFY_MODAL_TITLE": "对这款商品感兴趣？",
+    "NOTIFY_MODAL_DESC": "请留下您的联系方式，当商品补货或有相似款式时，我们将及时通知您。",
+    "SOLD_OUT": "已售罄 / 归档",
+    "ARCHIVE_ITEM": "归档款式",
+    "DAYS": "天",
+    "MATERIALS": "材质",
+    "LOADING": "正在加载商品...",
+    "SHOP": {
+    "VARIANT": "款式 / 颜色",
+    "SIZE": "尺寸",
+    "SELECT_SIZE_REQUIRED": "请选择尺寸",
+    "BADGE_NEW": "新品",
+    "BADGE_BESTSELLER": "热销"
   },
-  "PRODUCT": {
-    "IN_STOCK": "现货",
-    "PRE_ORDER": "预订。制作周期",
-    "DAYS": "天"
+    "CATEGORIES": {
+      "ALL": "全部",
+      "WEDDING": "婚纱",
+      "TRADITIONAL": "刺绣衫 (Vyshyvanka)",
+      "PERFUME": "香水",
+      "ELECTRONICS": "配饰",
+      "OTHER": "其他"
+    }
   },
   "VIDEOS": {
     "SUBTITLE": "来自 @VirniFashion 的最新评测",
     "WATCH_LINK": "在 YouTube 上观看",
     "LOADING": "视频加载中..."
   },
-  "NEWS": {
-    "CATEGORIES": {
-      "ALL": "所有资讯",
-      "COLLECTIONS": "系列发布",
-      "ACCESSORIES": "时尚配饰",
-      "STYLE": "穿搭指南"
-    },
-    "READ_MORE": "阅读更多",
-    "BACK": "返回资讯列表"
-  },
+"NEWS": {
+  "TITLE": "新闻与趋势",
+  "READ_MORE": "阅读更多",
+  "BACK": "返回资讯列表",
+  "CATEGORIES": {
+    "COLLECTIONS": "系列",
+    "ACCESSORIES": "配饰",
+    "STYLE": "风格",
+    "FASHION": "时尚",
+    "ALL": "全部"
+  }
+},
   "FOOTER": {
     "BRAND_TEXT": "汇聚真实风格、优质音乐与独家产品的专属空间。与我们一同创造历史。",
     "NAVIGATION": "网站导航",

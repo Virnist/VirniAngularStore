@@ -1,32 +1,144 @@
 <div class="product-container" *ngIf="product">
   <div class="product-layout">
-    <div class="product-image">
-      <img [src]="product.image" [alt]="getContent('title')">
-    </div>
-
-    <div class="product-info">
-      <h1>{{ getContent('title') }}</h1>
-      <p class="category">{{ product.category }}</p>
-      
-      <div class="price-tag">
-        {{ product.price | convertPrice }}
+    
+    <!-- Ліва частина: Галерея зображень -->
+    <div class="gallery-wrapper">
+      <div class="product-image">
+        <!-- Бейджі -->
+        <div class="badges">
+          <span class="badge new" *ngIf="product.isNew">{{ 'SHOP.BADGE_NEW' | translate }}</span>
+          <span class="badge bestseller" *ngIf="product.isBestseller">{{ 'SHOP.BADGE_BESTSELLER' | translate }}</span>
+          <span class="badge discount" *ngIf="product.discountPercent">-{{ product.discountPercent }}%</span>
+        </div>
+        <img [src]="selectedImage" [alt]="getContent('title')">
       </div>
 
+      <!-- Мініатюри зображень -->
+      <div class="thumbnails" *ngIf="product.images && product.images.length > 1">
+        <button 
+          *ngFor="let img of product.images" 
+          class="thumb-btn" 
+          [class.active]="selectedImage === img"
+          (click)="selectImage(img)">
+          <img [src]="img" [alt]="getContent('title')">
+        </button>
+      </div>
+    </div>
+
+    <!-- Права частина: Інформація про товар -->
+    <div class="product-info">
+      <!-- Категорія -->
+      <p class="category">{{ getContent('category') || product.category }}</p>
+      
+      <!-- Назва -->
+      <h1>{{ getContent('title') }}</h1>
+      
+      <!-- Цінник (з урахуванням вибранного варіанта) -->
+      <div class="price-tag">
+        <span class="current-price">{{ getCurrentPrice() | convertPrice }}</span>
+        <span class="old-price" *ngIf="getOriginalPrice()">{{ getOriginalPrice()! | convertPrice }}</span>
+      </div>
+
+      <!-- Опис -->
       <div class="description">
         {{ getContent('description') }}
       </div>
 
+      <!-- Вибір Варіанта (Колір / Матеріал) -->
+      @if (isVariantRequired) {
+        <div class="options-group">
+          <label class="group-label">{{ 'SHOP.VARIANT' | translate }}: <span class="required-star">*</span></label>
+          <div class="variants-list">
+            @for (v of product.variants; track v.id) {
+              <button 
+                type="button"
+                class="variant-btn"
+                [class.active]="selectedVariant()?.id === v.id"
+                (click)="selectVariant(v)">
+                <span class="color-dot" *ngIf="v.colorHex" [style.background-color]="v.colorHex"></span>
+                <span>{{ getContentOfVariant('name', v) }}</span>
+              </button>
+            }
+          </div>
+          @if (!selectedVariant()) {
+            <p class="size-warning-text">⚠ {{ 'SHOP.SELECT_VARIANT_REQUIRED' | translate }}</p>
+          }
+        </div>
+      }
+
+      <!-- Вибір Розміру -->
+      @if (isSizeRequired) {
+        <div class="options-group">
+          <label class="group-label">{{ 'SHOP.SIZE' | translate }}: <span class="required-star">*</span></label>
+          <div class="sizes-list">
+            @for (size of product.sizes; track size) {
+              <button 
+                type="button"
+                class="size-btn"
+                [class.active]="selectedSize() === size"
+                (click)="selectSize(size)">
+                {{ size }}
+              </button>
+            }
+          </div>
+          @if (!selectedSize()) {
+            <p class="size-warning-text">⚠️ {{ 'SHOP.SELECT_SIZE_REQUIRED' | translate }}</p>
+          }
+        </div>
+      }
+
+      <!-- Статус наявності -->
       <div class="stock-status">
-        @if (product.stock > 0) {
-          <span class="in-stock">✅ {{ 'PRODUCT.IN_STOCK' | translate }}: {{ product.stock }}</span>
+        @if (product.stock && product.stock > 0) {
+          <span class="in-stock">✅ {{ 'SHOP.IN_STOCK' | translate }}: {{ product.stock }}</span>
+        } @else if (product.productionTime && product.productionTime > 0) {
+          <span class="pre-order">⏳ {{ 'SHOP.PRE_ORDER' | translate }}: {{ product.productionTime }} {{ 'SHOP.DAYS' | translate }}</span>
         } @else {
-          <span class="pre-order">⏳ {{ 'PRODUCT.PRE_ORDER' | translate }}: {{ product.productionTime }} {{ 'PRODUCT.DAYS' | translate }}</span>
+          <span class="out-of-stock">🚫 {{ 'SHOP.OUT_OF_STOCK' | translate }}</span>
         }
       </div>
 
-      <button class="buy-btn" (click)="addToCart()">
-        {{ (product.stock > 0 ? 'SHOP.ADD_TO_CART' : 'SHOP.PRE_ORDER_BTN') | translate }}
-      </button>
+      <!-- Кнопка дії з анімацією додавання -->
+      @if (product.stock && product.stock > 0) {
+        <button 
+          class="buy-btn" 
+          [class.is-added]="isAdded()"
+          [disabled]="isSelectionInvalid"
+          (click)="addToCart()">
+          @if (isAdded()) {
+            <span class="btn-content added">
+              <svg class="check-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="3" fill="none">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              {{ 'SHOP.ADDED' | translate }}
+            </span>
+          } @else {
+            <span class="btn-content">🛒 {{ 'SHOP.ADD_TO_CART' | translate }}</span>
+          }
+        </button>
+      } @else if (product.productionTime && product.productionTime > 0) {
+        <button 
+          class="buy-btn pre-order-btn" 
+          [class.is-added]="isAdded()"
+          [disabled]="isSelectionInvalid"
+          (click)="addToCart()">
+          @if (isAdded()) {
+            <span class="btn-content added">
+              <svg class="check-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="3" fill="none">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              {{ 'SHOP.ADDED' | translate }}
+            </span>
+          } @else {
+            <span class="btn-content">🧵 {{ 'SHOP.PRE_ORDER_BTN' | translate }}</span>
+          }
+        </button>
+      } @else {
+        <button class="buy-btn notify-btn" (click)="openInquiryModal()">
+          📩 {{ 'SHOP.NOTIFY_AVAILABILITY' | translate }}
+        </button>
+      }
+
     </div>
   </div>
 </div>

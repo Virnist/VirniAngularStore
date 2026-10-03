@@ -7,37 +7,71 @@
         <h2>{{ 'CART.TITLE' | translate }}</h2>
         
         <div class="cart-items-wrapper">
-          @for (item of cartService.items(); track item.id) {
+          @for (item of cartService.items(); track item.cartItemId; let isFirst = $first) {
             <div class="cart-item">
               
-              <!-- ЗОБРАЖЕННЯ ТОВАРУ ОПТИМІЗОВАНЕ ЧЕРЕЗ NgOptimizedImage -->
               <div class="item-image" style="position: relative; width: 90px; height: 120px;">
-                <img [ngSrc]="item.image" 
-                     alt="{{ item.title }}" 
-                     fill 
-                     priority
-                     style="object-fit: cover;">
+                @if (isFirst) {
+                  <img [ngSrc]="item.image" 
+                      [alt]="item.title" 
+                      fill 
+                      priority 
+                      style="object-fit: cover;">
+                } @else {
+                  <img [ngSrc]="item.image" 
+                      [alt]="item.title" 
+                      fill 
+                      style="object-fit: cover;">
+                }
               </div>
               
               <div class="item-details">
                 <div class="item-main">
                   <h4>{{ item.title }}</h4>
+                  
+                  <!-- Сучасний вид Розміру та Варіанта -->
+                  @if (item.size || item.variantName || item.variant) {
+                    <div class="item-badges">
+                      @if (item.size) {
+                        <span class="spec-badge size-badge">
+                          <span class="badge-label">{{ 'SHOP.SIZE' | translate }}:</span>
+                          <span class="badge-value">{{ item.size }}</span>
+                        </span>
+                      }
+                      @if (item.variantName || item.variant) {
+                        <span class="spec-badge variant-badge">
+                          <span class="badge-label">{{ 'SHOP.VARIANT' | translate }}:</span>
+                          <span class="badge-value">{{ item.variantName || item.variant }}</span>
+                        </span>
+                      }
+                    </div>
+                  }
+
                   <p class="item-single-price">{{ item.price | convertPrice }}</p>
                 </div>
                 
                 <div class="item-actions">
                   <div class="quantity-controls">
-                    <button (click)="cartService.updateQuantity(item.id, item.quantity - 1)" [disabled]="item.quantity <= 1">−</button>
+                    <button type="button" 
+                            (click)="cartService.updateQuantityByCartItemId(item.cartItemId, item.quantity - 1)" 
+                            [disabled]="item.quantity <= 1">−</button>
                     <span class="quantity-num">{{ item.quantity }}</span>
-                    <button (click)="cartService.updateQuantity(item.id, item.quantity + 1)">+</button>
+                    <button type="button" 
+                            (click)="cartService.updateQuantityByCartItemId(item.cartItemId, item.quantity + 1)">+</button>
                   </div>
                   
                   <span class="item-total-price">
                     {{ (item.price * item.quantity) | convertPrice }}
                   </span>
 
-                  <button class="remove-btn" (click)="cartService.removeItem(item.id)" aria-label="Remove item">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                  <button type="button" 
+                          class="remove-btn" 
+                          (click)="cartService.removeItemByCartItemId(item.cartItemId)" 
+                          aria-label="Remove item">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="3 6 5 6 21 6"></polyline>
+                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    </svg>
                   </button>
                 </div>
               </div>
@@ -50,7 +84,6 @@
       <aside class="checkout-box">
         <h3>{{ 'CART.CHECKOUT' | translate }}</h3>
         
-        <!-- Форма зв'язана через [formGroup] -->
         <form [formGroup]="orderForm" class="form" (ngSubmit)="submitOrder()">
           
           <div class="input-group" [class.has-error]="orderForm.get('name')?.touched && orderForm.get('name')?.invalid">
@@ -72,64 +105,64 @@
             <textarea formControlName="address" id="address" placeholder=" " rows="2"></textarea>
             <label for="address">{{ 'CART.FORM.ADDRESS' | translate }} *</label>
           </div>
-        </form>
 
-        <!-- Вибір способу підтвердження замовлення -->
-        <div class="method-selector">
-          <p class="selector-title">{{ 'CART.FORM.CONFIRM_METHOD' | translate }}</p>
-          <div class="method-chips">
-            <label class="chip">
-              <input type="radio" name="orderMethod" value="telegram" [(ngModel)]="submitMethod">
-              <span>Telegram</span>
-            </label>
-            <label class="chip">
-              <input type="radio" name="orderMethod" value="whatsapp" [(ngModel)]="submitMethod">
-              <span>WhatsApp</span>
-            </label>
-            <label class="chip">
-              <input type="radio" name="orderMethod" value="email" [(ngModel)]="submitMethod">
-              <span>Email</span>
-            </label>
-          </div>
-        </div>
-
-        <!-- Фінансовий підсумок -->
-        <div class="cart-summary-breakdown" style="margin: 20px 0; border-top: 1px solid rgba(0,0,0,0.08); padding-top: 15px;">
-          <div class="summary-row" style="display: flex; justify-content: space-between; margin-bottom: 8px; opacity: 0.8; font-size: 0.95rem;">
-            <span>{{ 'CART.SUBTOTAL' | translate }}</span>
-            <span>{{ cartService.totalSum() | convertPrice }}</span> 
+          <!-- Спосіб підтвердження -->
+          <div class="method-selector">
+            <p class="selector-title">{{ 'CART.FORM.CONFIRM_METHOD' | translate }}</p>
+            <div class="method-chips">
+              <label class="chip">
+                <input type="radio" name="orderMethod" value="telegram" [checked]="submitMethod() === 'telegram'" (change)="submitMethod.set('telegram')">
+                <span>Telegram</span>
+              </label>
+              <label class="chip">
+                <input type="radio" name="orderMethod" value="whatsapp" [checked]="submitMethod() === 'whatsapp'" (change)="submitMethod.set('whatsapp')">
+                <span>WhatsApp</span>
+              </label>
+              <label class="chip">
+                <input type="radio" name="orderMethod" value="email" [checked]="submitMethod() === 'email'" (change)="submitMethod.set('email')">
+                <span>Email</span>
+              </label>
+            </div>
           </div>
 
-          <div class="summary-row" style="display: flex; justify-content: space-between; margin-bottom: 12px; opacity: 0.8; font-size: 0.95rem;">
-            <span>{{ 'CART.SHIPPING' | translate }}</span>
+          <!-- Підсумок -->
+          <div class="cart-summary-breakdown" style="margin: 20px 0; border-top: 1px solid rgba(0,0,0,0.08); padding-top: 15px;">
+            <div class="summary-row" style="display: flex; justify-content: space-between; margin-bottom: 8px; opacity: 0.8; font-size: 0.95rem;">
+              <span>{{ 'CART.SUBTOTAL' | translate }}</span>
+              <span>{{ cartService.totalSum() | convertPrice }}</span> 
+            </div>
+
+            <div class="summary-row" style="display: flex; justify-content: space-between; margin-bottom: 12px; opacity: 0.8; font-size: 0.95rem;">
+              <span>{{ 'CART.SHIPPING' | translate }}</span>
+              <span>
+                @if (shippingPrice() === 0) {
+                  <b style="color: #2f855a;">{{ 'CART.FREE' | translate }}</b>
+                } @else {
+                  {{ shippingPrice() | convertPrice }}
+                }
+              </span>
+            </div>
+
+            <div class="totals" style="display: flex; justify-content: space-between; align-items: center; font-weight: bold; font-size: 1.25rem; border-top: 1px dashed rgba(128,128,128,0.2); padding-top: 12px;">
+              <span class="total-label">{{ 'CART.TOTAL_TO_PAY' | translate }}</span>
+              <span class="total-sum" style="color: var(--accent, #000); font-weight: 800;">{{ finalTotal() | convertPrice }}</span>
+            </div>
+          </div>
+
+          <!-- Кнопка відправки -->
+          <button type="submit" class="main-submit-btn" [disabled]="orderForm.invalid || isLoading()">
             <span>
-              @if (shippingPrice() === 0) {
-                <b style="color: #2f855a;">{{ 'CART.FREE' | translate }}</b>
+              @if (isLoading()) {
+                Обробка...
               } @else {
-                {{ shippingPrice() | convertPrice }}
+                {{ 'CART.FORM.SUBMIT_BTN' | translate }}
               }
             </span>
-          </div>
-
-          <div class="totals" style="display: flex; justify-content: space-between; align-items: center; font-weight: bold; font-size: 1.25rem; border-top: 1px dashed rgba(128,128,128,0.2); padding-top: 12px;">
-            <span class="total-label">{{ 'CART.TOTAL_TO_PAY' | translate }}</span>
-            <span class="total-sum" style="color: var(--accent, #000); font-weight: 800;">{{ finalTotal() | convertPrice }}</span>
-          </div>
-        </div>
-
-        <!-- Головна кнопка відправки з блокуванням під час обробки або помилки -->
-        <button class="main-submit-btn" (click)="submitOrder()" [disabled]="orderForm.invalid || isLoading()">
-          <span>
-            @if (isLoading()) {
-              Обробка...
-            } @else {
-              {{ 'CART.FORM.SUBMIT_BTN' | translate }}
+            @if (!isLoading()) {
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
             }
-          </span>
-          @if (!isLoading()) {
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-          }
-        </button>
+          </button>
+        </form>
       </aside>
 
     </div>

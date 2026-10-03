@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, map, tap, catchError, shareReplay } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { NewsItem } from '../models/news.model';
+import { Product } from '../models/product.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,25 +12,29 @@ export class DataService {
   private http = inject(HttpClient);
   private videosCache?: Observable<any[]>;
 
+  // --- СИГНАЛИ ДЛЯ МИТТЄВОГО ДОСТУПУ ---
+  rates = signal<Record<string, number> | null>(null);
+  products = signal<Product[]>([]); // Додано сигнал товарів
+
   // --- НОВИНИ ---
   getNews(): Observable<NewsItem[]> {
-    return this.http.get<NewsItem[]>('./assets/data/news.json');
+    return this.http.get<NewsItem[]>('/assets/data/news.json');
   }
 
   getNewsById(id: string | number): Observable<NewsItem | undefined> {
-  return this.getNews().pipe(
-    map(news => news.find(item => 
-      item.id === String(id) || item.numeric_id === Number(id)
-    ))
-  );
-}
+    return this.getNews().pipe(
+      map(news => news.find(item => 
+        item.id === String(id) || item.numeric_id === Number(id)
+      ))
+    );
+  }
 
-  // --- ВІДЕО (останні завантаження каналу) ---
+  // --- ВІДЕО ---
   getVideos(): Observable<any[]> {
     if (!this.videosCache) {
       const channelId = environment.youtubeChannelId || 'UCNilfw7uSJVDhUcLLYcD_Cw';
       const uploadsPlaylistId = channelId.startsWith('UC') ? `UU${channelId.slice(2)}` : channelId;
-      const fallback = () => this.http.get<any[]>('./assets/data/videos.json').pipe(
+      const fallback = () => this.http.get<any[]>('/assets/data/videos.json').pipe(
         map(videos => this.shuffleVideos(videos))
       );
 
@@ -70,9 +75,6 @@ export class DataService {
   }
 
   // --- ВАЛЮТИ ---
-  // Зберігаємо курси у сигналі для миттєвого доступу по всьому додатку
-  rates = signal<any>(null);
-
   fetchExchangeRates(): Observable<any> {
     const url = `https://open.er-api.com/v6/latest/USD`; 
     return this.http.get<any>(url).pipe(
@@ -81,7 +83,22 @@ export class DataService {
   }
 
   // --- МАГАЗИН ---
-  getProducts(): Observable<any[]> {
-    return this.http.get<any[]>('./assets/data/products.json');
+  getProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>('/assets/data/products.json').pipe(
+      map(products => this.sortProductsByAvailability(products)),
+      tap(sortedProducts => this.products.set(sortedProducts)) // Синхронізуємо зі сигналом
+    );
+  }
+
+  private sortProductsByAvailability(products: Product[]): Product[] {
+    return [...products].sort((a, b) => {
+      const getPriority = (p: Product): number => {
+        if (p.stock && p.stock > 0) return 3;
+        if (p.productionTime && p.productionTime > 0) return 2;
+        return 1;
+      };
+
+      return getPriority(b) - getPriority(a);
+    });
   }
 }

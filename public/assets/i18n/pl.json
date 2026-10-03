@@ -1,5 +1,5 @@
 {
-  "APP_TITLE": "Virni",
+  "APP_TITLE": "Virni.TOP",
   "WELCOME": "Witamy w naszym sklepie!",
   "PWA": {
     "INSTALL_TITLE": "Dodaj Virni do ekranu głównego",
@@ -25,20 +25,35 @@
     }
   },
   "SHOP": {
+    "TITLE": "Kolekcja Virni",
+    "SUBTITLE": "Ręcznie szyta odzież premium i suknie ślubne",
     "ADD_TO_CART": "Do koszyka",
-    "PRE_ORDER_BTN": "Zamów w przedsprzedaży",
+    "ORDER_NOW": "Zamów teraz",
+    "IN_STOCK": "W magazynie",
+    "PRE_ORDER": "Na zamówienie",
+    "PRE_ORDER_BTN": "Zamów",
+    "OUT_OF_STOCK": "Brak w magazynie",
+    "NOTIFY_AVAILABILITY": "Zapytaj o dostępność",
+    "NOTIFY_MODAL_TITLE": "Interesuje Cię ten produkt?",
+    "NOTIFY_MODAL_DESC": "Zostaw swoje dane kontaktowe, a powiadomimy Cię, gdy towar pojawi się ponownie, lub zaproponujemy podobny model.",
+    "SOLD_OUT": "Sprzedane / Archiwum",
+    "ARCHIVE_ITEM": "Model archiwalny",
+    "DAYS": "dni",
+    "MATERIALS": "Materiały",
+    "LOADING": "Ładowanie produktów...",
+    "VARIANT": "Wariant",
+    "SIZE": "Rozmiar",
+    "SELECT_SIZE_REQUIRED": "Wybierz rozmiar",
+    "BADGE_NEW": "Nowość",
+    "BADGE_BESTSELLER": "Bestseller",
     "CATEGORIES": {
-      "ALL": "Wszystkie produkty",
+      "ALL": "Wszystkie",
       "WEDDING": "Suknie ślubne",
       "TRADITIONAL": "Wyszywanki",
       "PERFUME": "Perfumy",
-      "ELECTRONICS": "Elektronika"
+      "ELECTRONICS": "Akcesoria",
+      "OTHER": "Inne"
     }
-  },
-  "PRODUCT": {
-    "IN_STOCK": "W magazynie",
-    "PRE_ORDER": "Przedsprzedaż. Czas realizacji",
-    "DAYS": "dni"
   },
   "VIDEOS": {
     "SUBTITLE": "Najnowsze recenzje od @VirniFashion",
@@ -46,14 +61,16 @@
     "LOADING": "Ładowanie filmów..."
   },
   "NEWS": {
+    "TITLE": "Aktualności i trendy",
+    "READ_MORE": "Czytaj więcej",
+    "BACK": "Powrót do aktualności",
     "CATEGORIES": {
-      "ALL": "Wszystkie aktualności",
       "COLLECTIONS": "Kolekcje",
       "ACCESSORIES": "Akcesoria",
-      "STYLE": "Wskazówki dotyczące stylu"
-    },
-    "READ_MORE": "Czytaj więcej",
-    "BACK": "Powrót do aktualności"
+      "STYLE": "Styl",
+      "FASHION": "Moda",
+      "ALL": "Wszystkie"
+    }
   },
   "FOOTER": {
     "BRAND_TEXT": "Twoja przestrzeń dla autentycznego stylu, wysokiej jakości muzyki i ekskluzywnych produktów. Twórzmy historię razem.",

@@ -1,5 +1,5 @@
 {
-  "APP_TITLE": "Virni",
+  "APP_TITLE": "Virni.TOP",
   "WELCOME": "Welcome to our store!",
   "PWA": {
     "INSTALL_TITLE": "Add Virni to your Home Screen",
@@ -25,20 +25,37 @@
     }
   },
   "SHOP": {
-    "ADD_TO_CART": "Add to cart",
+    "TITLE": "Virni Collection",
+    "SUBTITLE": "Handmade premium clothing and wedding dresses",
+    "ADD_TO_CART": "Add to Cart",
+    "ADDED": "Added!",
+    "ORDER_NOW": "Order Now",
+    "IN_STOCK": "In Stock",
+    "PRE_ORDER": "Pre-order",
     "PRE_ORDER_BTN": "Pre-order",
+    "OUT_OF_STOCK": "Out of Stock",
+    "NOTIFY_AVAILABILITY": "Inquire Availability",
+    "NOTIFY_MODAL_TITLE": "Interested in this item?",
+    "NOTIFY_MODAL_DESC": "Leave your contact details and we will notify you when it becomes available or offer a similar model.",
+    "SOLD_OUT": "Sold Out / Archive",
+    "ARCHIVE_ITEM": "Archived Model",
+    "DAYS": "days",
+    "MATERIALS": "Materials",
+    "LOADING": "Loading products...",
+    "VARIANT": "Option",
+    "SIZE": "Size",
+    "SELECT_SIZE_REQUIRED": "Please select a size",
+    "SELECT_VARIANT_REQUIRED": "Please select",
+    "BADGE_NEW": "New",
+    "BADGE_BESTSELLER": "Bestseller",
     "CATEGORIES": {
-      "ALL": "All products",
-      "WEDDING": "Wedding dresses",
+      "ALL": "All",
+      "WEDDING": "Wedding Dresses",
       "TRADITIONAL": "Vyshyvankas",
       "PERFUME": "Perfumes",
-      "ELECTRONICS": "Electronics"
+      "ELECTRONICS": "Accessories",
+      "OTHER": "Other"
     }
-  },
-  "PRODUCT": {
-    "IN_STOCK": "In stock",
-    "PRE_ORDER": "Pre-order. Production time",
-    "DAYS": "days"
   },
   "VIDEOS": {
     "SUBTITLE": "Latest reviews from @VirniFashion",
@@ -46,14 +63,16 @@
     "LOADING": "Loading videos..."
   },
   "NEWS": {
+    "TITLE": "News & Trends",
+    "READ_MORE": "Read more",
+    "BACK": "Back to news",
     "CATEGORIES": {
-      "ALL": "All news",
       "COLLECTIONS": "Collections",
       "ACCESSORIES": "Accessories",
-      "STYLE": "Style tips"
-    },
-    "READ_MORE": "Read more",
-    "BACK": "Back to news"
+      "STYLE": "Style",
+      "FASHION": "Fashion",
+      "ALL": "All"
+    }
   },
   "FOOTER": {
     "BRAND_TEXT": "Your space for authentic style, quality music, and exclusive products. Making history together.",

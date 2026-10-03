@@ -1,5 +1,5 @@
 {
-  "APP_TITLE": "Virni",
+  "APP_TITLE": "Virni.TOP",
   "WELCOME": "Benvenuti nel nostro negozio!",
   "PWA": {
     "INSTALL_TITLE": "Aggiungi Virni alla Schermata Home",
@@ -25,20 +25,35 @@
     }
   },
   "SHOP": {
+    "TITLE": "Collezione Virni",
+    "SUBTITLE": "Abbigliamento premium e abiti da sposa fatti a mano",
     "ADD_TO_CART": "Aggiungi al carrello",
-    "PRE_ORDER_BTN": "Preordina",
-    "CATEGORIES": {
-      "ALL": "Tutti i prodotti",
-      "WEDDING": "Abiti da sposa",
-      "TRADITIONAL": "Vyshyvanky",
-      "PERFUME": "Profumi",
-      "ELECTRONICS": "Elettronica"
-    }
-  },
-  "PRODUCT": {
+    "ORDER_NOW": "Ordina ora",
     "IN_STOCK": "Disponibile",
-    "PRE_ORDER": "Preordine. Tempo di realizzazione",
-    "DAYS": "giorni"
+    "PRE_ORDER": "Su ordinazione",
+    "PRE_ORDER_BTN": "Preordina",
+    "OUT_OF_STOCK": "Esaurito",
+    "NOTIFY_AVAILABILITY": "Verifica disponibilità",
+    "NOTIFY_MODAL_TITLE": "Ti interessa questo articolo?",
+    "NOTIFY_MODAL_DESC": "Lascia i tuoi recapiti e ti avviseremo non appena sarà disponibile o ti proporremo un modello simile.",
+    "SOLD_OUT": "Esaurito / Archivio",
+    "ARCHIVE_ITEM": "Modello d'archivio",
+    "DAYS": "giorni",
+    "MATERIALS": "Materiali",
+    "LOADING": "Caricamento prodotti...",
+    "VARIANT": "Variante",
+    "SIZE": "Taglia",
+    "SELECT_SIZE_REQUIRED": "Seleziona una taglia",
+    "BADGE_NEW": "Novità",
+    "BADGE_BESTSELLER": "Bestseller",
+    "CATEGORIES": {
+      "ALL": "Tutti",
+      "WEDDING": "Abiti da sposa",
+      "TRADITIONAL": "Vyshyvanka",
+      "PERFUME": "Profumi",
+      "ELECTRONICS": "Accessori",
+      "OTHER": "Altro"
+    }
   },
   "VIDEOS": {
     "SUBTITLE": "Ultime recensioni da @VirniFashion",
@@ -46,14 +61,16 @@
     "LOADING": "Caricamento video in corso..."
   },
   "NEWS": {
+    "TITLE": "Notizie e Tendenze",
+    "READ_MORE": "Leggi di più",
+    "BACK": "Torna alle notizie",
     "CATEGORIES": {
-      "ALL": "Tutte le notizie",
       "COLLECTIONS": "Collezioni",
       "ACCESSORIES": "Accessori",
-      "STYLE": "Consigli di stile"
-    },
-    "READ_MORE": "Leggi di più",
-    "BACK": "Torna alle notizie"
+      "STYLE": "Stile",
+      "FASHION": "Moda",
+      "ALL": "Tutti"
+    }
   },
   "FOOTER": {
     "BRAND_TEXT": "Il tuo spazio per lo stile autentico, la musica di qualità e prodotti esclusivi. Facciamo la storia insieme.",

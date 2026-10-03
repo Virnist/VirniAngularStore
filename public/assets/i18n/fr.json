@@ -1,5 +1,5 @@
 {
-  "APP_TITLE": "Virni",
+  "APP_TITLE": "Virni.TOP",
   "WELCOME": "Bienvenue dans notre boutique !",
   "PWA": {
     "INSTALL_TITLE": "Ajouter Virni à l’écran d’accueil",
@@ -25,20 +25,35 @@
     }
   },
   "SHOP": {
+    "TITLE": "Collection Virni",
+    "SUBTITLE": "Vêtements haut de gamme et robes de mariée faits main",
     "ADD_TO_CART": "Ajouter au panier",
+    "ORDER_NOW": "Commander",
+    "IN_STOCK": "En stock",
+    "PRE_ORDER": "Sur commande",
     "PRE_ORDER_BTN": "Précommander",
+    "OUT_OF_STOCK": "Rupture de stock",
+    "NOTIFY_AVAILABILITY": "Demander la disponibilité",
+    "NOTIFY_MODAL_TITLE": "Cet article vous intéresse ?",
+    "NOTIFY_MODAL_DESC": "Laissez vos coordonnées et nous vous informerons dès sa disponibilité ou vous proposerons un modèle similaire.",
+    "SOLD_OUT": "Épuisé / Archives",
+    "ARCHIVE_ITEM": "Modèle d'archive",
+    "DAYS": "jours",
+    "MATERIALS": "Matériaux",
+    "LOADING": "Chargement des produits...",
+    "VARIANT": "Option",
+    "SIZE": "Taille",
+    "SELECT_SIZE_REQUIRED": "Veuillez sélectionner une taille",
+    "BADGE_NEW": "Nouveauté",
+    "BADGE_BESTSELLER": "Meilleure vente",
     "CATEGORIES": {
-      "ALL": "Tous les produits",
+      "ALL": "Tous",
       "WEDDING": "Robes de mariée",
       "TRADITIONAL": "Vyshyvankas",
-      "PERFUME": "Parfumerie",
-      "ELECTRONICS": "Électronique"
+      "PERFUME": "Parfums",
+      "ELECTRONICS": "Accessoires",
+      "OTHER": "Autres"
     }
-  },
-  "PRODUCT": {
-    "IN_STOCK": "En stock",
-    "PRE_ORDER": "Précommande. Délai de fabrication",
-    "DAYS": "jours"
   },
   "VIDEOS": {
     "SUBTITLE": "Dernières critiques de @VirniFashion",
@@ -46,14 +61,16 @@
     "LOADING": "Chargement des vidéos..."
   },
   "NEWS": {
+    "TITLE": "Actualités & Tendances",
+    "READ_MORE": "Lire la suite",
+    "BACK": "Retour aux actualités",
     "CATEGORIES": {
-      "ALL": "Toutes les actualités",
       "COLLECTIONS": "Collections",
       "ACCESSORIES": "Accessoires",
-      "STYLE": "Conseils de style"
-    },
-    "READ_MORE": "Lire la suite",
-    "BACK": "Retour aux actualités"
+      "STYLE": "Style",
+      "FASHION": "Mode",
+      "ALL": "Tous"
+    }
   },
   "FOOTER": {
     "BRAND_TEXT": "Votre espace pour un style authentique, une musique de qualité et des produits exclusifs. Écrivons l'histoire ensemble.",

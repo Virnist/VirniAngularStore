@@ -1,13 +1,20 @@
 import { Injectable, signal, computed, inject } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { DataService } from './data.service'; // Шлях до твого DataService
+import { DataService } from './data.service';
+import { Product } from '../models/product.model';
 
 export interface CartItem {
-  id: number;
-  title: string;
-  price: number; // Ціна в USD (базова)
+  cartItemId: string;
+  id: number | string;
+  title?: string;
+  price: number;
   image: string;
   quantity: number;
+  size?: string;
+  variant?: string | Record<string, any>;
+  variantId?: string | number;
+  selectedVariantData?: Record<string, any>;
+  [key: string]: any;
 }
 
 @Injectable({
@@ -17,104 +24,171 @@ export class CartService {
   private dataService = inject(DataService);
   private translate = inject(TranslateService);
 
-  // Приватний сигнал зі списком товарів у кошику
   private cartItems = signal<CartItem[]>(this.loadCart());
+  private currentLang = signal<string>(this.translate.currentLang || this.translate.defaultLang || 'uk');
 
-  // Реактивний сигнал поточної мови (тепер він керує всіма перерахунками)
-  private currentLang = signal<string>(this.translate.currentLang || 'uk');
+  // Динамічний обчислювальний список товарів у кошику
+  items = computed(() => {
+    const lang = this.currentLang();
+    const rawItems = this.cartItems();
+    const productsList = this.dataService.products();
 
-  // Публічні сигнали для використання в компонентах
-  items = computed(() => this.cartItems());
-  
-  // Рахуємо загальну кількість речей у кошику
+    return rawItems.map(item => {
+      // 1. Шукаємо актуальний товар у каталозі
+      const foundProduct = productsList.find(p => p.id === item.id) as Record<string, any> | undefined;
+      const dataSource = foundProduct || item;
+
+      // 2. Визначення Title (title_uk, title_en...)
+      const titleKey = `title_${lang}`;
+      const displayTitle = 
+        dataSource[titleKey] || 
+        dataSource['title_uk'] || 
+        dataSource['title_en'] || 
+        dataSource['title'] || 
+        item.title || 
+        '';
+
+      // 3. Динамічний пошук варіанта в актуальному каталозі за variantId чи id
+      let displayVariant = '';
+      const targetVariantId = item.variantId || item.selectedVariantData?.['id'] || (typeof item.variant === 'string' ? item.variant : null);
+
+      let variantObj: Record<string, any> | undefined;
+
+      // Спочатку шукаємо варіант у свіжих даних товару з DataService
+      if (foundProduct && foundProduct['variants'] && Array.isArray(foundProduct['variants'])) {
+        variantObj = foundProduct['variants'].find((v: any) => v.id === targetVariantId);
+      }
+
+      // Якщо не знайшли в каталозі, беремо збережені дані з item
+      if (!variantObj && item.selectedVariantData) {
+        variantObj = item.selectedVariantData;
+      }
+
+      if (variantObj) {
+        const nameKey = `name_${lang}`;
+        displayVariant = 
+          variantObj[nameKey] || 
+          variantObj['name_uk'] || 
+          variantObj['name_en'] || 
+          variantObj['name'] || 
+          '';
+      } else if (typeof item.variant === 'string') {
+        displayVariant = item.variant;
+      }
+
+      return {
+        ...item,
+        title: displayTitle,
+        variantName: displayVariant // Динамічно перекладена назва варіанта для HTML
+      };
+    });
+  });
+
   count = computed(() => 
     this.cartItems().reduce((acc, item) => acc + item.quantity, 0)
   );
 
-  // 1. Динамічний сигнал валюти, що залежить від мови та курсів з DataService
   currency = computed(() => {
     const lang = this.currentLang();
-    const apiRates = this.dataService.rates(); // Наш сигнал курсів із DataService
+    const apiRates = this.dataService.rates();
 
-    // Словник символів валют
-    const symbols: Record<string, string> = { uk: '₴', pl: 'zł', de: '€', fr: '€', en: '$' };
-    const symbol = symbols[lang] || '$';
+    const symbols: Record<string, string> = { 
+      uk: '₴', en: '$', de: '€', fr: '€', pl: 'zł', it: '€', ja: '¥', zh: '¥' 
+    };
 
-    // Визначаємо цільову валюту за мовою
-    let targetCurrency = 'USD';
-    if (lang === 'uk') targetCurrency = 'UAH';
-    if (lang === 'pl') targetCurrency = 'PLN';
-    if (lang === 'de' || lang === 'fr') targetCurrency = 'EUR';
+    const currencyMap: Record<string, string> = {
+      uk: 'UAH', en: 'USD', de: 'EUR', fr: 'EUR', pl: 'PLN', it: 'EUR', ja: 'JPY', zh: 'CNY'
+    };
 
-    // Беремо коефіцієнт з API. Якщо API ще не відповіло — ставимо тимчасовий дефолт
+    const targetCurrency = currencyMap[lang] || 'UAH';
+    const symbol = symbols[lang] || '₴';
+
+    const fallbackRates: Record<string, number> = { 
+      UAH: 41.5, USD: 1.0, EUR: 0.92, PLN: 4.02, JPY: 145.0, CNY: 7.2
+    };
+
     let rate = 1.0;
-    if (apiRates) {
-      rate = apiRates[targetCurrency] || 1.0;
+    if (apiRates && apiRates[targetCurrency]) {
+      rate = apiRates[targetCurrency];
     } else {
-      // Тимчасовий фолбек до моменту завантаження з мережі
-      const fallbackRates: Record<string, number> = { UAH: 41.5, PLN: 4.02, EUR: 0.92, USD: 1.0 };
       rate = fallbackRates[targetCurrency] || 1.0;
     }
 
-    return { rate, symbol };
+    return { rate, symbol, code: targetCurrency };
   });
 
-  // 2. Рахуємо чисту вартість товарів у кошику (в базовій валюті USD)
   totalSum = computed(() => 
     this.cartItems().reduce((acc, item) => acc + (item.price * item.quantity), 0)
   );
 
-  // 3. НОВИЙ СИГНАЛ: Реактивний розрахунок ціни доставки (в USD)
-  // Автоматично перераховується щоразу, коли змінюється мова або сума кошика!
   shippingPrice = computed(() => {
     const total = this.totalSum();
     const lang = this.currentLang();
 
-    // Якщо кошик порожній або сума товарів від $150 і вище — доставка безкоштовна
-    if (total === 0 || total >= 150) {
-      return 0;
-    }
-
-    // Базові тарифи доставки в USD залежно від мови (країни)
-    if (lang === 'uk') return 3;   // Україна
-    if (lang === 'pl') return 15;  // Польща
-    return 20;                     // Міжнародна доставка (en, de, fr)
+    if (total === 0 || total >= 150) return 0;
+    if (lang === 'uk') return 3;
+    if (lang === 'pl') return 15;
+    return 20;
   });
 
-  // 4. НОВИЙ СИГНАЛ: Загальна сума до сплати разом із доставкою (в USD)
-  finalTotal = computed(() => {
-    return this.totalSum() + this.shippingPrice();
-  });
+  finalTotal = computed(() => this.totalSum() + this.shippingPrice());
 
   constructor() {
-    // Тригеримо завантаження свіжих курсів валют з інтернету при старті
     this.dataService.fetchExchangeRates().subscribe({
-      next: () => console.log('✅ Курси валют в кошику успішно синхронізовано з DataService'),
-      error: (err) => console.warn('⚠️ Оновлення курсів не вдалося, працюємо на фолбеці:', err)
+      next: () => console.log('✅ Курси валют оновлено'),
+      error: (err) => console.warn('⚠️ Застосовано фолбек курсів:', err)
     });
 
-    // Стежимо за перемиканням мов у додатку і миттєво оновлюємо сигнал мови
+    if (!this.dataService.products || this.dataService.products().length === 0) {
+      this.dataService.getProducts().subscribe();
+    }
+
     this.translate.onLangChange.subscribe(event => {
       this.currentLang.set(event.lang);
     });
   }
 
-  // Додавання в кошик (Зберігає базовий USD із продукту)
-  addToCart(product: any, title: string) {
+  addToCart(
+    product: Product, 
+    title?: string, 
+    size?: string, 
+    variantObj?: any, 
+    variantId?: string | number
+  ) {
+    const vId = variantObj?.id || variantId || (typeof variantObj === 'string' ? variantObj : 'default');
+    const sizeKey = size ? size.trim().toLowerCase() : 'default';
+    const variantKey = String(vId).trim().toLowerCase();
+    
+    const cartItemId = `${product.id}-${sizeKey}-${variantKey}`;
+
     this.cartItems.update(current => {
-      const existingIndex = current.findIndex(item => item.id === product.id);
+      const existingIndex = current.findIndex(item => item.cartItemId === cartItemId);
 
       if (existingIndex > -1) {
         return current.map((item, idx) => 
-          idx === existingIndex ? { ...item, quantity: item.quantity + 1 } : item
+          idx === existingIndex 
+            ? { 
+                ...item, 
+                quantity: item.quantity + 1,
+                size,
+                variantId: vId,
+                selectedVariantData: variantObj || item.selectedVariantData
+              } 
+            : item
         );
       } else {
         const newItem: CartItem = {
+          ...product,
+          cartItemId,
           id: product.id,
-          title: title,
-          price: product.price, // Чистий базовий USD
-          image: product.image,
-          quantity: 1
+          title: title || (product as any)['title_uk'] || (product as any)['title'],
+          price: (product.discountPrice || product.price) + (variantObj?.priceOffset || 0),
+          image: variantObj?.image || product.image,
+          quantity: 1,
+          size,
+          variantId: vId,
+          selectedVariantData: typeof variantObj === 'object' ? variantObj : undefined,
+          variant: typeof variantObj === 'string' ? variantObj : undefined
         };
         return [...current, newItem];
       }
@@ -122,22 +196,24 @@ export class CartService {
     this.saveCart();
   }
 
-  updateQuantity(id: number, newQuantity: number) {
+  updateQuantityByCartItemId(cartItemId: string, newQuantity: number) {
     if (newQuantity <= 0) {
-      this.removeItem(id);
+      this.removeItemByCartItemId(cartItemId);
       return;
     }
 
     this.cartItems.update(current =>
       current.map(item =>
-        item.id === id ? { ...item, quantity: newQuantity } : item
+        item.cartItemId === cartItemId ? { ...item, quantity: newQuantity } : item
       )
     );
     this.saveCart();
   }
 
-  removeItem(id: number) {
-    this.cartItems.update(current => current.filter(item => item.id !== id));
+  removeItemByCartItemId(cartItemId: string) {
+    this.cartItems.update(current => 
+      current.filter(item => item.cartItemId !== cartItemId)
+    );
     this.saveCart();
   }
 

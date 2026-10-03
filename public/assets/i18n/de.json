@@ -1,5 +1,5 @@
 {
-  "APP_TITLE": "Virni",
+  "APP_TITLE": "Virni.TOP",
   "WELCOME": "Willkommen in unserem Shop!",
   "PWA": {
     "INSTALL_TITLE": "Virni zum Startbildschirm hinzufügen",
@@ -25,20 +25,35 @@
     }
   },
   "SHOP": {
+    "TITLE": "Virni Kollektion",
+    "SUBTITLE": "Handgefertigte Premium-Kleidung und Hochzeitskleider",
     "ADD_TO_CART": "In den Warenkorb",
+    "ORDER_NOW": "Jetzt bestellen",
+    "IN_STOCK": "Auf Lager",
+    "PRE_ORDER": "Auf Bestellung",
     "PRE_ORDER_BTN": "Vorbestellen",
+    "OUT_OF_STOCK": "Nicht auf Lager",
+    "NOTIFY_AVAILABILITY": "Verfügbarkeit anfragen",
+    "NOTIFY_MODAL_TITLE": "Interesse an diesem Artikel?",
+    "NOTIFY_MODAL_DESC": "Hinterlassen Sie Ihre Kontaktdaten. Wir informieren Sie, sobald der Artikel verfügbar ist, oder bieten ein ähnliches Modell an.",
+    "SOLD_OUT": "Ausverkauft / Archiv",
+    "ARCHIVE_ITEM": "Archivmodell",
+    "DAYS": "Tage",
+    "MATERIALS": "Materialien",
+    "LOADING": "Produkte werden geladen...",
+    "VARIANT": "Ausführung",
+    "SIZE": "Größe",
+    "SELECT_SIZE_REQUIRED": "Bitte wählen Sie eine Größe",
+    "BADGE_NEW": "Neu",
+    "BADGE_BESTSELLER": "Bestseller",
     "CATEGORIES": {
-      "ALL": "Alle Produkte",
+      "ALL": "Alle",
       "WEDDING": "Brautkleider",
       "TRADITIONAL": "Wyschywankas",
-      "PERFUME": "Parfümerie",
-      "ELECTRONICS": "Elektronik"
+      "PERFUME": "Parfüms",
+      "ELECTRONICS": "Accessoires",
+      "OTHER": "Sonstiges"
     }
-  },
-  "PRODUCT": {
-    "IN_STOCK": "Auf Lager",
-    "PRE_ORDER": "Vorbestellung. Produktionszeit",
-    "DAYS": "Tage"
   },
   "VIDEOS": {
     "SUBTITLE": "Aktuelle Rezensionen von @VirniFashion",
@@ -46,14 +61,16 @@
     "LOADING": "Videos werden geladen..."
   },
   "NEWS": {
-    "CATEGORIES": {
-      "ALL": "Alle News",
-      "COLLECTIONS": "Kollektionen",
-      "ACCESSORIES": "Zubehör",
-      "STYLE": "Stiltipps"
-    },
+    "TITLE": "News & Trends",
     "READ_MORE": "Weiterlesen",
-    "BACK": "Zurück zu den News"
+    "BACK": "Zurück zur Übersicht",
+    "CATEGORIES": {
+      "COLLECTIONS": "Kollektionen",
+      "ACCESSORIES": "Accessoires",
+      "STYLE": "Stil",
+      "FASHION": "Mode",
+      "ALL": "Alle"
+    }
   },
   "FOOTER": {
     "BRAND_TEXT": "Ihr Raum für authentischen Stil, Qualitätsmusik und exklusive Produkte. Lassen Sie uns gemeinsam Geschichte schreiben.",

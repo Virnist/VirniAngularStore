@@ -12,9 +12,9 @@ import { environment } from '../../../environments/environment';
   standalone: true,
   imports: [
     CommonModule, 
-    ReactiveFormsModule, // Модуль для створення надійних реактивних форм
-    FormsModule,         // Потрібен для простої прив'язки submitMethod через ngModel
-    NgOptimizedImage,     // Сучасна директива для швидкого завантаження картинок
+    ReactiveFormsModule, 
+    FormsModule, 
+    NgOptimizedImage, 
     RouterLink, 
     TranslateModule, 
     ConvertPricePipe
@@ -23,18 +23,16 @@ import { environment } from '../../../environments/environment';
   styleUrl: './cart.component.scss'
 })
 export class CartComponent {
-  // Впровадження залежностей (сервісів)
   public cartService = inject(CartService);
   private translate = inject(TranslateService);
   private fb = inject(FormBuilder);
 
-  // Стан завантаження для захисту від повторних кліків по кнопці "Відправити"
   isLoading = signal<boolean>(false);
   
-  // Спосіб підтвердження замовлення за замовчуванням
-  submitMethod: 'telegram' | 'whatsapp' | 'email' = 'telegram';
+  // Спосіб підтвердження замовлення
+  submitMethod = signal<'telegram' | 'whatsapp' | 'email'>('telegram');
 
-  // Оголошення реактивної форми з правилами валідації полів
+  // Форма замовлення
   orderForm = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(2)]],
     phone: ['', [Validators.required, Validators.pattern(/^(?:\+?\d{1,3}[\s-]?)?(?:\(?\d{2,4}\)?[\s-]?)?\d{3}[\s-]?\d{4,5}$/)]],
@@ -42,34 +40,32 @@ export class CartComponent {
     address: ['', [Validators.required, Validators.minLength(5)]]
   });
   
-  // Динамічний розрахунок вартості доставки залежно від мови та суми в USD
+  // Розрахунок доставки
   shippingPrice = computed(() => {
     const totalInUsd = this.cartService.totalSum();
     const lang = this.translate.currentLang || 'uk';
 
-    // Безкоштовна доставка, якщо кошик порожній або сума більше 150 USD
     if (totalInUsd > 150 || totalInUsd === 0) return 0;
 
-    if (lang === 'uk') return 3;  // Для України — $3
-    if (lang === 'pl') return 15; // Для Польщі — $15
-    return 20;                    // Для всього іншого світу — $20
+    if (lang === 'uk') return 3;
+    if (lang === 'pl') return 15;
+    return 20;
   });
 
-  // Загальна сума до сплати (Сума товарів + Доставка)
+  // Загальна сума
   finalTotal = computed(() => {
     return this.cartService.totalSum() + this.shippingPrice();
   });
 
-  // Метод для форматування цін у текст повідомлення (переводить базові USD у вибрану валюту)
   private formatPriceForMessage(priceInUsd: number): string {
     const currentCurrency = this.cartService.currency();
     const converted = priceInUsd * currentCurrency.rate;
     
     let formatted: string;
     if (currentCurrency.symbol === '₴' || currentCurrency.symbol === 'zł') {
-      formatted = Math.round(converted).toString(); // Округлюємо гривні та злоті
+      formatted = Math.round(converted).toString();
     } else {
-      formatted = converted.toFixed(2); // Залишаємо копійки для доларів/євро
+      formatted = converted.toFixed(2);
     }
     
     return currentCurrency.symbol === '$' 
@@ -77,12 +73,14 @@ export class CartComponent {
       : `${formatted} ${currentCurrency.symbol}`;
   }
 
-  // Екранування символів Markdown, щоб Telegram не ламав відправку через спецсимволи
-  private escapeMarkdown(text: string): string {
-    return text.replace(/[_*\[`]/g, '\\$&');
+  // Надійне HTML-екранування для Telegram
+  private escapeHtml(text: string): string {
+    return text
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;');
   }
 
-  // Головна функція обробки натискання на кнопку замовлення
   submitOrder() {
     if (this.orderForm.invalid) {
       this.orderForm.markAllAsTouched();
@@ -91,7 +89,7 @@ export class CartComponent {
 
     if (this.isLoading()) return;
 
-    switch (this.submitMethod) {
+    switch (this.submitMethod()) {
       case 'telegram':
         this.sendToTelegram();
         break;
@@ -108,7 +106,6 @@ export class CartComponent {
     const formValues = this.orderForm.value;
     const shippingText = this.shippingPrice() === 0 ? 'Безкоштовно' : this.formatPriceForMessage(this.shippingPrice());
     const totalText = this.formatPriceForMessage(this.finalTotal());
-    const goodsList = this.cartService.items().map(i => i.title);
 
     return {
       name: formValues.name || '',
@@ -117,10 +114,8 @@ export class CartComponent {
       address: formValues.address || '',
       shippingText,
       totalText,
-      goodsList,
-      productSummary: this.cartService.items().map(i => `• ${i.title} (x${i.quantity})`).join('\n'),
       plainGoods: this.cartService.items().map(i => `${i.title} (x${i.quantity})`).join(', '),
-      telegramItems: this.cartService.items().map(i => `• ${this.escapeMarkdown(i.title)} (x${i.quantity}) — ${this.formatPriceForMessage(i.price * i.quantity)}`).join('\n')
+      telegramItems: this.cartService.items().map(i => `• <b>${this.escapeHtml(i.title)}</b> (x${i.quantity}) — ${this.formatPriceForMessage(i.price * i.quantity)}`).join('\n')
     };
   }
 
@@ -129,7 +124,6 @@ export class CartComponent {
     this.orderForm.reset();
   }
 
-  // 1. НАДСИЛАННЯ В TELEGRAM БОТ
   async sendToTelegram() {
     this.isLoading.set(true);
     const token = environment.tgToken;
@@ -137,29 +131,30 @@ export class CartComponent {
     const summary = this.getOrderSummary();
 
     const text = `
-📦 *НОВЕ ЗАМОВЛЕННЯ (Virni)*
-👤 *Клієнт:* ${this.escapeMarkdown(summary.name)}
-📞 *Тел:* ${this.escapeMarkdown(summary.phone)}
-📧 *Email:* ${this.escapeMarkdown(summary.email)}
-📍 *Адреса:* ${this.escapeMarkdown(summary.address)}
-🌐 *Мова інтерейсу:* ${(this.translate.currentLang || 'uk').toUpperCase()}
+📦 <b>НОВЕ ЗАМОВЛЕННЯ (Virni)</b>
 
-🛒 *Товари:*
+👤 <b>Клієнт:</b> ${this.escapeHtml(summary.name)}
+📞 <b>Тел:</b> ${this.escapeHtml(summary.phone)}
+📧 <b>Email:</b> ${this.escapeHtml(summary.email)}
+📍 <b>Адреса:</b> ${this.escapeHtml(summary.address)}
+🌐 <b>Мова:</b> ${(this.translate.currentLang || 'uk').toUpperCase()}
+
+🛒 <b>Товари:</b>
 ${summary.telegramItems}
 
-🚚 *Доставка з України:* ${summary.shippingText}
-💰 *РАЗОМ ДО СПЛАТИ: ${summary.totalText}*
-    `;
+🚚 <b>Доставка:</b> ${summary.shippingText}
+💰 <b>РАЗОМ ДО СПЛАТИ: ${summary.totalText}</b>
+    `.trim();
 
     try {
       const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: chatId, text, parse_mode: 'Markdown' })
+        body: JSON.stringify({ chat_id: chatId, text, parse_mode: 'HTML' })
       });
 
       if (response.ok) {
-        alert('Замовлення надіслано в Telegram! Ми зв’яжемося з вами.');
+        alert('Замовлення успішно надіслано! Ми зв’яжемося з вами найближчим часом.');
         this.finalizeOrder();
       } else {
         throw new Error('Telegram API Error');
@@ -171,10 +166,8 @@ ${summary.telegramItems}
     }
   }
 
-  // 2. НАДСИЛАННЯ В WHATSAPP
   sendToWhatsApp() {
     this.isLoading.set(true);
-
     try {
       const summary = this.getOrderSummary();
       const whatsappNumber = environment.whatsappNumber || '380685412442';
@@ -187,15 +180,13 @@ ${summary.telegramItems}
     }
   }
 
-  // 3. НАДСИЛАННЯ НА EMAIL
   sendToEmail() {
     this.isLoading.set(true);
-
     try {
       const summary = this.getOrderSummary();
       const subject = `Замовлення Virni від ${summary.name}`;
       const supportEmail = environment.supportEmail || 'hello@virni.com';
-      const body = `Клієнт: ${summary.name}\nТелефон: ${summary.phone}\nАдреса доставки: ${summary.address}\n\nТовари:\n${summary.productSummary}\n\nДоставка: ${summary.shippingText}\n\nРазом до сплати: ${summary.totalText}`;
+      const body = `Клієнт: ${summary.name}\nТелефон: ${summary.phone}\nАдреса доставки: ${summary.address}\n\nТовари:\n${summary.plainGoods}\n\nДоставка: ${summary.shippingText}\n\nРазом до сплати: ${summary.totalText}`;
       
       window.location.href = `mailto:${supportEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       this.finalizeOrder();
