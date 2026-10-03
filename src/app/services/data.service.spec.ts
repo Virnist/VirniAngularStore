@@ -42,7 +42,7 @@ describe('DataService', () => {
     let result: { id: string }[] = [];
 
     service.getVideos().subscribe(value => result = value);
-    httpTestingController.expectOne('./assets/data/videos.json').flush(videos);
+    httpTestingController.expectOne('assets/data/videos.json').flush(videos);
 
     expect(result.map(video => video.id)).toEqual(['second', 'third', 'first']);
     expect(videos.map(video => video.id)).toEqual(['first', 'second', 'third']);

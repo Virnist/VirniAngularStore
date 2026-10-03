@@ -1,22 +1,13 @@
 import { Routes } from '@angular/router';
-import { NewsComponent } from './components/news/news.component';
-import { ShopComponent } from './components/shop/shop.component';
-import { VideosComponent } from './components/videos/videos.component';
-import { HomeComponent } from './pages/home/home.component';
-import { NewsDetailComponent } from './pages/news-detail/news-detail.component';
-import { MediaComponent } from './pages/media/media.component';
-import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
-import { CartComponent } from './pages/cart/cart.component';
-import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'news', component: NewsComponent },
-  { path: 'shop', component: ShopComponent },
-  { path: 'media', component: MediaComponent },
-  { path: 'news/:id', component: NewsDetailComponent },
-  { path: 'product/:id', component: ProductDetailComponent },
-  { path: 'videos', component: VideosComponent },
-  { path: 'cart', component: CartComponent },
-  { path: '**', component: NotFoundComponent }
+  { path: '', loadComponent: () => import('./pages/home/home.component').then(m => m.HomeComponent) },
+  { path: 'news', loadComponent: () => import('./components/news/news.component').then(m => m.NewsComponent) },
+  { path: 'shop', loadComponent: () => import('./components/shop/shop.component').then(m => m.ShopComponent) },
+  { path: 'media', loadComponent: () => import('./pages/media/media.component').then(m => m.MediaComponent) },
+  { path: 'news/:id', loadComponent: () => import('./pages/news-detail/news-detail.component').then(m => m.NewsDetailComponent) },
+  { path: 'product/:id', loadComponent: () => import('./pages/product-detail/product-detail.component').then(m => m.ProductDetailComponent) },
+  { path: 'videos', loadComponent: () => import('./components/videos/videos.component').then(m => m.VideosComponent) },
+  { path: 'cart', loadComponent: () => import('./pages/cart/cart.component').then(m => m.CartComponent) },
+  { path: '**', loadComponent: () => import('./pages/not-found/not-found.component').then(m => m.NotFoundComponent) }
 ];

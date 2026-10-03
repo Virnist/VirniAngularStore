@@ -17,7 +17,7 @@
   <!-- Сітка товарів -->
   @if (products$ | async; as allProducts) {
     <div class="shop-grid">
-      @for (item of allProducts; track item.id) {
+      @for (item of allProducts; track item.id; let first = $first) {
         <article class="product-card" (click)="onCardAction(item, $event)">
           
           <!-- Зображення (Квадратне 1:1) та бейджі -->
@@ -25,8 +25,8 @@
             <img 
               [src]="getProductImage(item)" 
               [alt]="getLangContent(item, 'image_alt') || getLangContent(item, 'title')"
-              loading="lazy"
-              fetchpriority="low"
+              [loading]="first ? 'eager' : 'lazy'"
+              [attr.fetchpriority]="first ? 'high' : 'low'"
               class="card-img"
             >
             
