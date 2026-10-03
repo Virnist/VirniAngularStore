@@ -18,7 +18,7 @@ export class DataService {
 
   // --- НОВИНИ ---
   getNews(): Observable<NewsItem[]> {
-    return this.http.get<NewsItem[]>('/assets/data/news.json');
+    return this.http.get<NewsItem[]>('assets/data/news.json');
   }
 
   getNewsById(id: string | number): Observable<NewsItem | undefined> {
@@ -34,7 +34,7 @@ export class DataService {
     if (!this.videosCache) {
       const channelId = environment.youtubeChannelId || 'UCNilfw7uSJVDhUcLLYcD_Cw';
       const uploadsPlaylistId = channelId.startsWith('UC') ? `UU${channelId.slice(2)}` : channelId;
-      const fallback = () => this.http.get<any[]>('/assets/data/videos.json').pipe(
+      const fallback = () => this.http.get<any[]>('assets/data/videos.json').pipe(
         map(videos => this.shuffleVideos(videos))
       );
 
@@ -84,7 +84,7 @@ export class DataService {
 
   // --- МАГАЗИН ---
   getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>('/assets/data/products.json').pipe(
+    return this.http.get<Product[]>('assets/data/products.json').pipe(
       map(products => this.sortProductsByAvailability(products)),
       tap(sortedProducts => this.products.set(sortedProducts)) // Синхронізуємо зі сигналом
     );
