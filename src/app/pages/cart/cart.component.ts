@@ -185,7 +185,7 @@ ${summary.telegramItems}
     try {
       const summary = this.getOrderSummary();
       const subject = `Замовлення Virni від ${summary.name}`;
-      const supportEmail = environment.supportEmail || 'hello@virni.com';
+      const supportEmail = environment.supportEmail || 'virnistu@gmail.com';
       const body = `Клієнт: ${summary.name}\nТелефон: ${summary.phone}\nАдреса доставки: ${summary.address}\n\nТовари:\n${summary.plainGoods}\n\nДоставка: ${summary.shippingText}\n\nРазом до сплати: ${summary.totalText}`;
       
       window.location.href = `mailto:${supportEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;

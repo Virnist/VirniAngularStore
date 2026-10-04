@@ -90,7 +90,7 @@
       <!-- Статус наявності -->
       <div class="stock-status">
         @if (product.stock && product.stock > 0) {
-          <span class="in-stock">✅ {{ 'SHOP.IN_STOCK' | translate }}: {{ product.stock }}</span>
+          <span class="in-stock">✅ {{ 'SHOP.IN_STOCK' | translate }}</span>
         } @else if (product.productionTime && product.productionTime > 0) {
           <span class="pre-order">⏳ {{ 'SHOP.PRE_ORDER' | translate }}: {{ product.productionTime }} {{ 'SHOP.DAYS' | translate }}</span>
         } @else {
@@ -99,45 +99,66 @@
       </div>
 
       <!-- Кнопка дії з анімацією додавання -->
-      @if (product.stock && product.stock > 0) {
-        <button 
-          class="buy-btn" 
-          [class.is-added]="isAdded()"
-          [disabled]="isSelectionInvalid"
-          (click)="addToCart()">
-          @if (isAdded()) {
-            <span class="btn-content added">
-              <svg class="check-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="3" fill="none">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              {{ 'SHOP.ADDED' | translate }}
-            </span>
-          } @else {
-            <span class="btn-content">🛒 {{ 'SHOP.ADD_TO_CART' | translate }}</span>
-          }
-        </button>
-      } @else if (product.productionTime && product.productionTime > 0) {
-        <button 
-          class="buy-btn pre-order-btn" 
-          [class.is-added]="isAdded()"
-          [disabled]="isSelectionInvalid"
-          (click)="addToCart()">
-          @if (isAdded()) {
-            <span class="btn-content added">
-              <svg class="check-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="3" fill="none">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              {{ 'SHOP.ADDED' | translate }}
-            </span>
-          } @else {
-            <span class="btn-content">🧵 {{ 'SHOP.PRE_ORDER_BTN' | translate }}</span>
-          }
-        </button>
-      } @else {
-        <button class="buy-btn notify-btn" (click)="openInquiryModal()">
-          📩 {{ 'SHOP.NOTIFY_AVAILABILITY' | translate }}
-        </button>
-      }
+      <div class="buy-actions">
+        @if (product.stock && product.stock > 0) {
+          <button
+            class="buy-btn"
+            [class.is-added]="isAdded()"
+            [disabled]="isSelectionInvalid"
+            (click)="addToCart()">
+            @if (isAdded()) {
+              <span class="btn-content added">
+                <svg class="check-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="3" fill="none">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                {{ 'SHOP.ADDED' | translate }}
+              </span>
+            } @else {
+              <span class="btn-content">🛒 {{ 'SHOP.ADD_TO_CART' | translate }}</span>
+            }
+          </button>
+        } @else if (product.productionTime && product.productionTime > 0) {
+          <button
+            class="buy-btn pre-order-btn"
+            [class.is-added]="isAdded()"
+            [disabled]="isSelectionInvalid"
+            (click)="addToCart()">
+            @if (isAdded()) {
+              <span class="btn-content added">
+                <svg class="check-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="3" fill="none">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                {{ 'SHOP.ADDED' | translate }}
+              </span>
+            } @else {
+              <span class="btn-content">🧵 {{ 'SHOP.PRE_ORDER_BTN' | translate }}</span>
+            }
+          </button>
+        } @else {
+          <button class="buy-btn notify-btn" (click)="openInquiryModal()">
+            📩 {{ 'SHOP.NOTIFY_AVAILABILITY' | translate }}
+          </button>
+        }
+
+        @if (productCartQuantity > 0) {
+          <a class="product-cart-link" routerLink="/cart" aria-label="View cart">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg>
+            <span class="product-cart-quantity">{{ productCartQuantity }}</span>
+          </a>
+        }
+      </div>
 
     </div>
   </div>

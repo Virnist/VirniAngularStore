@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { CartService } from '../../services/cart.service';
 import { Product, ProductVariant } from '../../models/product.model';
@@ -10,7 +10,7 @@ import { ConvertPricePipe } from '../../pipes/convert-price.pipe';
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [CommonModule, TranslateModule, ConvertPricePipe],
+  imports: [CommonModule, RouterModule, TranslateModule, ConvertPricePipe],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.scss'
 })
@@ -44,6 +44,15 @@ export class ProductDetailComponent implements OnInit {
            (this.isVariantRequired && !this.selectedVariant());
   }
 
+  get productCartQuantity(): number {
+    const productId = this.product?.id;
+    if (productId === undefined) return 0;
+
+    return this.cartService.items()
+      .filter(item => String(item.id) === String(productId))
+      .reduce((quantity, item) => quantity + item.quantity, 0);
+  }
+
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       const paramId = params.get('id');
@@ -63,9 +72,13 @@ export class ProductDetailComponent implements OnInit {
           return;
         }
 
+        const firstVariant = this.product.variants?.length ? this.product.variants[0] : null;
+        this.selectedVariant.set(firstVariant);
+
+        const firstSize = this.product.sizes?.length ? this.product.sizes[0] : null;
+        this.selectedSize.set(firstSize);
+
         this.selectedImage = this.product.image || (this.product.images?.length ? this.product.images[0] : '');
-        this.selectedVariant.set(null);
-        this.selectedSize.set(null);
       });
     });
   }
@@ -93,7 +106,7 @@ export class ProductDetailComponent implements OnInit {
 
     this.translate.get('SHOP.INQUIRY_MESSAGE', { title, sku }).subscribe((translatedMessage: string) => {
       const encodedMessage = encodeURIComponent(translatedMessage);
-      window.open(`https://t.me/virni_fashion?text=${encodedMessage}`, '_blank');
+      window.open(`https://t.me/Virni_Fashion?text=${encodedMessage}`, '_blank');
     });
   }
 
@@ -140,7 +153,7 @@ export class ProductDetailComponent implements OnInit {
       this.product, 
       this.getContent('title'),
       this.selectedSize() || undefined,
-      this.selectedVariant() ? this.getContentOfVariant('name') : undefined
+      this.selectedVariant() || undefined
     );
 
     // 2. Вмикаємо ефект успішного додавання

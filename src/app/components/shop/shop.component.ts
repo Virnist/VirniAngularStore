@@ -150,11 +150,10 @@ export class ShopComponent {
 
     const size = this.getSelectedSize(item);
     const variant = this.getSelectedVariant(item);
-    const variantName = variant ? this.getVariantName(variant) : undefined;
     const title = this.getLangContent(item, 'title');
 
     // 1. Додаємо в кошик
-    this.cartService.addToCart(item, title, size, variantName);
+    this.cartService.addToCart(item, title, size, variant);
 
     // 2. Активуємо візуальний ефект додавання
     this.addedProductIds.add(item.id);

@@ -236,9 +236,23 @@
     }
   }
 
+  .buy-actions {
+    display: flex;
+    align-items: stretch;
+    gap: 12px;
+    width: 100%;
+    max-width: 414px;
+
+    @media (max-width: 768px) {
+      max-width: 100%;
+    }
+  }
+
   .buy-btn {
   width: 100%;
   max-width: 350px;
+  flex: 1;
+  min-width: 0;
   background: var(--text-main);
   color: var(--bg-main);
   border: none;
@@ -297,6 +311,47 @@
     max-width: 100%;
   }
 }
+
+  .product-cart-link {
+    position: relative;
+    display: inline-flex;
+    flex: 0 0 56px;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    min-height: 56px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    color: var(--text-main);
+    background: var(--surface);
+    transition: background 0.2s ease, transform 0.2s ease;
+
+    svg {
+      width: 26px;
+      height: 26px;
+    }
+
+    &:hover {
+      background: var(--surface-muted);
+      transform: translateY(-2px);
+    }
+
+    .product-cart-quantity {
+      position: absolute;
+      top: -7px;
+      right: -7px;
+      display: grid;
+      place-items: center;
+      min-width: 21px;
+      height: 21px;
+      padding: 0 5px;
+      border-radius: 50px;
+      color: var(--on-accent, #fff);
+      background: var(--accent-fill, #000);
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+  }
 
 // Анімаційні ефекти
 @keyframes popIn {
