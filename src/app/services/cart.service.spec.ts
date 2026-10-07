@@ -86,4 +86,21 @@ describe('CartService', () => {
     expect(cartService.items()[0].title).toBe('Robe');
     expect(cartService.items()[0].variantName).toBe('Ivoire');
   });
+
+  it('returns the configured destination shipping rates in USD', () => {
+    const cartService = TestBed.inject(CartService);
+
+    expect(cartService.getShippingPrice('UA')).toBe(3);
+    expect(cartService.getShippingPrice('US')).toBeCloseTo(18 + 18 / 41.5);
+    expect(cartService.getShippingPrice('DE')).toBeCloseTo(8.5 + 18 / 41.5);
+    expect(() => cartService.getShippingPrice('XX')).toThrowError(/No shipping rate configured/);
+  });
+
+  it('keeps the existing free-shipping threshold for orders over $50', () => {
+    const cartService = TestBed.inject(CartService);
+
+    cartService.addToCart({ ...product, price: 51 });
+
+    expect(cartService.shippingPrice()).toBe(0);
+  });
 });

@@ -2,6 +2,11 @@ import { Injectable, signal, computed, inject } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { DataService } from './data.service';
 import { Product, ProductVariant } from '../models/product.model';
+import {
+  FREE_SHIPPING_THRESHOLD_USD,
+  SHIPPING_RATES_USD,
+  UKRAINE_SHIPPING_RATE_USD
+} from './shipping-rates';
 
 export interface CartItem {
   cartItemId: string;
@@ -115,15 +120,24 @@ export class CartService {
 
   shippingPrice = computed(() => {
     const total = this.totalSum();
-    const lang = this.currentLang();
-
-    if (total === 0 || total >= 150) return 0;
-    if (lang === 'uk') return 3;
-    if (lang === 'pl') return 15;
-    return 20;
+    return total === 0 || total > FREE_SHIPPING_THRESHOLD_USD
+      ? 0
+      : this.getShippingPrice('UA');
   });
 
   finalTotal = computed(() => this.totalSum() + this.shippingPrice());
+
+  getShippingPrice(countryCode: string): number {
+    if (countryCode === 'UA') return UKRAINE_SHIPPING_RATE_USD;
+
+    const rate = SHIPPING_RATES_USD[countryCode];
+    if (rate === undefined) {
+      throw new Error(`No shipping rate configured for destination country: ${countryCode}`);
+    }
+
+    const uahPerUsd = this.dataService.rates()?.['UAH'] || 41.5;
+    return rate + 18 / uahPerUsd;
+  }
 
   constructor() {
     this.dataService.fetchExchangeRates().subscribe({

@@ -84,13 +84,16 @@
     "CHECKOUT": "Kasa",
     "SUBTOTAL": "Suma częściowa",
     "SHIPPING": "Wysyłka",
+    "SHIPPING_ESTIMATE_NOTE": "Koszt wysyłki międzynarodowej oszacowano na podstawie taryfy Ukrposzty dla paczki o wadze 1 kg; uwzględnia on 18 UAH VAT za przewóz na terenie Ukrainy, przeliczone według bieżącego kursu. Zamówienia powyżej 50 USD są wysyłane bezpłatnie; w pozostałych przypadkach wycena sklepu za dostawę na Ukrainie wynosi 3 USD. Cena końcowa zależy od wagi, wymiarów i taryfy obowiązującej w dniu wysyłki; cła i podatki kraju docelowego nie są wliczone. Taryfy sprawdzono 07.10.2026.",
+    "TARIFF_SOURCE": "Oficjalne taryfy Ukrposzty",
     "FREE": "Gratis",
     "TOTAL_TO_PAY": "Razem do zapłaty",
     "FORM": {
       "NAME": "Twoje imię",
       "PHONE": "Numer telefonu",
       "EMAIL": "E-mail (opcjonalnie)",
-      "ADDRESS": "Kraj, miasto, adres dostawy",
+      "RECIPIENT_COUNTRY": "Kraj odbiorcy",
+      "ADDRESS": "Miasto, województwo/region, ulica, numer domu i kod pocztowy",
       "CONFIRM_METHOD": "Metoda potwierdzenia:",
       "SUBMIT_BTN": "Potwierdź zamówienie"
     },

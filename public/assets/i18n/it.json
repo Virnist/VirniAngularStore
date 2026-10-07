@@ -84,13 +84,16 @@
     "CHECKOUT": "Cassa",
     "SUBTOTAL": "Subtotale",
     "SHIPPING": "Spedizione",
+    "SHIPPING_ESTIMATE_NOTE": "La spedizione internazionale è stimata in base alla tariffa Ukrposhta per un pacco da 1 kg e include l’IVA di 18 UAH per il tratto in Ucraina, convertita al cambio attuale. Gli ordini superiori a 50 $ hanno la spedizione gratuita; altrimenti, la stima del negozio per la consegna in Ucraina è di 3 $. Il prezzo finale dipende da peso, dimensioni e tariffa vigente il giorno della spedizione; dazi e imposte del paese di destinazione non sono inclusi. Tariffe verificate il 07/10/2026.",
+    "TARIFF_SOURCE": "Tariffe ufficiali Ukrposhta",
     "FREE": "Gratis",
     "TOTAL_TO_PAY": "Totale da pagare",
     "FORM": {
       "NAME": "Il tuo nome",
       "PHONE": "Numero di telefono",
       "EMAIL": "Email (opzionale)",
-      "ADDRESS": "Paese, città, indirizzo di spedizione",
+      "RECIPIENT_COUNTRY": "Paese del destinatario",
+      "ADDRESS": "Città, regione, via, numero civico e codice postale",
       "CONFIRM_METHOD": "Metodo di conferma:",
       "SUBMIT_BTN": "Conferma ordine"
     },

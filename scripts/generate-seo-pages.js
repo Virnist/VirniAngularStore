@@ -9,7 +9,7 @@ if (!fs.existsSync(outputRoot)) {
   outputRoot = path.join(repositoryRoot, 'dist', 'virni-angular-store', 'browser');
 }
 
-const configuredSiteUrl = process.env.SITE_URL || 'https://virnist.github.io/VirniAngularStore/';
+const configuredSiteUrl = process.env.SITE_URL || 'https://virni.top/';
 const siteUrl = configuredSiteUrl.endsWith('/') ? configuredSiteUrl : `${configuredSiteUrl}/`;
 const gscVerificationToken = process.env.GSC_VERIFICATION || '';
 
@@ -132,8 +132,10 @@ async function generateOgImage({ title, category, price, outputPath, tag = 'VIRN
 
     fs.mkdirSync(path.dirname(outputPath), { recursive: true });
     fs.writeFileSync(outputPath, canvas.toBuffer('image/png'));
+    return true;
   } catch (err) {
     console.warn(`[OG Generator Warning]: Failed to generate OG image for "${title}". Falling back to primary image.`, err.message);
+    return false;
   }
 }
 
@@ -213,7 +215,11 @@ function writePage(route, { title, description, image, ogImage, schema, content,
 
     const route = `product/${productId}/`;
     const canonicalUrl = new URL(route, siteUrl).href;
-    const availability = product.stock > 0 ? 'InStock' : 'PreOrder';
+    const availability = product.stock > 0
+      ? 'InStock'
+      : product.productionTime > 0
+        ? 'PreOrder'
+        : 'OutOfStock';
 
     const currentPrice = Number(product.discountPrice || product.price || 0).toFixed(2);
     const originalPrice = product.discountPrice ? Number(product.price).toFixed(2) : null;
@@ -221,15 +227,14 @@ function writePage(route, { title, description, image, ogImage, schema, content,
     // Генерація OG PNG для кожної картки товару
     const ogFileName = `og-product-${productId}.png`;
     const ogFilePath = path.join(outputRoot, 'assets', 'og', ogFileName);
-    const ogImageUrl = absoluteAsset(`assets/og/${ogFileName}`);
-
-    await generateOgImage({
+    const hasOgImage = await generateOgImage({
       title: name,
       category: product.category || 'Fashion & Goods',
       price: currentPrice,
       outputPath: ogFilePath,
       tag: 'VIRNI STORE'
     });
+    const ogImageUrl = hasOgImage ? absoluteAsset(`assets/og/${ogFileName}`) : primaryImage;
 
     // Хлібні крихти Schema.org
     const breadcrumbSchema = {
@@ -342,7 +347,7 @@ function writePage(route, { title, description, image, ogImage, schema, content,
           </div>
           ${variantsHtml}
           ${sizesHtml}
-          <div class="description">${description}</div>
+          <div class="description">${escapeHtml(description)}</div>
         </div>
       </div>
     </div>`;
@@ -366,7 +371,11 @@ function writePage(route, { title, description, image, ogImage, schema, content,
   for (const article of news) {
     const articleId = sanitizeSlug(article.id);
     const headline = article.title_uk || article.title_en || `Новини Virni ${articleId}`;
-    const description = article.text_uk || article.text_en || headline;
+    const description = article.seo_description_uk ||
+      article.seo_description_en ||
+      article.text_uk ||
+      article.text_en ||
+      headline;
     const category = article.category || 'Fashion';
     const tags = Array.isArray(article.tags) ? article.tags : [];
     const route = `news/${articleId}/`;
@@ -374,14 +383,14 @@ function writePage(route, { title, description, image, ogImage, schema, content,
 
     const ogFileName = `og-news-${articleId}.png`;
     const ogFilePath = path.join(outputRoot, 'assets', 'og', ogFileName);
-    const ogImageUrl = absoluteAsset(`assets/og/${ogFileName}`);
-
-    await generateOgImage({
+    const articleImage = absoluteAsset(article.image);
+    const hasOgImage = await generateOgImage({
       title: headline,
       category,
       outputPath: ogFilePath,
       tag: 'VIRNI EDITORIAL'
     });
+    const ogImageUrl = hasOgImage ? absoluteAsset(`assets/og/${ogFileName}`) : articleImage;
 
     const breadcrumbSchema = {
       '@context': 'https://schema.org',
@@ -398,7 +407,7 @@ function writePage(route, { title, description, image, ogImage, schema, content,
       '@type': 'NewsArticle',
       headline,
       description,
-      image: [ogImageUrl, absoluteAsset(article.image)],
+      image: Array.from(new Set([ogImageUrl, articleImage])),
       datePublished: safeIsoDate(article.date),
       dateModified: safeIsoDate(article.updated_at || article.date),
       author: { '@type': 'Person', name: article.author || 'Virni Editorial' },
@@ -415,7 +424,7 @@ function writePage(route, { title, description, image, ogImage, schema, content,
       url: writePage(route, {
         title: headline,
         description,
-        image: absoluteAsset(article.image),
+        image: articleImage,
         ogImage: ogImageUrl,
         schema: [articleSchema, breadcrumbSchema],
         content,

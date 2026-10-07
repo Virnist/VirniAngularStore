@@ -7,6 +7,7 @@
     "build": "node set-env.js && ng build",
     "build:pages": "node set-env.js && ng build --configuration production --base-href /VirniAngularStore/ && node scripts/generate-seo-pages.js",
     "build:custom-domain": "node set-env.js && ng build --configuration production --base-href / && node scripts/generate-seo-pages.js",
+    "build:netlify": "npm run build:custom-domain",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "deploy": "npm run build:pages && npx angular-cli-ghpages --dir=dist/VirniAngularStore/browser"

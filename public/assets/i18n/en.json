@@ -84,13 +84,16 @@
     "CHECKOUT": "Checkout",
     "SUBTOTAL": "Subtotal",
     "SHIPPING": "Shipping",
+    "SHIPPING_ESTIMATE_NOTE": "International shipping is estimated from Ukrposhta's 1 kg parcel tariff and includes the 18 UAH VAT on the Ukraine leg, converted at the current exchange rate. Orders over $50 ship free; otherwise, delivery within Ukraine uses the store's $3 estimate. The final price depends on parcel weight, dimensions, and the rate on the shipping date; destination duties and taxes are not included. Rates checked on 2026-10-07.",
+    "TARIFF_SOURCE": "Official Ukrposhta tariffs",
     "FREE": "Free",
     "TOTAL_TO_PAY": "Total to pay",
     "FORM": {
       "NAME": "Your Name",
       "PHONE": "Phone Number",
       "EMAIL": "Email (optional)",
-      "ADDRESS": "Country, city, delivery address",
+      "RECIPIENT_COUNTRY": "Recipient country",
+      "ADDRESS": "City, state/region, street, building, and postal code",
       "CONFIRM_METHOD": "Confirmation method:",
       "SUBMIT_BTN": "Confirm Order"
     },

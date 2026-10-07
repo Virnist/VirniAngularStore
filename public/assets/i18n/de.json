@@ -84,13 +84,16 @@
     "CHECKOUT": "Kasse",
     "SUBTOTAL": "Zwischensumme",
     "SHIPPING": "Versand",
+    "SHIPPING_ESTIMATE_NOTE": "Der internationale Versand basiert auf dem Ukrposhta-Tarif für ein 1-kg-Paket und enthält die mit dem aktuellen Wechselkurs umgerechnete Mehrwertsteuer von 18 UAH für den Versand innerhalb der Ukraine. Bestellungen über 50 $ sind versandkostenfrei; andernfalls beträgt die Shop-Schätzung für den Versand innerhalb der Ukraine 3 $. Der Endpreis hängt von Gewicht, Abmessungen und dem Tarif am Versandtag ab; Zölle und Steuern des Ziellandes sind nicht enthalten. Tarife geprüft am 07.10.2026.",
+    "TARIFF_SOURCE": "Offizielle Ukrposhta-Tarife",
     "FREE": "Kostenlos",
     "TOTAL_TO_PAY": "Gesamtsumme",
     "FORM": {
       "NAME": "Ihr Name",
       "PHONE": "Telefonnummer",
       "EMAIL": "E-Mail (optional)",
-      "ADDRESS": "Land, Stadt, Lieferadresse",
+      "RECIPIENT_COUNTRY": "Empfängerland",
+      "ADDRESS": "Stadt, Bundesland/Region, Straße, Hausnummer und Postleitzahl",
       "CONFIRM_METHOD": "Bestätigungsmethode:",
       "SUBMIT_BTN": "Bestellung bestätigen"
     },

@@ -101,6 +101,15 @@
             <label for="email">{{ 'CART.FORM.EMAIL' | translate }}</label>
           </div>
 
+          <div class="input-group select-group" [class.has-error]="orderForm.get('country')?.touched && orderForm.get('country')?.invalid">
+            <label class="select-label" for="country">{{ 'CART.FORM.RECIPIENT_COUNTRY' | translate }} *</label>
+            <select formControlName="country" id="country">
+              @for (country of destinationCountries(); track country.code) {
+                <option [value]="country.code">{{ country.name }}</option>
+              }
+            </select>
+          </div>
+
           <div class="input-group" [class.has-error]="orderForm.get('address')?.touched && orderForm.get('address')?.invalid">
             <textarea formControlName="address" id="address" placeholder=" " rows="2"></textarea>
             <label for="address">{{ 'CART.FORM.ADDRESS' | translate }} *</label>
@@ -142,6 +151,10 @@
                 }
               </span>
             </div>
+            <p class="shipping-estimate-note">{{ 'CART.SHIPPING_ESTIMATE_NOTE' | translate }}</p>
+            <a class="shipping-tariff-link" href="https://www.ukrposhta.ua/ua/taryfy" target="_blank" rel="noopener noreferrer">
+              {{ 'CART.TARIFF_SOURCE' | translate }}
+            </a>
 
             <div class="totals" style="display: flex; justify-content: space-between; align-items: center; font-weight: bold; font-size: 1.25rem; border-top: 1px dashed rgba(128,128,128,0.2); padding-top: 12px;">
               <span class="total-label">{{ 'CART.TOTAL_TO_PAY' | translate }}</span>

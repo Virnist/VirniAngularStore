@@ -12,6 +12,27 @@ ng serve
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
+## Deploying to Netlify
+
+The repository includes `netlify.toml`. Import this repository in Netlify and use the default build settings from that file:
+
+- Build command: `npm run build:netlify`
+- Publish directory: `dist/VirniAngularStore/browser`
+- Node.js: 20
+
+The build generates product and news pages, `sitemap.xml`, `robots.txt`, and social preview images. Its canonical URLs use `https://virni.top/`.
+
+### Connecting `virni.top`
+
+1. Deploy the site once on Netlify, then open **Domain management** for that site and add `virni.top` and `www.virni.top`. Choose `virni.top` as the primary domain.
+2. In the domain's DNS settings at Ukraine.com.ua, point the apex (`@`) to Netlify using an ALIAS/ANAME record to `apex-loadbalancer.netlify.com`, if supported. Otherwise use an A record to `75.2.60.5`.
+3. Add a CNAME for `www` pointing to the site's Netlify subdomain (for example, `your-site.netlify.app`). Use the actual subdomain shown in Netlify.
+4. Remove only conflicting old website records for `@` and `www` (for example, old GitHub Pages A/AAAA/CNAME records). Keep unrelated mail (MX), verification (TXT), and other DNS records.
+5. Wait for DNS propagation, then return to Netlify and verify the domain and enable HTTPS. Netlify provisions the TLS certificate after DNS is correct.
+6. Test `https://virni.top/`, `https://www.virni.top/`, a generated product/news URL, and `/sitemap.xml`. Submit the sitemap in Google Search Console if the domain is verified there.
+
+The DNS changes are made at the DNS provider currently authoritative for the domain. If Ukraine.com.ua delegates DNS to external nameservers, make these changes at that DNS provider instead.
+
 ## Code scaffolding
 
 Angular CLI includes powerful code scaffolding tools. To generate a new component, run:

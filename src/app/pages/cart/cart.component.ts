@@ -1,11 +1,16 @@
-import { Component, inject, computed, signal } from '@angular/core';
+import { Component, DestroyRef, inject, computed, signal } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators, FormsModule } from '@angular/forms';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router'; 
 import { CartService } from '../../services/cart.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ConvertPricePipe } from '../../pipes/convert-price.pipe';
 import { environment } from '../../../environments/environment';
+import {
+  FREE_SHIPPING_THRESHOLD_USD,
+  SHIPPING_COUNTRY_CODES
+} from '../../services/shipping-rates';
 
 @Component({
   selector: 'app-cart',
@@ -26,8 +31,17 @@ export class CartComponent {
   public cartService = inject(CartService);
   private translate = inject(TranslateService);
   private fb = inject(FormBuilder);
+  private destroyRef = inject(DestroyRef);
 
   isLoading = signal<boolean>(false);
+  private currentLang = signal(this.translate.currentLang || 'en');
+  destinationCountries = computed(() => {
+    const displayNames = new Intl.DisplayNames([this.currentLang()], { type: 'region' });
+    return ['UA', ...SHIPPING_COUNTRY_CODES]
+      .map(code => ({ code, name: displayNames.of(code) || code }))
+      .sort((a, b) => a.name.localeCompare(b.name, this.currentLang()));
+  });
+  selectedCountry = signal('UA');
   
   // Спосіб підтвердження замовлення
   submitMethod = signal<'telegram' | 'whatsapp' | 'email'>('telegram');
@@ -37,25 +51,31 @@ export class CartComponent {
     name: ['', [Validators.required, Validators.minLength(2)]],
     phone: ['', [Validators.required, Validators.pattern(/^(?:\+?\d{1,3}[\s-]?)?(?:\(?\d{2,4}\)?[\s-]?)?\d{3}[\s-]?\d{4,5}$/)]],
     email: ['', [Validators.email]],
+    country: ['UA', Validators.required],
     address: ['', [Validators.required, Validators.minLength(5)]]
   });
   
   // Розрахунок доставки
   shippingPrice = computed(() => {
-    const totalInUsd = this.cartService.totalSum();
-    const lang = this.translate.currentLang || 'uk';
-
-    if (totalInUsd > 150 || totalInUsd === 0) return 0;
-
-    if (lang === 'uk') return 3;
-    if (lang === 'pl') return 15;
-    return 20;
+    const total = this.cartService.totalSum();
+    return total === 0 || total > FREE_SHIPPING_THRESHOLD_USD
+      ? 0
+      : this.cartService.getShippingPrice(this.selectedCountry());
   });
 
   // Загальна сума
   finalTotal = computed(() => {
     return this.cartService.totalSum() + this.shippingPrice();
   });
+
+  constructor() {
+    this.orderForm.controls.country.valueChanges
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(country => this.selectedCountry.set(country || 'UA'));
+    this.translate.onLangChange
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(event => this.currentLang.set(event.lang));
+  }
 
   private formatPriceForMessage(priceInUsd: number): string {
     const currentCurrency = this.cartService.currency();
@@ -111,6 +131,7 @@ export class CartComponent {
       name: formValues.name || '',
       phone: formValues.phone || '',
       email: formValues.email || 'Не вказано',
+      country: this.destinationCountries().find(country => country.code === formValues.country)?.name || formValues.country || '',
       address: formValues.address || '',
       shippingText,
       totalText,
@@ -121,7 +142,8 @@ export class CartComponent {
 
   private finalizeOrder() {
     this.cartService.clearCart();
-    this.orderForm.reset();
+    this.orderForm.reset({ country: 'UA' });
+    this.selectedCountry.set('UA');
   }
 
   async sendToTelegram() {
@@ -136,6 +158,7 @@ export class CartComponent {
 👤 <b>Клієнт:</b> ${this.escapeHtml(summary.name)}
 📞 <b>Тел:</b> ${this.escapeHtml(summary.phone)}
 📧 <b>Email:</b> ${this.escapeHtml(summary.email)}
+🌍 <b>Країна отримувача:</b> ${this.escapeHtml(summary.country)}
 📍 <b>Адреса:</b> ${this.escapeHtml(summary.address)}
 🌐 <b>Мова:</b> ${(this.translate.currentLang || 'uk').toUpperCase()}
 
@@ -171,7 +194,7 @@ ${summary.telegramItems}
     try {
       const summary = this.getOrderSummary();
       const whatsappNumber = environment.whatsappNumber || '380685412442';
-      const msg = `Привіт! Я хочу зробити замовлення в магазині Virni.\n\nІм'я: ${summary.name}\nТелефон: ${summary.phone}\nАдреса: ${summary.address}\nТовари: ${summary.plainGoods}\nДоставка: ${summary.shippingText}\n\nЗагальна сума до сплати: ${summary.totalText}`;
+      const msg = `Привіт! Я хочу зробити замовлення в магазині Virni.\n\nІм'я: ${summary.name}\nТелефон: ${summary.phone}\nКраїна отримувача: ${summary.country}\nАдреса: ${summary.address}\nТовари: ${summary.plainGoods}\nДоставка: ${summary.shippingText}\n\nЗагальна сума до сплати: ${summary.totalText}`;
       
       window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`, '_blank');
       this.finalizeOrder();
@@ -186,7 +209,7 @@ ${summary.telegramItems}
       const summary = this.getOrderSummary();
       const subject = `Замовлення Virni від ${summary.name}`;
       const supportEmail = environment.supportEmail || 'virnistu@gmail.com';
-      const body = `Клієнт: ${summary.name}\nТелефон: ${summary.phone}\nАдреса доставки: ${summary.address}\n\nТовари:\n${summary.plainGoods}\n\nДоставка: ${summary.shippingText}\n\nРазом до сплати: ${summary.totalText}`;
+      const body = `Клієнт: ${summary.name}\nТелефон: ${summary.phone}\nКраїна отримувача: ${summary.country}\nАдреса доставки: ${summary.address}\n\nТовари:\n${summary.plainGoods}\n\nДоставка: ${summary.shippingText}\n\nРазом до сплати: ${summary.totalText}`;
       
       window.location.href = `mailto:${supportEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       this.finalizeOrder();

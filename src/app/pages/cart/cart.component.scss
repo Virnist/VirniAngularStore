@@ -204,7 +204,7 @@
   position: relative;
   width: 100%;
 
-  input, textarea {
+  input, textarea, select {
     width: 100%;
     padding: 16px;
     border: 1px solid var(--border-color);
@@ -215,7 +215,9 @@
     outline: none;
     transition: all 0.3s ease;
     box-sizing: border-box;
+  }
 
+  input, textarea {
     &:focus, &:not(:placeholder-shown) {
       border-color: var(--accent);
       & + label {
@@ -224,6 +226,10 @@
         padding: 0 6px;
         color: var(--accent);
       }
+    }
+
+    select:focus {
+      border-color: var(--accent);
     }
   }
 
@@ -235,6 +241,23 @@
     font-size: 0.95rem;
     transition: all 0.3s ease;
     pointer-events: none;
+  }
+
+  &.select-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    select {
+      padding: 14px 16px;
+      cursor: pointer;
+    }
+
+    .select-label {
+      position: static;
+      pointer-events: auto;
+      font-weight: 600;
+    }
   }
 }
 
@@ -379,13 +402,27 @@
   position: relative;
   
   &.has-error {
-    input, textarea {
+    input, textarea, select {
       border-color: var(--danger);
       background-color: var(--danger-bg);
     }
     label {
       color: var(--danger);
     }
+  }
+
+  .shipping-estimate-note {
+    margin: -4px 0 12px;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    line-height: 1.5;
+  }
+
+  .shipping-tariff-link {
+    display: inline-block;
+    margin: -8px 0 16px;
+    color: var(--accent);
+    font-size: 0.8rem;
   }
 }
 

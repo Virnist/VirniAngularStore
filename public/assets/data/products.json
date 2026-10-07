@@ -1,154 +1,84 @@
 [
-  {
-  "id": "wedding-dress-elegance",
+{
+  "id": "wedding-dress-light-ivory",
   "numeric_id": 1,
   "sku": "VIRNI-WED-001",
   "category": "WEDDING",
-  "price": 850.00,
+  "price": 99.99,
   "currency": "USD",
-  "stock": 0, 
+  "stock": 1,
   "productionTime": 0,
   "featured": true,
   "rating": 4.9,
   "reviewCount": 18,
-  
-  "image": "./assets/images/shop/WeddingDressesNEW.webp",
+
+  "image": "./assets/images/shop/WeddingDressFrontColorMilkS.webp",
   "images": [
-    "./assets/images/shop/WeddingDressesNEW.webp",
-    "./assets/images/shop/WeddingDressesNEW2.webp",
-    "./assets/images/shop/WeddingDressesNEW3.webp"
+    "./assets/images/shop/WeddingDressFrontColorMilkS.webp",
+    "./assets/images/shop/WeddingDressFrontCloseMilkS.webp",
+    "./assets/images/shop/WeddingDressRearMilkS.webp"
   ],
 
-  "sizes": ["S", "M", "L"],
+  "sizes": ["S"],
   "variants": [
-  {
-    "id": "v-ivory",
-    "name_uk": "Слонова кістка",
-    "name_en": "Ivory",
-    "name_fr": "Ivoire",
-    "name_de": "Elfenbein",
-    "name_it": "Avorio",
-    "name_pl": "Kość słoniowa",
-    "name_ja": "アイボリー",
-    "name_zh": "象牙色",
-    "colorHex": "#FFFFF0",
-    "image": "assets/images/products/item-ivory.webp",
-    "priceOffset": 0
-  },
-  {
-    "id": "v-plastic",
-    "name_uk": "Пластик",
-    "name_en": "Plastic",
-    "name_fr": "Plastique",
-    "name_de": "Kunststoff",
-    "name_it": "Plastica",
-    "name_pl": "Plastik",
-    "name_ja": "プラスチック",
-    "name_zh": "塑料",
-    "colorHex": "#E0E0E0",
-    "image": "assets/images/products/item-plastic.webp",
-    "priceOffset": -50
-  }
-],
-
-  "title_uk": "Весільна сукня 'Елеганс'",
-  "title_en": "Wedding Dress 'Elegance'",
-  "title_de": "Hochzeitskleid 'Eleganz'",
-  "title_fr": "Robe de mariée 'Élégance'",
-  "title_pl": "Suknia ślubna 'Elegancja'",
-  "title_it": "Abiti da sposa 'Eleganza'",
-  "title_ja": "ウエディングドレス「エレガンス」",
-  "title_zh": "婚纱 '优雅'",
-
-  "image_alt_uk": "Весільна сукня Елеганс з італійського мережива Virni",
-  "image_alt_en": "Elegance wedding dress made of Italian lace by Virni",
-
-  "description_uk": "Вишукана весільна сукня А-силуету з витонченого італійського мережива ручної роботи. Ідеально підкреслює фігуру та створює неперевершений королівський образ.",
-  "description_en": "Exquisite A-line wedding dress crafted from delicate handmade Italian lace. Perfectly accentuates the silhouette, creating an unmatched royal look.",
-  "description_de": "Exquisites A-Linien-Hochzeitskleid aus feiner handgefertigter italienischer Spitze.",
-  "description_fr": "Robe de mariée élégante en coupe A confectionnée en dentelle italienne faite à la main.",
-  "description_pl": "Wykwintna suknia ślubna o kroju litery A z delikatnej włoskiej koronki.",
-  "description_it": "Squisito abito da sposa a linea A realizzato in delicato pizzo italiano fatto a mano.",
-  "description_ja": "繊細な手編みのイタリアンレースで作られた、気品あふれるAラインのウエディングドレス。",
-  "description_zh": "精美的A字型婚纱，由精致的手工意大利蕾丝制成。",
-
-  "materials_uk": "100% Італійське мереживо, натуральний шовк",
-  "materials_en": "100% Italian Lace, Natural Silk"
-},
-  {
-  "id": "wedding-dress",
-  "numeric_id": 2,
-  "sku": "VIRNI-WED-002",
-  "category": "WEDDING",
-  "price": 850.00,
-  "currency": "USD",
-  "stock": 1, 
-  "productionTime": 10,
-  "featured": true,
-  "rating": 4.9,
-  "reviewCount": 18,
-  
-  "image": "./assets/images/shop/WeddingDressesNEW3.webp",
-  "images": [
-    "./assets/images/shop/WeddingDressesNEW3.webp",
-    "./assets/images/shop/WeddingDressesNEW2.webp",
-    "./assets/images/shop/WeddingDressesNEW.webp"
+    {
+      "id": "Light-Ivory",
+      "name_uk": "Молочний",
+      "name_en": "Light Ivory",
+      "name_fr": "Ivoire Clair",
+      "name_de": "Hell-Elfenbein",
+      "name_it": "Avorio Chiaro",
+      "name_pl": "Jasna Kość Słoniowa",
+      "name_ja": "ライトアイボリー",
+      "name_zh": "浅象牙色",
+      "colorHex": "#FFFFF0",
+      "image": "assets/images/shop/WeddingDressFrontColorMilkS.webp",
+      "priceOffset": 0
+    }
   ],
 
-  "sizes": ["M"],
-  "variants": [
-  {
-    "id": "v-ivory",
-    "name_uk": "Слонова кістка",
-    "name_en": "Ivory",
-    "name_fr": "Ivoire",
-    "name_de": "Elfenbein",
-    "name_it": "Avorio",
-    "name_pl": "Kość słoniowa",
-    "name_ja": "アイボリー",
-    "name_zh": "象牙色",
-    "colorHex": "#FFFFF0",
-    "image": "assets/images/products/item-ivory.webp",
-    "priceOffset": 0
-  },
-  {
-    "id": "v-plastic",
-    "name_uk": "Пластик",
-    "name_en": "Plastic",
-    "name_fr": "Plastique",
-    "name_de": "Kunststoff",
-    "name_it": "Plastica",
-    "name_pl": "Plastik",
-    "name_ja": "プラスチック",
-    "name_zh": "塑料",
-    "colorHex": "#E0E0E0",
-    "image": "assets/images/shop/WeddingDressesNEW2.webp",
-    "priceOffset": -50
-  }
-],
-
-  "title_uk": "Весільна сукня",
-  "title_en": "Wedding Dress",
-  "title_de": "Hochzeitskleid",
-  "title_fr": "Robe de mariée",
-  "title_pl": "Suknia ślubna",
-  "title_it": "Abiti da sposa",
-  "title_ja": "ウエディングドレス「エレガンス」",
-  "title_zh": "婚纱 '优雅'",
+  "title_uk": "Елегантна мереживна весільна сукня А-силуету Елеганс Virni",
+  "title_en": "Elegance Lace A-Line Wedding Dress Virni",
+  "title_de": "Eleganz A-Linie Spitze Brautkleid Virni",
+  "title_fr": "Robe de Mariée Trapèze en Dentelle Élégance Virni",
+  "title_pl": "Elegancka Suknia Ślubna z Koronki o Kroju A Virni",
+  "title_it": "Abito da Sposa A-Line in Pizzo Elegance Virni",
+  "title_ja": "Virni エレガンス Aライン レース ウェディングドレス",
+  "title_zh": "Virni 优雅蕾丝 A字型婚纱",
 
   "image_alt_uk": "Весільна сукня Елеганс з італійського мережива Virni",
-  "image_alt_en": "Elegance wedding dress made of Italian lace by Virni",
+  "image_alt_en": "Elegance Italian Lace Wedding Dress Virni",
+  "image_alt_de": "Eleganz Italienische Spitze Brautkleid Virni",
+  "image_alt_fr": "Robe de mariée en dentelle italienne Élégance Virni",
+  "image_alt_pl": "Suknia ślubna Elegance z włoskiej koronki Virni",
+  "image_alt_it": "Abito da sposa Elegance in pizzo italiano Virni",
+  "image_alt_ja": "Virni イタリアンレース エレガンス ウェディングドレス",
+  "image_alt_zh": "Virni 意大利蕾丝优雅婚纱",
 
-  "description_uk": "Вишукана весільна сукня А-силуету з витонченого італійського мережива ручної роботи. Ідеально підкреслює фігуру та створює неперевершений королівський образ.",
-  "description_en": "Exquisite A-line wedding dress crafted from delicate handmade Italian lace. Perfectly accentuates the silhouette, creating an unmatched royal look.",
-  "description_de": "Exquisites A-Linien-Hochzeitskleid aus feiner handgefertigter italienischer Spitze.",
-  "description_fr": "Robe de mariée élégante en coupe A confectionnée en dentelle italienne faite à la main.",
-  "description_pl": "Wykwintna suknia ślubna o kroju litery A z delikatnej włoskiej koronki.",
-  "description_it": "Squisito abito da sposa a linea A realizzato in delicato pizzo italiano fatto a mano.",
-  "description_ja": "繊細な手編みのイタリアンレースで作られた、気品あふれるAラインのウエディングドレス。",
-  "description_zh": "精美的A字型婚纱，由精致的手工意大利蕾丝制成。",
+  "description_uk": "Елегантна весільна сукня для нареченої, яка мріє про витончений, жіночний та розкішний образ. Модель привертає увагу вишуканим мереживним декором і делікатним блиском, створюючи ефект дорогої дизайнерської роботи.\n\nВерх сукні виконаний у силуеті з глибоким V-подібним декольте та широкими мереживними бретелями. Боді щедро оздоблене об'ємною квітковою аплікацією, мереживом, ніжними паєтками та декоративними намистинами. Напівпрозорі вставки додають образу легкості та підкреслюють витонченість силуету.\n\nАкцентована талія плавно переходить у струмливу пишну спідницю А-силуету. М'які складки красиво спадають донизу, створюючи легкий рух тканини під час ходьби. Розкішне мереживо продовжується від корсета на спідницю, формуючи цілісний та гармонійний дизайн.\n\n🤍 Особливості сукні:\n\nвитончений V-подібний виріз;\nширокі мереживні бретелі;\nніжне напівпрозоре мереживо;\nбагатошарова квіткова аплікація;\nдекоративні намистини та паєтки;\nакцентована талія;\nжіночний А-силует;\nм'яка, струмлива спідниця;\nрозкішний білий/молочний відтінок;\nефектний декор, який красиво виглядає як зблизька, так і на фотографіях.\n\nЦя сукня — вибір для нареченої, яка хоче виглядати ніжно, розкішно та незабутньо у свій особливий день. Вона чудово підійде для весільної церемонії, фотосесії та святкового прийому.",
+  
+  "description_en": "An elegant wedding dress for a bride who dreams of a sophisticated, feminine, and luxurious look. This dress captures attention with exquisite lace embroidery and delicate shimmer, creating an aura of high-end designer craftsmanship.\n\nThe bodice features a deep V-neckline with wide lace straps, lavishly decorated with 3D floral appliqués, lace, subtle sequins, and decorative beads. Semi-sheer inserts add lightness and accentuate the gracefulness of the silhouette.\n\nThe defined waistline flows effortlessly into a soft, voluminous A-line skirt. Soft pleats cascade beautifully, creating fluid movement as you walk. The intricate lace extends from the bodice onto the skirt for a seamless design.\n\n🤍 Dress Features:\n\nsophisticated V-neckline;\nwide lace straps;\ndelicate semi-sheer lace;\nlayered 3D floral appliqués;\ndecorative beads and sequins;\ndefined waistline;\nfeminine A-line silhouette;\nsoft flowing skirt;\nluxurious light ivory shade;\nstunning detail that looks breathtaking in person and on photo.\n\nThis dress is the ideal choice for a bride wishing to look tender, glamorous, and unforgettable on her special day. Perfectly suited for wedding ceremonies, photo sessions, and receptions.",
+  
+  "description_de": "Ein elegantes Brautkleid für die Braut, die von einem edlen, femininen und luxuriösen Look träumt. Das Modell begeistert mit exquisiter Spitzenstickerei und feinem Schimmer im Stile echter Designer-Handwerkskunst.\n\nDas Mieder besticht durch einen tiefen V-Ausschnitt mit breiten Spitzensträgern. Es ist reich verziert mit 3D-Blumenapplikationen, Spitze, Pailletten und feinen Perlen. Halbtransparente Einsätze verleihen dem Kleid Leichtigkeit.\n\nDie betonte Taille geht fließend in einen schwingenden A-Linien-Rock über. Die weichen Falten fallen elegant und sorgen für zauberhafte Bewegung beim Gehen.\n\n🤍 Highlights des Kleides:\n\nedler V-Ausschnitt;\nbreite Spitzenträger;\nzarte halbtransparente Spitze;\nmehrlagige 3D-Blumenapplikationen;\ndekorative Perlen und Pailletten;\nbetonte Taille;\nfeminine A-Linie;\nweich fließender Rock;\nluxuriöser Hell-Elfenbein-Farbton.\n\nPerfekt geeignet für die Hochzeitszeremonie, das Fotoshooting und die Feier.",
+  
+  "description_fr": "Une robe de mariée élégante pour la mariée qui rêve d’un look raffiné, féminin et luxueux. Ce modèle séduit par sa dentelle exquise et son éclat délicat, évoquant le savoir-faire de la haute couture.\n\nLe bustier présente un décolleté en V profond avec de larges bretelles en dentelle, richement ornées d'applications florales 3D, de paillettes et de perles. Des empiècements semi-transparents apportent légèreté et élégance à la silhouette.\n\nLa taille marquée s'évase doucement vers une jupe trapèze fluide. La dentelle délicate se prolonge du corsage jusqu'à la jupe pour une harmonie parfaite.\n\n🤍 Caractéristiques de la robe :\n\ndécolleté en V raffiné ;\nlarges bretelles en dentelle ;\ndentelle délicate semi-transparente ;\napplications florales en relief ;\nperles et paillettes décoratives ;\ntaille soulignée ;\nsilhouette trapèze féminine ;\njupe douce et fluide ;\nnuance ivoire clair luxueuse.\n\nLe choix idéal pour une mariée inoubliable lors de la cérémonie, des photos et de la réception.",
+  
+  "description_pl": "Elegancka suknia ślubna dla panny młodej, która marzy o subtelnym, kobiecym i luksusowym wyglądzie. Model przyciąga wzrok kunsztownymi koronkowymi zdobieniami i delikatnym blaskiem wysokie klasy krawiectwa.\n\nGóra sukni posiada głęboki dekolt w kształcie litery V i szerokie ramiączka z koronki. Gorset zdobią trójwymiarowe aplikacje kwiatowe, delikatne cekiny i koraliki. Półprzezroczyste wstawki dodają lekkości całej sylwetce.\n\nZaznaczona talia płynnie przechodzi w zwiewną spódnicę o kroju litery A, która pięknie układa się w tańcu i podczas chodzenia.\n\n🤍 Cechy sukni:\n\nelegancki dekolt V;\nszerokie koronkowe ramiączka;\ndelikatna półprzezroczysta koronka;\nwarstwowe aplikacje kwiatowe 3D;\ndekoracyjne koraliki i cekiny;\nakcentowana talia;\nkobiecy krój litery A;\nmiękka, zwiewna spódnica;\nluksusowy odcień jasnej kości słoniowej.\n\nDoskonały wybór na ceremonię ślubną, sesję zdjęciową oraz przyjęcie weselne.",
+  
+  "description_it": "Un raffinato abito da sposa per la sposa che desidera un look sofisticato, femminile e lussuoso. Questo modello incanta con ricami in pizzo finissimo e una delicata lucentezza di alta moda.\n\nIl corpino presenta una profonda scollatura a V con larghe spalline in pizzo, impreziosito da applicazioni floreali 3D, paillettes e perline. Gli inserti semi-trasparenti donano leggerezza alla figura.\n\nIl punto vita evidenziato sfocia in una morbida gonna a linea A. Il pizzo si estende dal bustino alla gonna creando un design armonioso.\n\n🤍 Caratteristiche dell'abito:\n\nscollatura a V elegante;\nspalline larghe in pizzo;\npizzo semi-trasparente delicato;\napplicazioni floreali 3D;\nperline e paillettes decorative;\nbeautitudine del punto vita;\nsilhouette A-Line femminile;\nmorbida gonna fluida;\nlussuosa tonalità avorio chiaro.\n\nUn abito indimenticabile per la cerimonia, il servizio fotografico e il ricevimento.",
+  
+  "description_ja": "洗練された女性らしく豪華なブライダルスタイルを叶えるエレガントなウェディングドレス。繊細なレース刺繍と上品な輝きが、高級デザイナーズドレスの気品を漂わせます。\n\nビスチェは深いVネックラインと幅広のレースストラップが特徴で、立体的なフラワーモチーフ、スパンコール、繊細なビーズで贅沢に装飾されています。シアーな透け感がシルエットに軽やかさをプラスします。\n\nすっきりとしたウエストラインから、柔らかく広がるAラインスカートへと流れるようなデザイン。歩くたびに美しく揺れる美しいプリーツが魅力です。\n\n🤍 ドレスの特徴：\n\nエレガントなVネックライン;\n幅広レースストラップ;\n繊細な半透明レース;\n多層3Dフラワーアプリケ;\n装飾用ビーズ＆スパンコール;\nウエスト強調デザイン;\n女性らしいAラインシルエット;\n柔らかく流れるスカート;\n高級感あふれるライトアイボリーカラー。\n\n挙式、ロケーション撮影、披露宴で特別な一日を彩るのに最適な一着です。",
+  
+  "description_zh": "一款为追求精致、柔美与奢华形象的新娘倾心打造的优雅婚纱。精美绝伦的蕾丝雕花与细致微闪的光泽相结合，彰显出高级定制级别的匠心工艺。\n\n上身采用性感深V领设计与宽幅蕾丝肩带，饰有立体3D花卉刺绣、精致亮片与手工珍珠。半透明的蕾丝拼接增添了轻盈感与女性魅力。\n\n腰部线条自然收紧，顺滑过渡至飘逸的A字型大裙摆。褶皱随步履轻轻摆动，蕾丝图案自胸衣延伸至裙摆，形成完美的整体美感。\n\n🤍 婚纱亮点：\n\n精致深V领；\n宽幅蕾丝肩带；\n轻柔半透明蕾丝；\n立体多层花卉刺绣；\n珍珠与亮片点缀；\n修身腰线设计；\n优雅A字型廓形；\n柔软飘逸裙摆；\n奢华浅象牙白色彩。\n\n非常适合婚礼仪式、婚纱摄影及婚宴派对，让您在人生的大日子里展现令人难忘的美丽。",
 
-  "materials_uk": "100% Італійське мереживо, натуральний шовк",
-  "materials_en": "100% Italian Lace, Natural Silk"
+  "materials_uk": "мереживо, натуральний шовк",
+  "materials_en": "lace, natural silk",
+  "materials_de": "Spitze, Naturseide",
+  "materials_fr": "dentelle, soie naturelle",
+  "materials_pl": "koronka, jedwab naturalny",
+  "materials_it": "pizzo, seta naturale",
+  "materials_ja": "レース、天然シルク",
+  "materials_zh": "蕾丝，天然真丝"
 }
+
 ]

@@ -84,13 +84,16 @@
     "CHECKOUT": "Commande",
     "SUBTOTAL": "Sous-total",
     "SHIPPING": "Livraison",
+    "SHIPPING_ESTIMATE_NOTE": "La livraison internationale est estimée selon le tarif Ukrposhta pour un colis de 1 kg, TVA de 18 UAH pour l’acheminement en Ukraine incluse et convertie au taux de change actuel. La livraison est gratuite pour les commandes supérieures à 50 $ ; sinon, l’estimation de la boutique pour l’Ukraine est de 3 $. Le prix final dépend du poids, des dimensions et du tarif en vigueur le jour de l’envoi ; les droits et taxes du pays de destination ne sont pas inclus. Tarifs vérifiés le 07/10/2026.",
+    "TARIFF_SOURCE": "Tarifs officiels Ukrposhta",
     "FREE": "Gratuit",
     "TOTAL_TO_PAY": "Total à payer",
     "FORM": {
       "NAME": "Votre nom",
       "PHONE": "Numéro de téléphone",
       "EMAIL": "E-mail (facultatif)",
-      "ADDRESS": "Pays, ville, adresse de livraison",
+      "RECIPIENT_COUNTRY": "Pays du destinataire",
+      "ADDRESS": "Ville, région, rue, numéro et code postal",
       "CONFIRM_METHOD": "Moyen de confirmation :",
       "SUBMIT_BTN": "Confirmer la commande"
     },

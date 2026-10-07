@@ -42,4 +42,13 @@ describe('CartComponent', () => {
     phoneControl?.setValue('0991234567');
     expect(phoneControl?.valid).toBeTrue();
   });
+
+  it('should keep the selected recipient country in the checkout form', () => {
+    expect(component.orderForm.controls.country.value).toBe('UA');
+
+    component.orderForm.controls.country.setValue('US');
+
+    expect(component.selectedCountry()).toBe('US');
+    expect(component.destinationCountries().some(country => country.code === 'US')).toBeTrue();
+  });
 });
