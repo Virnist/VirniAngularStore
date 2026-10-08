@@ -20,7 +20,7 @@ The repository includes `netlify.toml`. Import this repository in Netlify and us
 - Publish directory: `dist/VirniAngularStore/browser`
 - Node.js: 20
 
-The build generates product and news pages, `sitemap.xml`, `robots.txt`, and social preview images. Its canonical URLs use `https://virni.top/`.
+The Netlify build generates product and news pages, `sitemap.xml`, `robots.txt`, and social preview images. The sitemap includes the homepage, shop/editorial/media/video listings, and generated product and article pages; it is written to the build output rather than tracked as a source file. Its canonical URLs use `https://virni.top/`.
 
 ### Connecting `virni.top`
 

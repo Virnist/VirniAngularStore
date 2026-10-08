@@ -197,7 +197,12 @@ function writePage(route, { title, description, image, ogImage, schema, content,
 }
 
 (async () => {
-  const sitemapItems = [{ url: siteUrl, lastmod: new Date().toISOString() }];
+  const sitemapItems = [
+    { url: siteUrl },
+    ...['shop/', 'news/', 'media/', 'videos/'].map(route => ({
+      url: new URL(route, siteUrl).href
+    }))
+  ];
 
   // 1. Генерація сторінок товарів
   for (const product of products) {
@@ -363,7 +368,9 @@ function writePage(route, { title, description, image, ogImage, schema, content,
         type: 'product',
         keywords: [product.category, ...(product.sizes || []), 'fashion', 'virni'].filter(Boolean).join(', ')
       }),
-      lastmod: new Date().toISOString()
+      lastmod: product.updated_at || product.date
+        ? safeIsoDate(product.updated_at || product.date)
+        : undefined
     });
   }
 
@@ -431,7 +438,9 @@ function writePage(route, { title, description, image, ogImage, schema, content,
         type: 'article',
         keywords: tags.join(', ')
       }),
-      lastmod: safeIsoDate(article.updated_at || article.date)
+      lastmod: article.updated_at || article.date
+        ? safeIsoDate(article.updated_at || article.date)
+        : undefined
     });
   }
 
@@ -439,10 +448,8 @@ function writePage(route, { title, description, image, ogImage, schema, content,
   const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${sitemapItems.map(item => `  <url>
-    <loc>${escapeHtml(item.url)}</loc>
-    <lastmod>${item.lastmod}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>${item.url === siteUrl ? '1.0' : '0.8'}</priority>
+    <loc>${escapeHtml(item.url)}</loc>${item.lastmod ? `
+    <lastmod>${escapeHtml(item.lastmod)}</lastmod>` : ''}
   </url>`).join('\n')}
 </urlset>`;
 
