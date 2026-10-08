@@ -1,0 +1,53 @@
+  {
+  "id": "",
+  "numeric_id": 0,
+  "date": "",
+  "updated_at": "2",
+  "author": "",
+  "category": "",
+  "tags": ["", "", "", "", ""],
+  "read_time_min": 0,
+  
+  "image": "./assets/images/news/.webp",
+  "image_alt_uk": "",
+  "image_alt_en": "",
+  "image_alt_pl": "",
+  "image_alt_fr": "",
+  "image_alt_de": "",
+  "image_alt_it": "",
+  "image_alt_ja": "",
+  "image_alt_zh": "",
+
+  "title_uk": "",
+  "seo_description_uk": "",
+  "text_uk": "",
+
+  "title_en": "",
+  "seo_description_en": "",
+  "text_en": "",
+
+  "title_pl": "",
+  "seo_description_pl": "",
+  "text_pl": "",
+
+  "title_fr": "",
+  "seo_description_fr": "",
+  "text_fr": "",
+
+  "title_de": "",
+  "seo_description_de": "",
+  "text_de": "",
+
+  "title_it": "",
+  "seo_description_it": "",
+  "text_it": "",
+
+  "title_ja": "",
+  "seo_description_ja": "",
+  "text_ja": "",
+      
+  "title_zh": "",
+  "seo_description_zh": "",
+  "text_zh": ""
+  
+}
